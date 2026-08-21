@@ -11,6 +11,7 @@ const tools = [
       { name: "Character Counter", desc: "Count characters with & without spaces. Platform limit checker.", href: "/tools/character-counter", hot: true },
       { name: "Text Case Converter", desc: "Convert between UPPERCASE, lowercase, Title Case, camelCase, and 10+ formats.", href: "/tools/text-case-converter" },
       { name: "Lorem Ipsum Generator", desc: "Generate placeholder text. Paragraphs, sentences, words, or lists.", href: "/tools/lorem-ipsum-generator" },
+      { name: "Markdown to HTML", desc: "Convert Markdown to clean HTML. Live preview, copy, or download.", href: "/tools/markdown-to-html" },
     ],
   },
   {
@@ -19,6 +20,14 @@ const tools = [
     items: [
       { name: "Percentage Calculator", desc: "Six calculators for every percentage problem. Discounts, tips, changes.", href: "/tools/percentage-calculator", hot: true },
       { name: "Profit Margin Calculator", desc: "Calculate margin, markup, and revenue from costs. Visual breakdown.", href: "/tools/profit-margin-calculator" },
+    ],
+  },
+  {
+    category: "Converter Tools",
+    color: "#6366F1",
+    items: [
+      { name: "Unit Converter", desc: "Convert between 60+ units. Length, weight, temperature, and more.", href: "/tools/unit-converter", hot: true },
+      { name: "Base64 Encoder/Decoder", desc: "Encode text to Base64 or decode Base64 to text instantly.", href: "/tools/base64" },
     ],
   },
   {
@@ -33,98 +42,67 @@ const tools = [
     color: "#EF4444",
     items: [
       { name: "JSON Formatter", desc: "Format, validate & minify JSON. Syntax highlighting & structure stats.", href: "/tools/json-formatter" },
+      { name: "Password Generator", desc: "Generate strong random passwords. Customizable length and characters.", href: "/tools/password-generator", hot: true },
     ],
   },
 ];
 
 export default function Home() {
   return (
-    <div style={{ minHeight: "100vh", background: "#FAFAF9" }}>
+    <>
       <Header />
-      <main style={{ maxWidth: 880, margin: "0 auto", padding: "40px 16px 60px" }}>
-        {/* Hero */}
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <h1 style={{
-            fontSize: 36, fontWeight: 800, letterSpacing: "-0.03em",
-            lineHeight: 1.2, color: "#1C1917", marginBottom: 12,
-          }}>
-            Free Online Tools for<br />
+      <main style={{ maxWidth: 880, margin: "0 auto", padding: "0 20px 40px" }}>
+        <section style={{ textAlign: "center", padding: "48px 0 36px" }}>
+          <h1 style={{ fontSize: 32, fontWeight: 800, color: "#1C1917", lineHeight: 1.2, marginBottom: 6 }}>
+            Free Online Tools for{" "}
             <span style={{ color: "#0D9488" }}>Creators & Entrepreneurs</span>
           </h1>
-          <p style={{
-            fontSize: 16, color: "#78716C", maxWidth: 520, margin: "0 auto", lineHeight: 1.6,
-          }}>
+          <p style={{ fontSize: 15, color: "#78716C", maxWidth: 480, margin: "0 auto" }}>
             No signup. No tracking. No limits. Just fast, free tools that run in your browser.
           </p>
-        </div>
+        </section>
 
-        {/* Tool Grid */}
-        {tools.map((cat) => (
-          <section key={cat.category} style={{ marginBottom: 36 }}>
-            <div style={{
-              display: "flex", alignItems: "center", gap: 10, marginBottom: 14,
-            }}>
-              <div style={{
-                width: 4, height: 20, borderRadius: 2, background: cat.color,
-              }} />
-              <h2 style={{
-                fontSize: 18, fontWeight: 700, color: "#1C1917",
-                letterSpacing: "-0.02em", margin: 0,
-              }}>{cat.category}</h2>
-              <span style={{
-                fontSize: 12, color: "#A8A29E", fontWeight: 500,
-              }}>{cat.items.length} tool{cat.items.length > 1 ? "s" : ""}</span>
+        {tools.map((group) => (
+          <section key={group.category} style={{ marginBottom: 32 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+              <div style={{ width: 4, height: 22, borderRadius: 2, background: group.color }} />
+              <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1C1917" }}>{group.category}</h2>
+              <span style={{ fontSize: 12, color: "#A8A29E" }}>{group.items.length} {group.items.length === 1 ? "tool" : "tools"}</span>
             </div>
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-              gap: 12,
-            }}>
-              {cat.items.map((tool) => (
-                <Link key={tool.name} href={tool.href} style={{
-                  background: "#FFFFFF", borderRadius: 12, padding: "18px 20px",
-                  border: "1px solid #E7E5E4", textDecoration: "none",
-                  transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-                  display: "block",
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10 }}>
+              {group.items.map((tool) => (
+                <Link key={tool.href} href={tool.href} style={{
+                  display: "block", padding: "16px 18px", background: "#fff",
+                  border: "1px solid #E7E5E4", borderRadius: 10, textDecoration: "none",
+                  transition: "border-color 0.2s, box-shadow 0.2s",
                 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                    <span style={{
-                      fontSize: 15, fontWeight: 700, color: "#1C1917",
-                    }}>{tool.name}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                    <span style={{ fontWeight: 600, fontSize: 15, color: "#1C1917" }}>{tool.name}</span>
                     {tool.hot && (
                       <span style={{
-                        fontSize: 10, fontWeight: 600, padding: "2px 6px",
-                        borderRadius: 4, background: "rgba(13,148,136,0.1)",
-                        color: "#0D9488",
+                        fontSize: 10, fontWeight: 700, color: "#fff", background: "#0D9488",
+                        borderRadius: 4, padding: "2px 6px", letterSpacing: 0.5, textTransform: "uppercase",
                       }}>POPULAR</span>
                     )}
                   </div>
-                  <p style={{
-                    fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0,
-                  }}>{tool.desc}</p>
+                  <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>{tool.desc}</p>
                 </Link>
               ))}
             </div>
           </section>
         ))}
 
-        {/* Bottom SEO */}
         <section style={{ marginTop: 48 }}>
-          <h2 style={{
-            fontSize: 20, fontWeight: 700, color: "#1C1917",
-            marginBottom: 14, letterSpacing: "-0.02em",
-          }}>About ToolCraftKit</h2>
-          <p style={{ fontSize: 14, color: "#78716C", lineHeight: 1.7, marginBottom: 10 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: "#1C1917", marginBottom: 10 }}>About ToolCraftKit</h2>
+          <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>
             ToolCraftKit is a collection of free online tools built for creators, entrepreneurs, developers, and anyone who works with text, numbers, colors, or data. Every tool runs entirely in your browser — nothing is uploaded, stored, or tracked.
           </p>
-          <p style={{ fontSize: 14, color: "#78716C", lineHeight: 1.7 }}>
-            Whether you need to count words for an essay, calculate profit margins for your business, convert color codes for a design project, or format JSON for an API, ToolCraftKit has you covered. New tools are added regularly.
+          <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>
+            Whether you need to count words for an essay, calculate profit margins for your business, convert color codes for a design project, generate secure passwords, convert units, or format JSON for an API, ToolCraftKit has you covered. New tools are added regularly.
           </p>
         </section>
-
-        <Footer />
       </main>
-    </div>
+      <div style={{ maxWidth: 880, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
+    </>
   );
 }

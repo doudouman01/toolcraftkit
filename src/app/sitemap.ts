@@ -11,6 +11,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "profit-margin-calculator",
     "hex-to-rgb",
     "json-formatter",
+    "password-generator",
+    "base64",
+    "markdown-to-html",
+    "unit-converter",
   ];
 
   return [
