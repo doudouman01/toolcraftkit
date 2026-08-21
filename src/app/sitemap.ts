@@ -1,0 +1,25 @@
+import type { MetadataRoute } from "next";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = "https://toolcraftkit.com";
+  const tools = [
+    "word-counter",
+    "character-counter",
+    "text-case-converter",
+    "lorem-ipsum-generator",
+    "percentage-calculator",
+    "profit-margin-calculator",
+    "hex-to-rgb",
+    "json-formatter",
+  ];
+
+  return [
+    { url: base, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
+    ...tools.map((tool) => ({
+      url: `${base}/tools/${tool}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
+}
