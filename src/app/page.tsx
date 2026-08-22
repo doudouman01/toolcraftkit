@@ -24,6 +24,8 @@ const tools = [
       { name: "Profit Margin Calculator", desc: "Calculate margin, markup, and revenue from costs. Visual breakdown.", href: "/tools/profit-margin-calculator" },
       { name: "Discount Calculator", desc: "Calculate sale prices, savings, and reverse-calculate discounts. With tax.", href: "/tools/discount-calculator", hot: true },
       { name: "ROI Calculator", desc: "Calculate return on investment, net profit, and annualized CAGR.", href: "/tools/roi-calculator" },
+      { name: "Loan Calculator", desc: "Monthly payments, total interest, amortization schedule. Mortgages & loans.", href: "/tools/loan-calculator", hot: true },
+      { name: "Invoice Generator", desc: "Create professional invoices instantly. Print or save as PDF. Free.", href: "/tools/invoice-generator", hot: true },
     ],
   },
   {
@@ -51,6 +53,15 @@ const tools = [
       { name: "JSON Formatter", desc: "Format, validate & minify JSON. Syntax highlighting & structure stats.", href: "/tools/json-formatter" },
       { name: "Password Generator", desc: "Generate strong random passwords. Customizable length and characters.", href: "/tools/password-generator", hot: true },
       { name: "Regex Tester", desc: "Test regular expressions with live highlighting, presets, and replace mode.", href: "/tools/regex-tester", hot: true },
+      { name: "QR Code Generator", desc: "Generate QR codes for URLs, WiFi, email, phone. Custom colors, download PNG.", href: "/tools/qr-code-generator", hot: true },
+      { name: "Random Number Generator", desc: "Random numbers, dice roller, list picker, coin flip. 4 modes.", href: "/tools/random-number-generator", hot: true },
+    ],
+  },
+  {
+    category: "Life Tools",
+    color: "#EC4899",
+    items: [
+      { name: "Age Calculator", desc: "Your exact age in years, months, days, hours. Zodiac, birthday countdown.", href: "/tools/age-calculator", hot: true },
     ],
   },
 ];

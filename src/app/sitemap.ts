@@ -23,6 +23,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "words-to-pages",
     "roi-calculator",
     "color-palette",
+    "qr-code-generator",
+    "age-calculator",
+    "invoice-generator",
+    "loan-calculator",
+    "random-number-generator",
   ];
 
   return [
