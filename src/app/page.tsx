@@ -12,6 +12,7 @@ const tools = [
       { name: "Text Case Converter", desc: "Convert between UPPERCASE, lowercase, Title Case, camelCase, and 10+ formats.", href: "/tools/text-case-converter" },
       { name: "Lorem Ipsum Generator", desc: "Generate placeholder text. Paragraphs, sentences, words, or lists.", href: "/tools/lorem-ipsum-generator" },
       { name: "Markdown to HTML", desc: "Convert Markdown to clean HTML. Live preview, copy, or download.", href: "/tools/markdown-to-html" },
+      { name: "Remove Duplicate Lines", desc: "Remove duplicate lines from text. Keep only unique entries, sort, trim.", href: "/tools/remove-duplicates" },
     ],
   },
   {
@@ -20,6 +21,7 @@ const tools = [
     items: [
       { name: "Percentage Calculator", desc: "Six calculators for every percentage problem. Discounts, tips, changes.", href: "/tools/percentage-calculator", hot: true },
       { name: "Profit Margin Calculator", desc: "Calculate margin, markup, and revenue from costs. Visual breakdown.", href: "/tools/profit-margin-calculator" },
+      { name: "Discount Calculator", desc: "Calculate sale prices, savings, and reverse-calculate discounts. With tax.", href: "/tools/discount-calculator", hot: true },
     ],
   },
   {
@@ -28,6 +30,8 @@ const tools = [
     items: [
       { name: "Unit Converter", desc: "Convert between 60+ units. Length, weight, temperature, and more.", href: "/tools/unit-converter", hot: true },
       { name: "Base64 Encoder/Decoder", desc: "Encode text to Base64 or decode Base64 to text instantly.", href: "/tools/base64" },
+      { name: "URL Encoder/Decoder", desc: "Encode or decode URLs and query strings. Component or full URI mode.", href: "/tools/url-encoder", hot: true },
+      { name: "Timestamp Converter", desc: "Convert Unix timestamps to dates and back. Live clock, multiple formats.", href: "/tools/timestamp-converter" },
     ],
   },
   {
@@ -43,6 +47,7 @@ const tools = [
     items: [
       { name: "JSON Formatter", desc: "Format, validate & minify JSON. Syntax highlighting & structure stats.", href: "/tools/json-formatter" },
       { name: "Password Generator", desc: "Generate strong random passwords. Customizable length and characters.", href: "/tools/password-generator", hot: true },
+      { name: "Regex Tester", desc: "Test regular expressions with live highlighting, presets, and replace mode.", href: "/tools/regex-tester", hot: true },
     ],
   },
 ];

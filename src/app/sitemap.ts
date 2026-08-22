@@ -15,6 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "base64",
     "markdown-to-html",
     "unit-converter",
+    "url-encoder",
+    "discount-calculator",
+    "timestamp-converter",
+    "remove-duplicates",
+    "regex-tester",
   ];
 
   return [
