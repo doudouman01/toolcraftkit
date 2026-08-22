@@ -20,6 +20,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "timestamp-converter",
     "remove-duplicates",
     "regex-tester",
+    "words-to-pages",
+    "roi-calculator",
+    "color-palette",
   ];
 
   return [

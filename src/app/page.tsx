@@ -13,6 +13,7 @@ const tools = [
       { name: "Lorem Ipsum Generator", desc: "Generate placeholder text. Paragraphs, sentences, words, or lists.", href: "/tools/lorem-ipsum-generator" },
       { name: "Markdown to HTML", desc: "Convert Markdown to clean HTML. Live preview, copy, or download.", href: "/tools/markdown-to-html" },
       { name: "Remove Duplicate Lines", desc: "Remove duplicate lines from text. Keep only unique entries, sort, trim.", href: "/tools/remove-duplicates" },
+      { name: "Words to Pages", desc: "Estimate how many pages your word count fills. Font size, spacing, presets.", href: "/tools/words-to-pages", hot: true },
     ],
   },
   {
@@ -22,6 +23,7 @@ const tools = [
       { name: "Percentage Calculator", desc: "Six calculators for every percentage problem. Discounts, tips, changes.", href: "/tools/percentage-calculator", hot: true },
       { name: "Profit Margin Calculator", desc: "Calculate margin, markup, and revenue from costs. Visual breakdown.", href: "/tools/profit-margin-calculator" },
       { name: "Discount Calculator", desc: "Calculate sale prices, savings, and reverse-calculate discounts. With tax.", href: "/tools/discount-calculator", hot: true },
+      { name: "ROI Calculator", desc: "Calculate return on investment, net profit, and annualized CAGR.", href: "/tools/roi-calculator" },
     ],
   },
   {
@@ -39,6 +41,7 @@ const tools = [
     color: "#8B5CF6",
     items: [
       { name: "Hex to RGB Converter", desc: "Convert colors between HEX, RGB, HSL, CMYK. Contrast checker & palettes.", href: "/tools/hex-to-rgb" },
+      { name: "Color Palette Generator", desc: "Generate harmonious palettes from any color. 6 modes, CSS export.", href: "/tools/color-palette", hot: true },
     ],
   },
   {
