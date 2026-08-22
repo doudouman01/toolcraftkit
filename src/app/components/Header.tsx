@@ -4,11 +4,10 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { label: "Text", href: "/tools/word-counter" },
-  { label: "Writing", href: "#" },
-  { label: "Image", href: "/tools/hex-to-rgb" },
   { label: "Business", href: "/tools/percentage-calculator" },
-  { label: "Social", href: "#" },
+  { label: "Image", href: "/tools/hex-to-rgb" },
   { label: "Dev", href: "/tools/json-formatter" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export default function Header() {

@@ -30,6 +30,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "random-number-generator",
   ];
 
+  const blogPosts = [
+    "how-many-pages-is-1000-words",
+    "how-to-create-qr-code-for-wifi",
+    "how-to-calculate-loan-payments",
+    "what-is-a-good-roi",
+    "how-to-remove-duplicate-lines-in-excel",
+  ];
+
   return [
     { url: base, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     ...tools.map((tool) => ({
@@ -38,5 +46,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
+    { url: `${base}/blog`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7 },
+    ...blogPosts.map((post) => ({
+      url: `${base}/blog/${post}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    { url: `${base}/privacy`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
+    { url: `${base}/terms`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
   ];
 }
