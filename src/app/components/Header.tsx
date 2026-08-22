@@ -3,23 +3,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { label: "Text", href: "/tools/word-counter" },
-  { label: "Business", href: "/tools/percentage-calculator" },
-  { label: "Image", href: "/tools/hex-to-rgb" },
-  { label: "Dev", href: "/tools/json-formatter" },
+  { label: "Home", href: "/" },
+  { label: "Text", href: "/#text-tools" },
+  { label: "Business", href: "/#business-tools" },
+  { label: "Converters", href: "/#converter-tools" },
+  { label: "Dev", href: "/#developer-tools" },
   { label: "Blog", href: "/blog" },
 ];
 
 export default function Header() {
   const pathname = usePathname();
-  const getCluster = () => {
-    if (pathname.includes("word-counter") || pathname.includes("character-counter") || pathname.includes("text-case") || pathname.includes("lorem")) return "Text";
-    if (pathname.includes("hex") || pathname.includes("image")) return "Image";
-    if (pathname.includes("percentage") || pathname.includes("profit")) return "Business";
-    if (pathname.includes("json") || pathname.includes("dev")) return "Dev";
-    return "";
-  };
-  const active = getCluster();
 
   return (
     <header style={{
@@ -44,8 +37,8 @@ export default function Header() {
         {navItems.map((item) => (
           <Link key={item.label} href={item.href} style={{
             padding: "5px 10px", fontSize: 13, fontWeight: 500, borderRadius: 6,
-            color: item.label === active ? "#0D9488" : "#78716C",
-            background: item.label === active ? "rgba(13,148,136,0.06)" : "transparent",
+            color: (item.href === "/" && pathname === "/") || (item.href === "/blog" && pathname.startsWith("/blog")) ? "#0D9488" : "#78716C",
+            background: (item.href === "/" && pathname === "/") || (item.href === "/blog" && pathname.startsWith("/blog")) ? "rgba(13,148,136,0.06)" : "transparent",
             textDecoration: "none",
           }}>{item.label}</Link>
         ))}

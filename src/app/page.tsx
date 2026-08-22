@@ -82,7 +82,7 @@ export default function Home() {
         </section>
 
         {tools.map((group) => (
-          <section key={group.category} style={{ marginBottom: 32 }}>
+          <section key={group.category} id={group.category.toLowerCase().replace(/ /g, "-")} style={{ marginBottom: 32, scrollMarginTop: 70 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
               <div style={{ width: 4, height: 22, borderRadius: 2, background: group.color }} />
               <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1C1917" }}>{group.category}</h2>
