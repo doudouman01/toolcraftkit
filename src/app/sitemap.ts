@@ -28,6 +28,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "invoice-generator",
     "loan-calculator",
     "random-number-generator",
+    "compound-interest",
+    "mortgage-calculator",
+    "salary-calculator",
+    "tax-calculator",
+    "tip-calculator",
   ];
 
   const blogPosts = [

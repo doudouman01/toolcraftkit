@@ -26,6 +26,11 @@ const tools = [
       { name: "ROI Calculator", desc: "Calculate return on investment, net profit, and annualized CAGR.", href: "/tools/roi-calculator" },
       { name: "Loan Calculator", desc: "Monthly payments, total interest, amortization schedule. Mortgages & loans.", href: "/tools/loan-calculator", hot: true },
       { name: "Invoice Generator", desc: "Create professional invoices instantly. Print or save as PDF. Free.", href: "/tools/invoice-generator", hot: true },
+      { name: "Compound Interest Calculator", desc: "See how your money grows with compound interest and monthly contributions.", href: "/tools/compound-interest", hot: true },
+      { name: "Mortgage Calculator", desc: "Estimate monthly payments with taxes, insurance, and amortization schedule.", href: "/tools/mortgage-calculator", hot: true },
+      { name: "Salary Calculator", desc: "Convert annual salary to hourly rate and back. Monthly, weekly, daily breakdown.", href: "/tools/salary-calculator" },
+      { name: "Income Tax Calculator", desc: "Estimate federal income tax. US, Canada, and UK brackets with breakdown.", href: "/tools/tax-calculator", hot: true },
+      { name: "Tip Calculator", desc: "Calculate tip amount, split the bill, and compare tip percentages.", href: "/tools/tip-calculator" },
     ],
   },
   {
