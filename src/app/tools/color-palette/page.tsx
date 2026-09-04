@@ -1,5 +1,6 @@
 "use client";
 import { useState, useCallback } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 function hslToHex(h: number, s: number, l: number) {
   s /= 100; l /= 100;
@@ -85,6 +86,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Color Palette Generator"
+        description="Generate harmonious color palettes from any color. 6 modes with CSS export."
+        slug="color-palette"
+        category="DesignApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Image Tools", url: "https://toolcraftkit.com/#image-tools" },
+          { name: "Color Palette Generator", url: "https://toolcraftkit.com/tools/color-palette" },
+        ]}
+      />
       <h1 style={s.h1}>Color Palette Generator</h1>
       <p style={s.sub}>Generate beautiful color palettes from a base color using color theory.</p>
 

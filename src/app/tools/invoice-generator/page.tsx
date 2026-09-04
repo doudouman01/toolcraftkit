@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 interface Item { desc: string; qty: number; price: number; }
 
@@ -86,6 +87,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Invoice Generator"
+        description="Create professional invoices instantly. Print or save as PDF for free. No signup required."
+        slug="invoice-generator"
+        category="BusinessApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Business Tools", url: "https://toolcraftkit.com/#business-tools" },
+          { name: "Invoice Generator", url: "https://toolcraftkit.com/tools/invoice-generator" },
+        ]}
+      />
       <h1 style={s.h1}>Invoice Generator</h1>
       <p style={s.sub}>Create professional invoices in seconds. Print or save as PDF.</p>
 

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 export default function Page() {
   const [homePrice, setHomePrice] = useState("400000");
@@ -62,6 +63,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Mortgage Calculator"
+        description="Estimate monthly mortgage payments with taxes, insurance, and full amortization schedule."
+        slug="mortgage-calculator"
+        category="BusinessApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Business Tools", url: "https://toolcraftkit.com/#business-tools" },
+          { name: "Mortgage Calculator", url: "https://toolcraftkit.com/tools/mortgage-calculator" },
+        ]}
+      />
       <h1 style={s.h1}>Mortgage Calculator</h1>
       <p style={s.sub}>Estimate your monthly mortgage payment including taxes and insurance.</p>
 

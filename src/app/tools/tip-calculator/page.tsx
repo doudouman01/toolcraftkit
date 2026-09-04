@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 export default function Page() {
   const [bill, setBill] = useState("");
@@ -34,6 +35,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Tip Calculator"
+        description="Calculate tip amount, split the bill, and compare tip percentages instantly."
+        slug="tip-calculator"
+        category="BusinessApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Business Tools", url: "https://toolcraftkit.com/#business-tools" },
+          { name: "Tip Calculator", url: "https://toolcraftkit.com/tools/tip-calculator" },
+        ]}
+      />
       <h1 style={s.h1}>Tip Calculator</h1>
       <p style={s.sub}>Calculate the tip and split the bill between friends.</p>
 

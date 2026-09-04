@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 export default function Page() {
   const [mode, setMode] = useState<"annual" | "hourly">("annual");
@@ -48,6 +49,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Salary Calculator"
+        description="Convert annual salary to hourly rate and back. Monthly, weekly, and daily breakdown."
+        slug="salary-calculator"
+        category="BusinessApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Business Tools", url: "https://toolcraftkit.com/#business-tools" },
+          { name: "Salary Calculator", url: "https://toolcraftkit.com/tools/salary-calculator" },
+        ]}
+      />
       <h1 style={s.h1}>Salary Calculator</h1>
       <p style={s.sub}>Convert between annual salary and hourly rate. See your pay per month, week, and day.</p>
 

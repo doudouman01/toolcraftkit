@@ -1,5 +1,6 @@
 "use client";
 import { useState, useCallback } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 export default function Page() {
   const [mode, setMode] = useState<"range" | "dice" | "list" | "coin">("range");
@@ -82,6 +83,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Random Number Generator"
+        description="Random numbers, dice roller, list picker, and coin flip. Four modes for any use."
+        slug="random-number-generator"
+        category="UtilitiesApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Developer Tools", url: "https://toolcraftkit.com/#developer-tools" },
+          { name: "Random Number Generator", url: "https://toolcraftkit.com/tools/random-number-generator" },
+        ]}
+      />
       <h1 style={s.h1}>Random Number Generator</h1>
       <p style={s.sub}>Generate random numbers, roll dice, pick from a list, or flip a coin.</p>
 

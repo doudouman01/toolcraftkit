@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 function calcAge(birth: Date, ref: Date) {
   let years = ref.getFullYear() - birth.getFullYear();
@@ -62,6 +63,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Age Calculator"
+        description="Calculate your exact age in years, months, days, and hours. Zodiac sign and birthday countdown."
+        slug="age-calculator"
+        category="UtilitiesApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Life Tools", url: "https://toolcraftkit.com/#life-tools" },
+          { name: "Age Calculator", url: "https://toolcraftkit.com/tools/age-calculator" },
+        ]}
+      />
       <h1 style={s.h1}>Age Calculator</h1>
       <p style={s.sub}>Calculate your exact age in years, months, days, hours, and minutes.</p>
 

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 function calcLoan(principal: number, annualRate: number, years: number) {
   const months = years * 12;
@@ -52,6 +53,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Loan Calculator"
+        description="Calculate monthly payments, total interest, and full amortization schedule for mortgages and loans."
+        slug="loan-calculator"
+        category="BusinessApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Business Tools", url: "https://toolcraftkit.com/#business-tools" },
+          { name: "Loan Calculator", url: "https://toolcraftkit.com/tools/loan-calculator" },
+        ]}
+      />
       <h1 style={s.h1}>Loan Calculator</h1>
       <p style={s.sub}>Calculate monthly payments, total interest, and view the full amortization schedule.</p>
 

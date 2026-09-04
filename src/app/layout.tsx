@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import { WebsiteSchema } from "@/app/components/JsonLd";
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
+        <WebsiteSchema />
         {children}
         <Analytics />
       </body>

@@ -1,5 +1,6 @@
 "use client";
 import { useState, useCallback } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 const CHARSETS = {
   uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -69,6 +70,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Password Generator"
+        description="Generate strong random passwords with customizable length and character sets."
+        slug="password-generator"
+        category="UtilitiesApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Developer Tools", url: "https://toolcraftkit.com/#developer-tools" },
+          { name: "Password Generator", url: "https://toolcraftkit.com/tools/password-generator" },
+        ]}
+      />
       <h1 style={s.h1}>Password Generator</h1>
       <p style={s.sub}>Generate secure, random passwords. Everything runs in your browser.</p>
       <div style={s.card}>

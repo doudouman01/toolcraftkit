@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 function parseMarkdown(md: string) {
   let html = md
@@ -67,6 +68,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Markdown to HTML Converter"
+        description="Convert Markdown to clean HTML with live preview. Copy or download the output."
+        slug="markdown-to-html"
+        category="DeveloperApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Text Tools", url: "https://toolcraftkit.com/#text-tools" },
+          { name: "Markdown to HTML Converter", url: "https://toolcraftkit.com/tools/markdown-to-html" },
+        ]}
+      />
       <h1 style={s.h1}>Markdown to HTML Converter</h1>
       <p style={s.sub}>Convert Markdown to clean HTML in real time. Copy the code or download as a complete HTML file.</p>
       <div style={s.card}>

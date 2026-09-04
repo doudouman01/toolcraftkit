@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 const PRESETS = {
   essay: { fontSize: 12, spacing: "double", font: "Times New Roman", margin: 1 },
@@ -64,6 +65,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Words to Pages Calculator"
+        description="Estimate how many pages your word count fills. Customize font size, spacing, and page format."
+        slug="words-to-pages"
+        category="UtilitiesApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Text Tools", url: "https://toolcraftkit.com/#text-tools" },
+          { name: "Words to Pages Calculator", url: "https://toolcraftkit.com/tools/words-to-pages" },
+        ]}
+      />
       <h1 style={s.h1}>Words to Pages Converter</h1>
       <p style={s.sub}>Estimate how many pages your word count fills, or how many words fit on a number of pages.</p>
 

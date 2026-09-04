@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 export default function Page() {
   const [input, setInput] = useState("");
@@ -62,6 +63,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Remove Duplicate Lines"
+        description="Remove duplicate lines from text. Keep only unique entries, sort, and trim whitespace."
+        slug="remove-duplicates"
+        category="UtilitiesApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Text Tools", url: "https://toolcraftkit.com/#text-tools" },
+          { name: "Remove Duplicate Lines", url: "https://toolcraftkit.com/tools/remove-duplicates" },
+        ]}
+      />
       <h1 style={s.h1}>Remove Duplicate Lines</h1>
       <p style={s.sub}>Remove duplicate lines from text. Keep only unique entries.</p>
 

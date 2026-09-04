@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 const PRESETS = [
   { label: "Email", pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}", flags: "g" },
@@ -81,6 +82,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Regex Tester"
+        description="Test regular expressions with live highlighting, presets, and replace mode."
+        slug="regex-tester"
+        category="DeveloperApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Developer Tools", url: "https://toolcraftkit.com/#developer-tools" },
+          { name: "Regex Tester", url: "https://toolcraftkit.com/tools/regex-tester" },
+        ]}
+      />
       <h1 style={s.h1}>Regex Tester</h1>
       <p style={s.sub}>Test regular expressions with live highlighting and match details.</p>
 

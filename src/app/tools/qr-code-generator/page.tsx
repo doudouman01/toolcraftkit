@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 const MODES = [
   { key: "url", label: "URL", placeholder: "https://example.com" },
@@ -83,6 +84,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="QR Code Generator"
+        description="Generate QR codes for URLs, WiFi, email, phone, and text. Custom colors, download PNG."
+        slug="qr-code-generator"
+        category="UtilitiesApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Developer Tools", url: "https://toolcraftkit.com/#developer-tools" },
+          { name: "QR Code Generator", url: "https://toolcraftkit.com/tools/qr-code-generator" },
+        ]}
+      />
       <h1 style={s.h1}>QR Code Generator</h1>
       <p style={s.sub}>Generate free QR codes for URLs, text, WiFi, email, and phone numbers.</p>
 

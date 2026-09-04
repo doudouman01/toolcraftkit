@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 export default function Page() {
   const [input, setInput] = useState("");
@@ -41,6 +42,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="URL Encoder/Decoder"
+        description="Encode or decode URLs and query strings. Component and full URI mode."
+        slug="url-encoder"
+        category="DeveloperApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Converter Tools", url: "https://toolcraftkit.com/#converter-tools" },
+          { name: "URL Encoder/Decoder", url: "https://toolcraftkit.com/tools/url-encoder" },
+        ]}
+      />
       <h1 style={s.h1}>URL Encoder / Decoder</h1>
       <p style={s.sub}>Encode or decode URLs and query strings instantly. Runs in your browser.</p>
 

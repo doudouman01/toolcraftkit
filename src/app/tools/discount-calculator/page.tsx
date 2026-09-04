@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 export default function Page() {
   const [mode, setMode] = useState<"pct" | "final" | "saved">("pct");
@@ -56,6 +57,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Discount Calculator"
+        description="Calculate sale prices, savings, and reverse-calculate discounts. Includes tax calculation."
+        slug="discount-calculator"
+        category="BusinessApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Business Tools", url: "https://toolcraftkit.com/#business-tools" },
+          { name: "Discount Calculator", url: "https://toolcraftkit.com/tools/discount-calculator" },
+        ]}
+      />
       <h1 style={s.h1}>Discount Calculator</h1>
       <p style={s.sub}>Calculate discounts, sale prices, and savings instantly.</p>
 

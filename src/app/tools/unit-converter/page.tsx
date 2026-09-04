@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 const CATEGORIES: Record<string, { units: string[]; toBase?: Record<string, number>; custom?: boolean }> = {
   Length: { units: ["Meters","Kilometers","Centimeters","Millimeters","Miles","Yards","Feet","Inches"], toBase: { Meters:1,Kilometers:1000,Centimeters:0.01,Millimeters:0.001,Miles:1609.344,Yards:0.9144,Feet:0.3048,Inches:0.0254 } },
@@ -64,6 +65,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Unit Converter"
+        description="Convert between 60+ units: length, weight, temperature, volume, speed, and more."
+        slug="unit-converter"
+        category="UtilitiesApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Converter Tools", url: "https://toolcraftkit.com/#converter-tools" },
+          { name: "Unit Converter", url: "https://toolcraftkit.com/tools/unit-converter" },
+        ]}
+      />
       <h1 style={s.h1}>Unit Converter</h1>
       <p style={s.sub}>Convert between units of length, weight, temperature, area, volume, speed, time, and data.</p>
       <div style={s.card}>

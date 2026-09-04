@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 function formatDate(d: Date) {
   return {
@@ -73,6 +74,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="Timestamp Converter"
+        description="Convert Unix timestamps to dates and back. Live clock with multiple timezone formats."
+        slug="timestamp-converter"
+        category="DeveloperApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Converter Tools", url: "https://toolcraftkit.com/#converter-tools" },
+          { name: "Timestamp Converter", url: "https://toolcraftkit.com/tools/timestamp-converter" },
+        ]}
+      />
       <h1 style={s.h1}>Timestamp Converter</h1>
       <p style={s.sub}>Convert between Unix timestamps and human-readable dates.</p>
 

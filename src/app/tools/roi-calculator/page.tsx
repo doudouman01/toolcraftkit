@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 
 export default function Page() {
   const [mode, setMode] = useState<"basic" | "annualized">("basic");
@@ -42,6 +43,19 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <ToolSchema
+        name="ROI Calculator"
+        description="Calculate return on investment, net profit, and annualized CAGR for any investment."
+        slug="roi-calculator"
+        category="BusinessApplication"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://toolcraftkit.com" },
+          { name: "Business Tools", url: "https://toolcraftkit.com/#business-tools" },
+          { name: "ROI Calculator", url: "https://toolcraftkit.com/tools/roi-calculator" },
+        ]}
+      />
       <h1 style={s.h1}>ROI Calculator</h1>
       <p style={s.sub}>Calculate return on investment, net profit, and annualized returns.</p>
 
