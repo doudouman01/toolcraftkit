@@ -41,7 +41,6 @@ const tools = [
       { name: "Base64 Encoder/Decoder", desc: "Encode text to Base64 or decode Base64 to text instantly.", href: "/tools/base64" },
       { name: "URL Encoder/Decoder", desc: "Encode or decode URLs and query strings. Component or full URI mode.", href: "/tools/url-encoder", hot: true },
       { name: "Timestamp Converter", desc: "Convert Unix timestamps to dates and back. Live clock, multiple formats.", href: "/tools/timestamp-converter" },
-      { name: "PDF Merge", desc: "Combine multiple PDF files into one document. Reorder pages.", href: "/tools/pdf-merge", hot: true },
       { name: "Image to PDF", desc: "Convert multiple images into a single PDF document. Free.", href: "/tools/image-to-pdf", hot: true },
       { name: "Text to PDF", desc: "Convert plain text into a formatted, downloadable PDF document.", href: "/tools/text-to-pdf" },
     ],
@@ -54,6 +53,15 @@ const tools = [
       { name: "Image Resizer", desc: "Resize images to exact dimensions. Social media presets included.", href: "/tools/image-resizer", hot: true },
       { name: "Hex to RGB Converter", desc: "Convert colors between HEX, RGB, HSL, CMYK. Contrast checker & palettes.", href: "/tools/hex-to-rgb" },
       { name: "Color Palette Generator", desc: "Generate harmonious palettes from any color. 6 modes, CSS export.", href: "/tools/color-palette", hot: true },
+    ],
+  },
+  {
+    category: "PDF Tools",
+    color: "#DC2626",
+    items: [
+      { name: "PDF Merge", desc: "Combine multiple PDF files into one document. Reorder pages before merging.", href: "/tools/pdf-merge", hot: true },
+      { name: "Image to PDF", desc: "Convert multiple images into a single PDF document. Free, no upload.", href: "/tools/image-to-pdf", hot: true },
+      { name: "Text to PDF", desc: "Convert plain text into a formatted, downloadable PDF document.", href: "/tools/text-to-pdf" },
     ],
   },
   {
@@ -127,7 +135,7 @@ export default function Home() {
             ToolCraftKit is a collection of free online tools built for creators, entrepreneurs, developers, and anyone who works with text, numbers, colors, or data. Every tool runs entirely in your browser — nothing is uploaded, stored, or tracked.
           </p>
           <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>
-            Whether you need to count words for an essay, calculate profit margins for your business, convert color codes for a design project, generate secure passwords, convert units, or format JSON for an API, ToolCraftKit has you covered. New tools are added regularly.
+            Whether you need to count words for an essay, calculate profit margins for your business, convert color codes for a design project, generate secure passwords, convert units, compress images, merge PDFs, or format JSON for an API, ToolCraftKit has you covered. New tools are added regularly.
           </p>
         </section>
       </main>
