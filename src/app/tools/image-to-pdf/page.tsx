@@ -59,7 +59,7 @@ export default function ImageToPdf() {
         page.drawImage(embedded, { x: margin + (usableW - drawW) / 2, y: margin + (usableH - drawH) / 2, width: drawW, height: drawH });
       }
       const bytes = await pdf.save();
-      const blob = new Blob([bytes], { type: "application/pdf" });
+      const blob = new Blob([bytes as BlobPart], { type: "application/pdf" });
       setResult(URL.createObjectURL(blob));
     } catch (e: any) {
       alert("Error: " + (e.message || "Conversion failed"));

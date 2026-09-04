@@ -55,7 +55,7 @@ export default function TextToPdf() {
       }
 
       const bytes = await pdf.save();
-      const blob = new Blob([bytes], { type: "application/pdf" });
+      const blob = new Blob([bytes as BlobPart], { type: "application/pdf" });
       setResult(URL.createObjectURL(blob));
     } catch (e: any) { alert("Error: " + (e.message || "Failed")); }
     setConverting(false);

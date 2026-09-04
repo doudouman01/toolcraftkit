@@ -45,7 +45,7 @@ export default function PdfMerge() {
         pages.forEach((p) => merged.addPage(p));
       }
       const bytes = await merged.save();
-      const blob = new Blob([bytes], { type: "application/pdf" });
+      const blob = new Blob([bytes as BlobPart], { type: "application/pdf" });
       setResult(URL.createObjectURL(blob));
     } catch (e: any) {
       setError("Error merging PDFs: " + (e.message || "Unknown error"));
