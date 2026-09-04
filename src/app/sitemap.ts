@@ -39,6 +39,11 @@ const tools = [
   "qr-code-generator",
   "random-number-generator",
   // Life Tools (1)
+  "image-compressor",
+  "image-resizer",
+  "pdf-merge",
+  "image-to-pdf",
+  "text-to-pdf",
   "age-calculator",
 ];
 
