@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 function calcAge(birth: Date, ref: Date) {
   let years = ref.getFullYear() - birth.getFullYear();
@@ -175,6 +176,7 @@ export default function Page() {
           </div>
         ))}
       </div>
+          <SeoContent />
     </div>
   );
 }

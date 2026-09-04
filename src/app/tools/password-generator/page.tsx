@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 const CHARSETS = {
   uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -133,6 +134,7 @@ export default function Page() {
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>This password generator uses your browser&apos;s built-in cryptographic random number generator to create truly random passwords. No passwords are ever stored, transmitted, or logged.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>For maximum security, use passwords of at least 16 characters with all character types enabled. Use a unique password for every account and enable two-factor authentication whenever possible.</p>
       </div>
+          <SeoContent />
     </div>
   );
 }

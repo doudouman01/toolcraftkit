@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 function formatDate(d: Date) {
   return {
@@ -174,6 +175,7 @@ export default function Page() {
           </div>
         ))}
       </div>
+          <SeoContent />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 export default function Page() {
   const [mode, setMode] = useState<"range" | "dice" | "list" | "coin">("range");
@@ -200,6 +201,7 @@ export default function Page() {
           </div>
         ))}
       </div>
+          <SeoContent />
     </div>
   );
 }

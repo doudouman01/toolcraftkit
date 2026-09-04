@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 export default function Page() {
   const [mode, setMode] = useState<"annual" | "hourly">("annual");
@@ -153,6 +154,7 @@ export default function Page() {
           </div>
         ))}
       </div>
+          <SeoContent />
     </div>
   );
 }

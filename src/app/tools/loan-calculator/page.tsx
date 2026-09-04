@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 function calcLoan(principal: number, annualRate: number, years: number) {
   const months = years * 12;
@@ -180,6 +181,7 @@ export default function Page() {
           </div>
         ))}
       </div>
+          <SeoContent />
     </div>
   );
 }

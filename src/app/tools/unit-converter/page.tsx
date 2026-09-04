@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 const CATEGORIES: Record<string, { units: string[]; toBase?: Record<string, number>; custom?: boolean }> = {
   Length: { units: ["Meters","Kilometers","Centimeters","Millimeters","Miles","Yards","Feet","Inches"], toBase: { Meters:1,Kilometers:1000,Centimeters:0.01,Millimeters:0.001,Miles:1609.344,Yards:0.9144,Feet:0.3048,Inches:0.0254 } },
@@ -105,6 +106,7 @@ export default function Page() {
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>This unit converter supports 8 categories with over 60 units. All conversions happen instantly in your browser.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Temperature conversions use standard formulas. Data storage units use binary prefixes where 1 Kilobyte equals 1024 Bytes.</p>
       </div>
+          <SeoContent />
     </div>
   );
 }

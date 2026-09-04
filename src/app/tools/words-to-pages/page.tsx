@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 const PRESETS = {
   essay: { fontSize: 12, spacing: "double", font: "Times New Roman", margin: 1 },
@@ -161,6 +162,7 @@ export default function Page() {
           </div>
         ))}
       </div>
+          <SeoContent />
     </div>
   );
 }

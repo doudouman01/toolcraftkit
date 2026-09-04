@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 function hslToHex(h: number, s: number, l: number) {
   s /= 100; l /= 100;
@@ -164,6 +165,7 @@ export default function Page() {
           </div>
         ))}
       </div>
+          <SeoContent />
     </div>
   );
 }

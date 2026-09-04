@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 interface Item { desc: string; qty: number; price: number; }
 
@@ -201,6 +202,7 @@ export default function Page() {
           </div>
         ))}
       </div>
+          <SeoContent />
     </div>
   );
 }

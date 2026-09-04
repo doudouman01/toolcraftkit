@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import SeoContent from "./SeoContent";
 
 function parseMarkdown(md: string) {
   let html = md
@@ -105,6 +106,7 @@ export default function Page() {
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>This tool converts Markdown syntax into clean, semantic HTML. It supports headings, bold and italic text, links, images, code blocks, inline code, blockquotes, lists, horizontal rules, and strikethrough text.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Markdown is a lightweight markup language created by John Gruber in 2004. It is widely used for README files, documentation, blogs, forums, and note-taking applications.</p>
       </div>
+          <SeoContent />
     </div>
   );
 }
