@@ -41,12 +41,17 @@ const tools = [
       { name: "Base64 Encoder/Decoder", desc: "Encode text to Base64 or decode Base64 to text instantly.", href: "/tools/base64" },
       { name: "URL Encoder/Decoder", desc: "Encode or decode URLs and query strings. Component or full URI mode.", href: "/tools/url-encoder", hot: true },
       { name: "Timestamp Converter", desc: "Convert Unix timestamps to dates and back. Live clock, multiple formats.", href: "/tools/timestamp-converter" },
+      { name: "PDF Merge", desc: "Combine multiple PDF files into one document. Reorder pages.", href: "/tools/pdf-merge", hot: true },
+      { name: "Image to PDF", desc: "Convert multiple images into a single PDF document. Free.", href: "/tools/image-to-pdf", hot: true },
+      { name: "Text to PDF", desc: "Convert plain text into a formatted, downloadable PDF document.", href: "/tools/text-to-pdf" },
     ],
   },
   {
     category: "Image Tools",
     color: "#8B5CF6",
     items: [
+      { name: "Image Compressor", desc: "Compress images without losing quality. JPEG, PNG, WebP. Free.", href: "/tools/image-compressor", hot: true },
+      { name: "Image Resizer", desc: "Resize images to exact dimensions. Social media presets included.", href: "/tools/image-resizer", hot: true },
       { name: "Hex to RGB Converter", desc: "Convert colors between HEX, RGB, HSL, CMYK. Contrast checker & palettes.", href: "/tools/hex-to-rgb" },
       { name: "Color Palette Generator", desc: "Generate harmonious palettes from any color. 6 modes, CSS export.", href: "/tools/color-palette", hot: true },
     ],
