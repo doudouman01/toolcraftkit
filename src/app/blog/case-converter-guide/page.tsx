@@ -47,9 +47,9 @@ export default function Page() {
 
         <h2 style={s.h2}>Convert Your Text Now</h2>
         <p style={s.p}>Our free Case Converter instantly transforms text between uppercase, lowercase, title case, and sentence case. Paste, click, copy — done.</p>
-        <Link href="/tools/case-converter" style={s.cta}>Open Case Converter →</Link>
+        <Link href="/tools/text-case-converter" style={s.cta}>Open Case Converter →</Link>
 
-        <p style={{ ...s.p, marginTop: 24 }}>Need to clean duplicate entries after normalizing case? Our <Link href="/tools/remove-duplicate-lines" style={{ color: "#0D9488" }}>Remove Duplicates</Link> tool strips repeated lines instantly.</p>
+        <p style={{ ...s.p, marginTop: 24 }}>Need to clean duplicate entries after normalizing case? Our <Link href="/tools/remove-duplicates" style={{ color: "#0D9488" }}>Remove Duplicates</Link> tool strips repeated lines instantly.</p>
       </main>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
     </>

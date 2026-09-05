@@ -52,7 +52,7 @@ export default function Page() {
         <p style={s.p}>Our free Regex Tester shows matches in real time as you type your pattern. Paste your test text, write your regex, and see results instantly — no setup needed.</p>
         <Link href="/tools/regex-tester" style={s.cta}>Open Regex Tester →</Link>
 
-        <p style={{ ...s.p, marginTop: 24 }}>Working with encoded data? Our <Link href="/tools/base64-encoder" style={{ color: "#0D9488" }}>Base64 Encoder/Decoder</Link> handles encoding and decoding in your browser.</p>
+        <p style={{ ...s.p, marginTop: 24 }}>Working with encoded data? Our <Link href="/tools/base64" style={{ color: "#0D9488" }}>Base64 Encoder/Decoder</Link> handles encoding and decoding in your browser.</p>
       </main>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
     </>

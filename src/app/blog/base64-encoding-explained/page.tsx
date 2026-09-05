@@ -51,7 +51,7 @@ export default function Page() {
 
         <h2 style={s.h2}>Encode and Decode Now</h2>
         <p style={s.p}>Our free Base64 Encoder/Decoder handles both encoding and decoding in your browser. Paste a string, encode it, or paste a Base64 string and decode it — instantly and privately.</p>
-        <Link href="/tools/base64-encoder" style={s.cta}>Open Base64 Encoder →</Link>
+        <Link href="/tools/base64" style={s.cta}>Open Base64 Encoder →</Link>
 
         <p style={{ ...s.p, marginTop: 24 }}>Need to test patterns in your decoded data? Our <Link href="/tools/regex-tester" style={{ color: "#0D9488" }}>Regex Tester</Link> lets you search and match text with regular expressions.</p>
       </main>

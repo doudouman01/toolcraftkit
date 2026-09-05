@@ -49,7 +49,7 @@ export default function Page() {
         <p style={s.p}>Our free Password Generator creates cryptographically random passwords with customizable length and character sets. Generate, copy, and use — your password is never stored or transmitted.</p>
         <Link href="/tools/password-generator" style={s.cta}>Open Password Generator →</Link>
 
-        <p style={{ ...s.p, marginTop: 24 }}>Want to share WiFi access securely? Our <Link href="/tools/qr-code-generator" style={{ color: "#0D9488" }}>QR Code Generator</Link> creates WiFi QR codes so guests connect without seeing your password.</p>
+        <p style={{ ...s.p, marginTop: 24 }}>Want to share WiFi access securely? Our <Link href="/tools/qr-code" style={{ color: "#0D9488" }}>QR Code Generator</Link> creates WiFi QR codes so guests connect without seeing your password.</p>
       </main>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
     </>

@@ -44,12 +44,12 @@ export default function Page() {
         <p style={s.p}><strong>Data analysis</strong> — clean datasets produce accurate results. Duplicate entries in survey responses, log files, or transaction records can skew analysis and lead to wrong conclusions.</p>
 
         <h2 style={s.h2}>Pro Tips</h2>
-        <p style={s.p}>Before deduplicating, consider running your text through a <Link href="/tools/case-converter" style={{ color: "#0D9488" }}>Case Converter</Link> to normalize capitalization. This ensures that &quot;hello@example.com&quot; and &quot;Hello@Example.com&quot; are recognized as the same entry.</p>
+        <p style={s.p}>Before deduplicating, consider running your text through a <Link href="/tools/text-case-converter" style={{ color: "#0D9488" }}>Case Converter</Link> to normalize capitalization. This ensures that &quot;hello@example.com&quot; and &quot;Hello@Example.com&quot; are recognized as the same entry.</p>
         <p style={s.p}>After removing duplicates, sort the remaining lines alphabetically to make the data easier to scan and verify.</p>
 
         <h2 style={s.h2}>Clean Your Data Now</h2>
         <p style={s.p}>Our free Remove Duplicates tool strips duplicate lines from any text instantly. Paste, click, and get clean data — no signup, no limits.</p>
-        <Link href="/tools/remove-duplicate-lines" style={s.cta}>Open Remove Duplicates →</Link>
+        <Link href="/tools/remove-duplicates" style={s.cta}>Open Remove Duplicates →</Link>
 
         <p style={{ ...s.p, marginTop: 24 }}>Need to count words in your cleaned text? Our <Link href="/tools/word-counter" style={{ color: "#0D9488" }}>Word Counter</Link> shows words, characters, and reading time instantly.</p>
       </main>

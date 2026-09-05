@@ -49,7 +49,7 @@ export default function Page() {
         <p style={s.p}>Our free Word Counter shows words, characters, sentences, and estimated reading time as you type or paste. No signup, no limits — just accurate counts instantly.</p>
         <Link href="/tools/word-counter" style={s.cta}>Open Word Counter →</Link>
 
-        <p style={{ ...s.p, marginTop: 24 }}>Need to format your text for publishing? Our <Link href="/tools/case-converter" style={{ color: "#0D9488" }}>Case Converter</Link> handles title case, uppercase, and lowercase conversions instantly.</p>
+        <p style={{ ...s.p, marginTop: 24 }}>Need to format your text for publishing? Our <Link href="/tools/text-case-converter" style={{ color: "#0D9488" }}>Case Converter</Link> handles title case, uppercase, and lowercase conversions instantly.</p>
       </main>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
     </>

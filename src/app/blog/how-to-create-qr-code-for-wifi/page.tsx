@@ -35,13 +35,13 @@ export default function Page() {
 
         <h2 style={s.h2}>Step-by-Step: Create Your WiFi QR Code</h2>
 
-        <div style={s.step}><div style={s.stepNum}>STEP 1</div><div style={s.stepText}>Open the <Link href="/tools/qr-code-generator" style={{ color: "#0D9488", fontWeight: 600 }}>QR Code Generator</Link> and click the <strong>WiFi</strong> tab.</div></div>
+        <div style={s.step}><div style={s.stepNum}>STEP 1</div><div style={s.stepText}>Open the <Link href="/tools/qr-code" style={{ color: "#0D9488", fontWeight: 600 }}>QR Code Generator</Link> and click the <strong>WiFi</strong> tab.</div></div>
         <div style={s.step}><div style={s.stepNum}>STEP 2</div><div style={s.stepText}>Enter your <strong>Network Name (SSID)</strong> — this is the name that appears when you search for WiFi on your phone.</div></div>
         <div style={s.step}><div style={s.stepNum}>STEP 3</div><div style={s.stepText}>Enter your <strong>WiFi password</strong>. Don&apos;t worry — this stays in your browser and is never sent to any server.</div></div>
         <div style={s.step}><div style={s.stepNum}>STEP 4</div><div style={s.stepText}>Select your <strong>security type</strong> — WPA is the most common (used by almost all modern routers). If unsure, WPA is the safe choice.</div></div>
         <div style={s.step}><div style={s.stepNum}>STEP 5</div><div style={s.stepText}><strong>Download the QR code</strong> as a PNG image. Print it and place it near your router, on the fridge, at the reception desk, or in your Airbnb welcome packet.</div></div>
 
-        <Link href="/tools/qr-code-generator" style={s.cta}>Create Your WiFi QR Code →</Link>
+        <Link href="/tools/qr-code" style={s.cta}>Create Your WiFi QR Code →</Link>
 
         <h2 style={s.h2}>Where to Use Your WiFi QR Code</h2>
         <p style={s.p}><strong>At home:</strong> Print it on a small card and stick it on the fridge or near the router. No more dictating passwords to guests.</p>

@@ -36,7 +36,7 @@ export default function Page() {
         <h2 style={s.h2}>Image & Design</h2>
         <p style={s.p}><strong>Image Compressor</strong> — reduce image file sizes for websites, portfolios, and email attachments without visible quality loss. Essential for anyone who works with visual content. <Link href="/tools/image-compressor" style={{ color: "#0D9488" }}>Try it free →</Link></p>
         <p style={s.p}><strong>Image Resizer</strong> — resize images to exact dimensions for social media posts, website headers, or client deliverables. Supports all common formats. <Link href="/tools/image-resizer" style={{ color: "#0D9488" }}>Try it free →</Link></p>
-        <p style={s.p}><strong>Color Palette Generator</strong> — create harmonious color schemes for branding, website design, or presentation materials. Export hex codes for immediate use. <Link href="/tools/color-palette-generator" style={{ color: "#0D9488" }}>Try it free →</Link></p>
+        <p style={s.p}><strong>Color Palette Generator</strong> — create harmonious color schemes for branding, website design, or presentation materials. Export hex codes for immediate use. <Link href="/tools/color-palette" style={{ color: "#0D9488" }}>Try it free →</Link></p>
 
         <h2 style={s.h2}>Documents & PDFs</h2>
         <p style={s.p}><strong>PDF Merge</strong> — combine multiple PDF documents into one file. Perfect for compiling reports, proposals, or contract packages. <Link href="/tools/pdf-merge" style={{ color: "#0D9488" }}>Try it free →</Link></p>
@@ -44,9 +44,9 @@ export default function Page() {
         <p style={s.p}><strong>Text to PDF</strong> — turn notes, proposals, or code snippets into downloadable PDF documents without opening a word processor. <Link href="/tools/text-to-pdf" style={{ color: "#0D9488" }}>Try it free →</Link></p>
 
         <h2 style={s.h2}>Marketing & Communication</h2>
-        <p style={s.p}><strong>QR Code Generator</strong> — create QR codes for your website, WiFi network, payment links, or contact information. Perfect for business cards, flyers, and storefronts. <Link href="/tools/qr-code-generator" style={{ color: "#0D9488" }}>Try it free →</Link></p>
+        <p style={s.p}><strong>QR Code Generator</strong> — create QR codes for your website, WiFi network, payment links, or contact information. Perfect for business cards, flyers, and storefronts. <Link href="/tools/qr-code" style={{ color: "#0D9488" }}>Try it free →</Link></p>
         <p style={s.p}><strong>Word Counter</strong> — track word count, character count, and reading time for blog posts, articles, and social media content. <Link href="/tools/word-counter" style={{ color: "#0D9488" }}>Try it free →</Link></p>
-        <p style={s.p}><strong>Case Converter</strong> — instantly convert text between uppercase, lowercase, title case, and sentence case. Saves time on formatting for headlines and copy. <Link href="/tools/case-converter" style={{ color: "#0D9488" }}>Try it free →</Link></p>
+        <p style={s.p}><strong>Case Converter</strong> — instantly convert text between uppercase, lowercase, title case, and sentence case. Saves time on formatting for headlines and copy. <Link href="/tools/text-case-converter" style={{ color: "#0D9488" }}>Try it free →</Link></p>
 
         <h2 style={s.h2}>Why Browser-Based Tools Matter</h2>
         <p style={s.p}>Desktop software requires installation, updates, and often a subscription. Browser-based tools work on any device — your laptop at home, a shared computer at a coworking space, or your phone on the go. They load instantly, require no sign-up, and your data stays on your device.</p>

@@ -76,7 +76,7 @@ export default function Page() {
         <p style={s.p}>Use our free Markdown to HTML Converter to paste your Markdown and get clean, ready-to-use HTML instantly. Includes a live preview so you can see the rendered result as you type.</p>
         <Link href="/tools/markdown-to-html" style={s.cta}>Open Markdown to HTML Converter →</Link>
 
-        <p style={{ ...s.p, marginTop: 24 }}>Working with text formatting? Our <Link href="/tools/text-case" style={{ color: "#0D9488" }}>Text Case Converter</Link> handles uppercase, lowercase, title case, and more.</p>
+        <p style={{ ...s.p, marginTop: 24 }}>Working with text formatting? Our <Link href="/tools/text-case-converter" style={{ color: "#0D9488" }}>Text Case Converter</Link> handles uppercase, lowercase, title case, and more.</p>
       </main>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
     </>
