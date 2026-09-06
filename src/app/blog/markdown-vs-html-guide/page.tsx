@@ -38,7 +38,7 @@ export default function Page() {
         <p style={s.p}>Write in Markdown for speed, convert to HTML for publishing. Many CMS platforms (WordPress, Ghost, Hugo) accept Markdown natively. For custom sites, convert Markdown to HTML and paste into your template. Our Markdown to HTML converter handles this conversion instantly.</p>
 
         <h2 style={s.h2}>Markdown Syntax Quick Reference</h2>
-        <p style={s.p}>Headings: # H1, ## H2, ### H3. Bold: **text**. Italic: *text*. Links: [text](url). Images: ![alt](url). Lists: - item or 1. item. Code: backticks for inline, triple backticks for blocks. Blockquotes: > text. This covers 90% of formatting needs.</p>
+        <p style={s.p}>Headings: # H1, ## H2, ### H3. Bold: **text**. Italic: *text*. Links: [text](url). Images: ![alt](url). Lists: - item or 1. item. Code: backticks for inline, triple backticks for blocks. Blockquotes: {'>'} text. This covers 90% of formatting needs.</p>
 
         <h2 style={s.h2}>Try It Now</h2>
         <p style={s.p}>Our free Markdown to HTML handles this instantly — no signup, no limits.</p>

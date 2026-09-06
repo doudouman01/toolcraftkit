@@ -38,7 +38,7 @@ export default function Page() {
         <p style={s.p}>=COUNT(A1:A100) counts how many cells contain numbers. =COUNTIF(A1:A100, ">50") counts cells meeting a condition. =COUNTIF(B1:B100, "Completed") counts how many tasks are marked complete. These formulas turn raw data into simple dashboards.</p>
 
         <h2 style={s.h2}>Formatting for Clarity</h2>
-        <p style={s.p}>Bold headers in the first row. Freeze the top row (View > Freeze) so headers stay visible while scrolling. Use currency format for money, percentage format for rates, and date format for dates. Alternate row colors for readability in large tables. These formatting basics make any spreadsheet easier to read and less error-prone.</p>
+        <p style={s.p}>Bold headers in the first row. Freeze the top row (View {'>'} Freeze) so headers stay visible while scrolling. Use currency format for money, percentage format for rates, and date format for dates. Alternate row colors for readability in large tables. These formatting basics make any spreadsheet easier to read and less error-prone.</p>
 
         <h2 style={s.h2}>Try It Now</h2>
         <p style={s.p}>Our free Percentage Calculator handles this instantly — no signup, no limits.</p>

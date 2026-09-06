@@ -35,7 +35,7 @@ export default function Page() {
         <p style={s.p}>Enable 2FA on your most important accounts first: email, banking, and social media. Use an authenticator app (Google Authenticator, Authy) rather than SMS codes — SIM swapping attacks can intercept text messages. Store backup codes in a safe place (not on your phone) in case you lose access to your authenticator.</p>
 
         <h2 style={s.h2}>Step 3: Review Connected Apps</h2>
-        <p style={s.p}>Check which third-party apps have access to your accounts (Google Account > Security > Third-party apps, Twitter > Settings > Security > Apps). Revoke access for any app you no longer use. Each connected app is a potential entry point if that app is compromised.</p>
+        <p style={s.p}>Check which third-party apps have access to your accounts (Google Account {'>'} Security {'>'} Third-party apps, Twitter {'>'} Settings {'>'} Security {'>'} Apps). Revoke access for any app you no longer use. Each connected app is a potential entry point if that app is compromised.</p>
 
         <h2 style={s.h2}>Step 4: Ongoing Maintenance</h2>
         <p style={s.p}>Update passwords for critical accounts annually. Review 2FA settings when you change phones. Monitor your accounts for unauthorized activity. Set up login notifications so you are alerted when someone accesses your account from a new device. These maintenance tasks take 15 minutes quarterly and prevent the vast majority of account compromises.</p>
