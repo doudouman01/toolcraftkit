@@ -42,7 +42,7 @@ export default function Page() {
 
         <h2 style={s.h2}>Try It Now</h2>
         <p style={s.p}>Our free QR Code Generator handles this instantly — no signup, no limits.</p>
-        <Link href="/tools/qr-code" style={s.cta}>Open QR Code Generator →</Link>
+        <Link href="/tools/qr-code-generator" style={s.cta}>Open QR Code Generator →</Link>
 
         <p style={{ ...s.p, marginTop: 24 }}>Also useful: our <Link href="/tools/password-generator" style={{ color: "#0D9488" }}>Password Generator</Link> for related calculations.</p>
       </main>

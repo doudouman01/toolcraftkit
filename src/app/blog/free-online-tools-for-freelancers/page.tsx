@@ -44,7 +44,7 @@ export default function Page() {
         <p style={s.p}><strong>Text to PDF</strong> — turn notes, proposals, or code snippets into downloadable PDF documents without opening a word processor. <Link href="/tools/text-to-pdf" style={{ color: "#0D9488" }}>Try it free →</Link></p>
 
         <h2 style={s.h2}>Marketing & Communication</h2>
-        <p style={s.p}><strong>QR Code Generator</strong> — create QR codes for your website, WiFi network, payment links, or contact information. Perfect for business cards, flyers, and storefronts. <Link href="/tools/qr-code" style={{ color: "#0D9488" }}>Try it free →</Link></p>
+        <p style={s.p}><strong>QR Code Generator</strong> — create QR codes for your website, WiFi network, payment links, or contact information. Perfect for business cards, flyers, and storefronts. <Link href="/tools/qr-code-generator" style={{ color: "#0D9488" }}>Try it free →</Link></p>
         <p style={s.p}><strong>Word Counter</strong> — track word count, character count, and reading time for blog posts, articles, and social media content. <Link href="/tools/word-counter" style={{ color: "#0D9488" }}>Try it free →</Link></p>
         <p style={s.p}><strong>Case Converter</strong> — instantly convert text between uppercase, lowercase, title case, and sentence case. Saves time on formatting for headlines and copy. <Link href="/tools/text-case-converter" style={{ color: "#0D9488" }}>Try it free →</Link></p>
 

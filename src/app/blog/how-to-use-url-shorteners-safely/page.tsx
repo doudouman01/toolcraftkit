@@ -44,7 +44,7 @@ export default function Page() {
         <p style={s.p}>Our free URL Encoder/Decoder handles this instantly — no signup, no limits.</p>
         <Link href="/tools/url-encoder" style={s.cta}>Open URL Encoder →</Link>
 
-        <p style={{ ...s.p, marginTop: 24 }}>Also useful: our <Link href="/tools/qr-code" style={{ color: "#0D9488" }}>QR Code Generator</Link> for related calculations.</p>
+        <p style={{ ...s.p, marginTop: 24 }}>Also useful: our <Link href="/tools/qr-code-generator" style={{ color: "#0D9488" }}>QR Code Generator</Link> for related calculations.</p>
       </main>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
     </>

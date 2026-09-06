@@ -42,9 +42,9 @@ export default function Page() {
 
         <h2 style={s.h2}>Try It Now</h2>
         <p style={s.p}>Our free Random Number Generator handles this instantly — no signup, no limits.</p>
-        <Link href="/tools/random-number" style={s.cta}>Open Random Number Generator →</Link>
+        <Link href="/tools/random-number-generator" style={s.cta}>Open Random Number Generator →</Link>
 
-        <p style={{ ...s.p, marginTop: 24 }}>Also useful: our <Link href="/tools/qr-code" style={{ color: "#0D9488" }}>QR Code Generator</Link> for related calculations.</p>
+        <p style={{ ...s.p, marginTop: 24 }}>Also useful: our <Link href="/tools/qr-code-generator" style={{ color: "#0D9488" }}>QR Code Generator</Link> for related calculations.</p>
       </main>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
     </>

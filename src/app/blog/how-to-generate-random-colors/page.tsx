@@ -44,7 +44,7 @@ export default function Page() {
         <p style={s.p}>Our free Color Palette Generator handles this instantly — no signup, no limits.</p>
         <Link href="/tools/color-palette" style={s.cta}>Open Color Palette Generator →</Link>
 
-        <p style={{ ...s.p, marginTop: 24 }}>Also useful: our <Link href="/tools/random-number" style={{ color: "#0D9488" }}>Random Number Generator</Link> for related calculations.</p>
+        <p style={{ ...s.p, marginTop: 24 }}>Also useful: our <Link href="/tools/random-number-generator" style={{ color: "#0D9488" }}>Random Number Generator</Link> for related calculations.</p>
       </main>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
     </>

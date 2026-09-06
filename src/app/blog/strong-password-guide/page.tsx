@@ -70,7 +70,7 @@ export default function Page() {
         <p style={s.p}>Use our free Password Generator to create cryptographically secure passwords instantly. Customize length, character types, and format — no data is ever stored or transmitted.</p>
         <Link href="/tools/password-generator" style={s.cta}>Open Password Generator →</Link>
 
-        <p style={{ ...s.p, marginTop: 24 }}>Need a QR code for your WiFi password? Our <Link href="/tools/qr-code" style={{ color: "#0D9488" }}>QR Code Generator</Link> creates shareable WiFi codes so guests can connect without typing the password.</p>
+        <p style={{ ...s.p, marginTop: 24 }}>Need a QR code for your WiFi password? Our <Link href="/tools/qr-code-generator" style={{ color: "#0D9488" }}>QR Code Generator</Link> creates shareable WiFi codes so guests can connect without typing the password.</p>
       </main>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 20px" }}><Footer /></div>
     </>

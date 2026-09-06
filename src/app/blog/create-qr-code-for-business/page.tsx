@@ -53,7 +53,7 @@ export default function Page() {
 
         <h2 style={s.h2}>Create Your QR Code Now</h2>
         <p style={s.p}>Our free QR Code Generator creates custom codes for URLs, WiFi, text, and more. Generate, download, and use — no account required.</p>
-        <Link href="/tools/qr-code" style={s.cta}>Open QR Code Generator →</Link>
+        <Link href="/tools/qr-code-generator" style={s.cta}>Open QR Code Generator →</Link>
 
         <p style={{ ...s.p, marginTop: 24 }}>Running a business? Our <Link href="/tools/invoice-generator" style={{ color: "#0D9488" }}>Invoice Generator</Link> creates professional invoices in seconds.</p>
       </main>
