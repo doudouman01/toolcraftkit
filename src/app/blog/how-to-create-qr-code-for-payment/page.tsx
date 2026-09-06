@@ -29,7 +29,7 @@ export default function Page() {
         <p style={s.p}>Payment QR codes let customers pay you instantly by scanning their phone. No card reader needed, no cash handling, no complicated payment terminal. Whether you run a small shop, a service business, or a side hustle, payment QR codes reduce friction between the moment someone decides to pay and the moment the money moves.</p>
 
         <h2 style={s.h2}>Payment Platform QR Codes</h2>
-        <p style={s.p}>Most payment platforms generate their own QR codes. Venmo: Settings {'>'} Show My QR Code. PayPal: open the app {'>'} Scan/Pay {'>'} My Code. Cash App: tap your profile icon for your $Cashtag QR code. Each platform generates a code that opens the payment flow directly in the payer's app.</p>
+        <p style={s.p}>Most payment platforms generate their own QR codes. Venmo: Settings &gt; Show My QR Code. PayPal: open the app &gt; Scan/Pay &gt; My Code. Cash App: tap your profile icon for your $Cashtag QR code. Each platform generates a code that opens the payment flow directly in the payer's app.</p>
 
         <h2 style={s.h2}>Custom Payment Links</h2>
         <p style={s.p}>Create a QR code from your payment URL. PayPal: paypal.me/yourusername. Venmo: venmo.com/yourusername. Stripe: create a payment link in your dashboard. Square: generate an invoice link. Any payment URL can become a QR code using our generator — the customer scans, the link opens, they pay.</p>

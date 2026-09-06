@@ -32,13 +32,13 @@ export default function Page() {
         <p style={s.p}>=SUM(A1:A10) adds all values in cells A1 through A10. =AVERAGE(A1:A10) calculates the mean. These two formulas handle budgets, expense tracking, grade calculations, and any situation where you need a total or average. You can also sum non-contiguous cells: =SUM(A1,B3,C5).</p>
 
         <h2 style={s.h2}>IF — Conditional Logic</h2>
-        <p style={s.p}>=IF(A1>100, "Over budget", "Within budget") checks a condition and returns different values based on the result. Use IF for grading (=IF(B2>=90,"A",IF(B2>=80,"B","C"))), flagging items, and any decision that depends on a value. Nested IFs handle multiple conditions.</p>
+        <p style={s.p}>=IF(A1&gt;100, "Over budget", "Within budget") checks a condition and returns different values based on the result. Use IF for grading (=IF(B2&gt;=90,"A",IF(B2&gt;=80,"B","C"))), flagging items, and any decision that depends on a value. Nested IFs handle multiple conditions.</p>
 
         <h2 style={s.h2}>COUNT and COUNTIF</h2>
-        <p style={s.p}>=COUNT(A1:A100) counts how many cells contain numbers. =COUNTIF(A1:A100, ">50") counts cells meeting a condition. =COUNTIF(B1:B100, "Completed") counts how many tasks are marked complete. These formulas turn raw data into simple dashboards.</p>
+        <p style={s.p}>=COUNT(A1:A100) counts how many cells contain numbers. =COUNTIF(A1:A100, "&gt;50") counts cells meeting a condition. =COUNTIF(B1:B100, "Completed") counts how many tasks are marked complete. These formulas turn raw data into simple dashboards.</p>
 
         <h2 style={s.h2}>Formatting for Clarity</h2>
-        <p style={s.p}>Bold headers in the first row. Freeze the top row (View {'>'} Freeze) so headers stay visible while scrolling. Use currency format for money, percentage format for rates, and date format for dates. Alternate row colors for readability in large tables. These formatting basics make any spreadsheet easier to read and less error-prone.</p>
+        <p style={s.p}>Bold headers in the first row. Freeze the top row (View &gt; Freeze) so headers stay visible while scrolling. Use currency format for money, percentage format for rates, and date format for dates. Alternate row colors for readability in large tables. These formatting basics make any spreadsheet easier to read and less error-prone.</p>
 
         <h2 style={s.h2}>Try It Now</h2>
         <p style={s.p}>Our free Percentage Calculator handles this instantly — no signup, no limits.</p>

@@ -29,7 +29,7 @@ export default function Page() {
         <p style={s.p}>Markdown is a lightweight markup language that turns plain text into formatted content. It is faster to write than HTML, more portable than Word documents, and supported by almost every platform — from GitHub and Notion to WordPress and Slack. Once you learn the basics, you will never want to format text any other way.</p>
 
         <h2 style={s.h2}>Essential Markdown Syntax</h2>
-        <p style={s.p}>Headings: # for H1, ## for H2, ### for H3. Bold: **text** or __text__. Italic: *text* or _text_. Links: [display text](url). Images: ![alt text](image-url). Unordered lists: - item or * item. Ordered lists: 1. item. Code: `inline code` or triple backticks for code blocks. Blockquotes: {'>'} quoted text. Horizontal rule: ---.</p>
+        <p style={s.p}>Headings: # for H1, ## for H2, ### for H3. Bold: **text** or __text__. Italic: *text* or _text_. Links: [display text](url). Images: ![alt text](image-url). Unordered lists: - item or * item. Ordered lists: 1. item. Code: `inline code` or triple backticks for code blocks. Blockquotes: &gt; quoted text. Horizontal rule: ---.</p>
 
         <h2 style={s.h2}>Markdown for Note-Taking</h2>
         <p style={s.p}>Markdown notes are plain text files that you can open in any editor on any device. They are tiny (a few KB), searchable, and version-controllable with Git. Organize notes with headings, create task lists with - [ ] syntax, and link between notes for a personal knowledge base. Tools like Obsidian and Logseq are built entirely on Markdown.</p>

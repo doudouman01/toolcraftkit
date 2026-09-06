@@ -29,16 +29,16 @@ export default function Page() {
         <p style={s.p}>Regular expressions are not just for validation — they are incredibly powerful for text processing. Extracting all email addresses from a document, cleaning messy data, reformatting dates, or finding patterns in log files — regex handles these tasks in seconds that would take hours to do manually.</p>
 
         <h2 style={s.h2}>Extracting Data From Text</h2>
-        <p style={s.p}>Extract all emails: [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{'{'{'}'}2,{'}'} — finds every email address in a block of text. Extract all URLs: https?://\S+ — finds every link. Extract phone numbers: \b\d{'{'{'}'}3{'}'}[-.]\d{'{'{'}'}3{'}'}[-.]\d{'{'{'}'}4{'}'}\b — finds US-format numbers. Use the global flag (g) to find all matches, not just the first.</p>
+        <p style={s.p}>Extract all emails: [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125; — finds every email address in a block of text. Extract all URLs: https?://\S+ — finds every link. Extract phone numbers: \b\d&#123;3&#125;[-.]\d&#123;3&#125;[-.]\d&#123;4&#125;\b — finds US-format numbers. Use the global flag (g) to find all matches, not just the first.</p>
 
         <h2 style={s.h2}>Find and Replace Operations</h2>
-        <p style={s.p}>Remove all HTML tags: replace <[^>]+> with nothing. Convert dates from MM/DD/YYYY to YYYY-MM-DD: find (\d{'{'{'}'}2{'}'})/(\d{'{'{'}'}2{'}'})/(\d{'{'{'}'}4{'}'}) and replace with $3-$1-$2. Add quotes around words: find \b(\w+)\b and replace with \"$1\". These operations transform entire documents in one step.</p>
+        <p style={s.p}>Remove all HTML tags: replace <[^>]+> with nothing. Convert dates from MM/DD/YYYY to YYYY-MM-DD: find (\d&#123;2&#125;)/(\d&#123;2&#125;)/(\d&#123;4&#125;) and replace with $3-$1-$2. Add quotes around words: find \b(\w+)\b and replace with \"$1\". These operations transform entire documents in one step.</p>
 
         <h2 style={s.h2}>Cleaning Messy Data</h2>
         <p style={s.p}>Remove extra whitespace: replace \s+ with a single space. Remove blank lines: replace ^\s*\n with nothing. Remove non-alphanumeric characters: replace [^a-zA-Z0-9\s] with nothing. Normalize line endings: replace \r\n with \n. These patterns are essential for data preparation before analysis or import.</p>
 
         <h2 style={s.h2}>Log File Analysis</h2>
-        <p style={s.p}>Extract timestamps: \d{'{'{'}'}4{'}'}-\d{'{'{'}'}2{'}'}-\d{'{'{'}'}2{'}'} \d{'{'{'}'}2{'}'}:\d{'{'{'}'}2{'}'}:\d{'{'{'}'}2{'}'} — finds ISO datetime patterns. Find error lines: ^.*ERROR.*$ — matches any line containing ERROR. Extract IP addresses: \b\d{'{'{'}'}1,3{'}'}\.\d{'{'{'}'}1,3{'}'}\.\d{'{'{'}'}1,3{'}'}\.\d{'{'{'}'}1,3{'}'}\b — finds IPv4 addresses. Combine these patterns to quickly analyze large log files.</p>
+        <p style={s.p}>Extract timestamps: \d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125; \d&#123;2&#125;:\d&#123;2&#125;:\d&#123;2&#125; — finds ISO datetime patterns. Find error lines: ^.*ERROR.*$ — matches any line containing ERROR. Extract IP addresses: \b\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;\b — finds IPv4 addresses. Combine these patterns to quickly analyze large log files.</p>
 
         <h2 style={s.h2}>Try It Now</h2>
         <p style={s.p}>Our free Regex Tester handles this instantly — no signup, no limits.</p>

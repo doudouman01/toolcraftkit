@@ -35,10 +35,10 @@ export default function Page() {
         <p style={s.p}>Paste or type your text into a Text to PDF converter. The tool formats it with proper margins, font sizing, and page breaks automatically. No word processor needed. Ideal for quick documents, code snippets, and notes.</p>
 
         <h2 style={s.h2}>From Web Pages</h2>
-        <p style={s.p}>Most browsers can save web pages as PDF using Print {'>'} Save as PDF (Ctrl+P or Cmd+P). This captures the page layout as-is. For cleaner results, use the browser's Reader Mode first to strip navigation, ads, and sidebars before saving.</p>
+        <p style={s.p}>Most browsers can save web pages as PDF using Print &gt; Save as PDF (Ctrl+P or Cmd+P). This captures the page layout as-is. For cleaner results, use the browser's Reader Mode first to strip navigation, ads, and sidebars before saving.</p>
 
         <h2 style={s.h2}>From Word and Google Docs</h2>
-        <p style={s.p}>In Microsoft Word: File {'>'} Save As {'>'} PDF. In Google Docs: File {'>'} Download {'>'} PDF. Both produce clean PDFs that preserve formatting, images, and fonts. For best results, check the output — sometimes headers, footers, and page breaks shift during conversion.</p>
+        <p style={s.p}>In Microsoft Word: File &gt; Save As &gt; PDF. In Google Docs: File &gt; Download &gt; PDF. Both produce clean PDFs that preserve formatting, images, and fonts. For best results, check the output — sometimes headers, footers, and page breaks shift during conversion.</p>
 
         <h2 style={s.h2}>Try It Now</h2>
         <p style={s.p}>Our free Text to PDF handles this instantly — no signup, no limits.</p>

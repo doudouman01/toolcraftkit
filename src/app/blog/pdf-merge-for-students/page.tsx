@@ -32,7 +32,7 @@ export default function Page() {
         <p style={s.p}>Typed essay plus scanned hand-drawn figures. Lab report with photographed experiment results. Research paper with appendices from different sources. Group project where each member contributed separate documents. Portfolio submissions combining multiple assignments from the semester.</p>
 
         <h2 style={s.h2}>Preparing Files for Merging</h2>
-        <p style={s.p}>Convert Word documents to PDF before merging (File {'>'} Save As {'>'} PDF). Scan handwritten pages using your phone's scanner app — most produce PDF output directly. Photograph lab results and convert images to PDF first. Make sure all pages are right-side up and properly oriented before combining.</p>
+        <p style={s.p}>Convert Word documents to PDF before merging (File &gt; Save As &gt; PDF). Scan handwritten pages using your phone's scanner app — most produce PDF output directly. Photograph lab results and convert images to PDF first. Make sure all pages are right-side up and properly oriented before combining.</p>
 
         <h2 style={s.h2}>Page Order and Organization</h2>
         <p style={s.p}>Check your assignment requirements for the expected order. Typically: title page, table of contents (for longer papers), main content, appendices, bibliography. Number your source files (01-titlepage.pdf, 02-essay.pdf, 03-figures.pdf) before merging to keep the order obvious.</p>

@@ -29,16 +29,16 @@ export default function Page() {
         <p style={s.p}>Data validation is one of the most common uses for regular expressions. Rather than building patterns from scratch every time, most developers keep a library of tested patterns for emails, phone numbers, URLs, dates, and other common formats. Here are the patterns that cover 95% of validation needs.</p>
 
         <h2 style={s.h2}>Email Validation</h2>
-        <p style={s.p}>Basic pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{'{'{'}'}2,{'}'}$ — this catches most valid emails while rejecting obvious non-emails. For production use, the best approach is a basic format check with regex plus a confirmation email. No regex can fully validate an email address per RFC 5322 — the spec is intentionally complex.</p>
+        <p style={s.p}>Basic pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$ — this catches most valid emails while rejecting obvious non-emails. For production use, the best approach is a basic format check with regex plus a confirmation email. No regex can fully validate an email address per RFC 5322 — the spec is intentionally complex.</p>
 
         <h2 style={s.h2}>Phone Number Patterns</h2>
-        <p style={s.p}>US phone: ^\+?1?[-.]?\(?\d{'{'{'}'}3{'}'}\)?[-.]?\d{'{'{'}'}3{'}'}[-.]?\d{'{'{'}'}4{'}'}$ — matches (555) 123-4567, 555-123-4567, 555.123.4567, and +1-555-123-4567. International phone: ^\+[1-9]\d{'{'{'}'}1,14{'}'}$ — matches E.164 format. For multi-country support, use a library rather than regex.</p>
+        <p style={s.p}>US phone: ^\+?1?[-.]?\(?\d&#123;3&#125;\)?[-.]?\d&#123;3&#125;[-.]?\d&#123;4&#125;$ — matches (555) 123-4567, 555-123-4567, 555.123.4567, and +1-555-123-4567. International phone: ^\+[1-9]\d&#123;1,14&#125;$ — matches E.164 format. For multi-country support, use a library rather than regex.</p>
 
         <h2 style={s.h2}>URL Validation</h2>
         <p style={s.p}>Basic URL: ^https?://[^\s/$.?#].[^\s]*$ — catches most web URLs. More strict: ^https?://([\w-]+\.)+[\w-]+(/[\w-./?%&=]*)?$ — validates structure more carefully. For URLs in user input, test the regex against edge cases like URLs with ports, query strings, and fragments.</p>
 
         <h2 style={s.h2}>Date Formats</h2>
-        <p style={s.p}>YYYY-MM-DD: ^\d{'{'{'}'}4{'}'}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$ — validates ISO date format with basic range checking. MM/DD/YYYY: ^(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01])/\d{'{'{'}'}4{'}'}$ — US date format. Note that regex validates format, not logic — it will accept February 31st. Use proper date parsing for full validation.</p>
+        <p style={s.p}>YYYY-MM-DD: ^\d&#123;4&#125;-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$ — validates ISO date format with basic range checking. MM/DD/YYYY: ^(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01])/\d&#123;4&#125;$ — US date format. Note that regex validates format, not logic — it will accept February 31st. Use proper date parsing for full validation.</p>
 
         <h2 style={s.h2}>Try It Now</h2>
         <p style={s.p}>Our free Regex Tester handles this instantly — no signup, no limits.</p>
