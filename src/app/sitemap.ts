@@ -1,8 +1,10 @@
 import { MetadataRoute } from "next";
+import fs from "fs";
+import path from "path";
 
 const BASE = "https://toolcraftkit.com";
 
-// ── All 30 tools ──────────────────────────────────────────────
+// ── All 35 tools ──────────────────────────────────────────────
 const tools = [
   // Text Tools (7)
   "word-counter",
@@ -29,48 +31,46 @@ const tools = [
   "base64-encoder-decoder",
   "url-encoder",
   "timestamp-converter",
-  // Image Tools (2)
+  // Image Tools (4)
   "hex-to-rgb",
   "color-palette",
+  "image-compressor",
+  "image-resizer",
   // Developer Tools (5)
   "json-formatter",
   "password-generator",
   "regex-tester",
   "qr-code-generator",
   "random-number-generator",
-  // Life Tools (1)
-  "image-compressor",
-  "image-resizer",
+  // PDF Tools (3)
   "pdf-merge",
   "image-to-pdf",
   "text-to-pdf",
+  // Life Tools (1)
   "age-calculator",
 ];
 
-// ── All 16 blog articles ─────────────────────────────────────
-const blogPosts = [
-  // Original 5
-  "how-many-pages-is-1000-words",
-  "how-to-create-qr-code-for-wifi",
-  "how-to-calculate-loan-payments",
-  "what-is-a-good-roi",
-  "how-to-remove-duplicate-lines-in-excel",
-  // Added 11
-  "how-to-convert-markdown-to-html",
-  "what-is-compound-interest-and-how-to-calculate-it",
-  "how-to-use-regex-for-beginners",
-  "how-to-calculate-profit-margin",
-  "best-free-online-json-formatter-tools",
-  "how-to-create-strong-passwords",
-  "how-to-calculate-mortgage-payments",
-  "color-theory-hex-rgb-hsl-explained",
-  "base64-encoding-explained",
-  "how-to-calculate-percentage-discount",
-  "how-to-convert-salary-to-hourly-rate",
-];
+// ── Auto-discover all blog articles ───────────────────────────
+function getBlogSlugs(): string[] {
+  const blogDir = path.join(process.cwd(), "src", "app", "blog");
+  try {
+    return fs
+      .readdirSync(blogDir, { withFileTypes: true })
+      .filter((entry) => {
+        // Only folders that contain a page.tsx (= real articles)
+        if (!entry.isDirectory()) return false;
+        if (entry.name === "components" || entry.name.startsWith("_")) return false;
+        return fs.existsSync(path.join(blogDir, entry.name, "page.tsx"));
+      })
+      .map((entry) => entry.name);
+  } catch {
+    return [];
+  }
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  const blogSlugs = getBlogSlugs();
 
   return [
     // ── Homepage ──
@@ -97,8 +97,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
-    // ── Blog articles ──
-    ...blogPosts.map((slug) => ({
+    // ── Blog articles (auto-discovered) ──
+    ...blogSlugs.map((slug) => ({
       url: `${BASE}/blog/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
