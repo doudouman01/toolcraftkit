@@ -32,7 +32,7 @@ export default function Page() {
         <p style={s.p}>Extract all emails: [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125; — finds every email address in a block of text. Extract all URLs: https?://\S+ — finds every link. Extract phone numbers: \b\d&#123;3&#125;[-.]\d&#123;3&#125;[-.]\d&#123;4&#125;\b — finds US-format numbers. Use the global flag (g) to find all matches, not just the first.</p>
 
         <h2 style={s.h2}>Find and Replace Operations</h2>
-        <p style={s.p}>Remove all HTML tags: replace <[^>]+> with nothing. Convert dates from MM/DD/YYYY to YYYY-MM-DD: find (\d&#123;2&#125;)/(\d&#123;2&#125;)/(\d&#123;4&#125;) and replace with $3-$1-$2. Add quotes around words: find \b(\w+)\b and replace with \"$1\". These operations transform entire documents in one step.</p>
+        <p style={s.p}>Remove all HTML tags: replace &lt;[^&gt;]+&gt; with nothing. Convert dates from MM/DD/YYYY to YYYY-MM-DD: find (\d&#123;2&#125;)/(\d&#123;2&#125;)/(\d&#123;4&#125;) and replace with $3-$1-$2. Add quotes around words: find \b(\w+)\b and replace with \"$1\". These operations transform entire documents in one step.</p>
 
         <h2 style={s.h2}>Cleaning Messy Data</h2>
         <p style={s.p}>Remove extra whitespace: replace \s+ with a single space. Remove blank lines: replace ^\s*\n with nothing. Remove non-alphanumeric characters: replace [^a-zA-Z0-9\s] with nothing. Normalize line endings: replace \r\n with \n. These patterns are essential for data preparation before analysis or import.</p>
