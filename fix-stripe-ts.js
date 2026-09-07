@@ -1,4 +1,26 @@
-import { NextRequest, NextResponse } from 'next/server';
+/**
+ * Fix TypeScript errors in Stripe integration
+ * Run: node fix-stripe-ts.js
+ * Then: git add . && git commit -m "fix: TypeScript errors in Stripe integration" && git push
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// Fix 1: src/lib/stripe.ts — wrong API version
+const stripePath = path.join('src', 'lib', 'stripe.ts');
+fs.writeFileSync(stripePath, `import Stripe from 'stripe';
+
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-12-18.acacia' as any,
+  typescript: true,
+});
+`, 'utf-8');
+console.log('✅ Fixed src/lib/stripe.ts (apiVersion)');
+
+// Fix 2: src/app/api/webhook/route.ts — TypeScript property errors
+const webhookPath = path.join('src', 'app', 'api', 'webhook', 'route.ts');
+fs.writeFileSync(webhookPath, `import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { createServiceClient } from '@/lib/supabase';
 import Stripe from 'stripe';
@@ -84,3 +106,8 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({ received: true });
 }
+`, 'utf-8');
+console.log('✅ Fixed src/app/api/webhook/route.ts (TypeScript types)');
+
+console.log('\\n🎉 All fixes applied! Now run:');
+console.log('git add . && git commit -m "fix: TypeScript errors in Stripe integration" && git push');
