@@ -149,3 +149,22 @@ function PricingContent() {
             </ul>
             <button onClick={() => handleCheckout(PRICE_ANNUAL)} disabled={!!checkoutLoading} style={{
               width: '100%', padding: '10px', backgroundColor: '#2563eb', color: 'white',
+              border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600,
+              cursor: checkoutLoading ? 'wait' : 'pointer', opacity: checkoutLoading === PRICE_ANNUAL ? 0.7 : 1,
+            }}>{checkoutLoading === PRICE_ANNUAL ? 'Redirecting...' : 'Get Annual'}</button>
+          </div>
+        </div>
+      )}
+
+      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} defaultTab="signup" />
+    </div>
+  );
+}
+
+export default function PricingPage() {
+  return (
+    <Suspense fallback={<div style={{ textAlign: 'center', padding: '60px' }}>Loading...</div>}>
+      <PricingContent />
+    </Suspense>
+  );
+}
