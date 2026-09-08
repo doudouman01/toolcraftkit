@@ -1,9 +1,18 @@
 "use client";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
 
+const TOOL_SLUG = "image-compressor";
+
 export default function ImageCompressor() {
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [period, setPeriod] = useState("day");
+
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
   const [compressed, setCompressed] = useState<string>("");
@@ -13,6 +22,43 @@ export default function ImageCompressor() {
   const [processing, setProcessing] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  /* ── Fetch usage on mount ── */
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const canUse = isPro || usage < limit;
+
+  /* ── Track a usage event ── */
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (usage >= limit) return false;
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch {
+      return false;
+    }
+  };
 
   const formatSize = (bytes: number) => {
     if (bytes < 1024) return bytes + " B";
@@ -58,11 +104,14 @@ export default function ImageCompressor() {
     if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
   };
 
-  const download = () => {
+  const download = async () => {
+    if (!canUse) return;
+    const ok = await trackUsage();
+    if (!ok) return;
     const a = document.createElement("a");
     a.href = compressed;
     const ext = file?.type === "image/png" ? ".png" : ".jpg";
-    a.download = "compressed-" + (file?.name || "image") .replace(/\.[^.]+$/, "") + ext;
+    a.download = "compressed-" + (file?.name || "image").replace(/\.[^.]+$/, "") + ext;
     a.click();
   };
 
@@ -78,7 +127,7 @@ export default function ImageCompressor() {
     dropIcon: { fontSize: "48px", marginBottom: "12px" },
     dropText: { fontSize: "16px", color: "#374151", marginBottom: "4px" },
     dropSub: { fontSize: "13px", color: "#9ca3af" },
-    btn: { background: "#0D9488", color: "#fff", border: "none", borderRadius: "8px", padding: "10px 24px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
+    btn: { background: canUse ? "#0D9488" : "#A8A29E", color: "#fff", border: "none", borderRadius: "8px", padding: "10px 24px", fontSize: "15px", fontWeight: 600, cursor: canUse ? "pointer" : "not-allowed", opacity: canUse ? 1 : 0.6 } as React.CSSProperties,
     btnOut: { background: "#fff", color: "#0D9488", border: "2px solid #0D9488", borderRadius: "8px", padding: "10px 24px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
     card: { background: "#fff", border: "1px solid #e5e7eb", borderRadius: "12px", padding: "20px", marginBottom: "20px" } as React.CSSProperties,
     label: { fontSize: "14px", fontWeight: 600, color: "#374151", marginBottom: "8px", display: "block" },
@@ -104,6 +153,8 @@ export default function ImageCompressor() {
 
       <h1 style={s.h1}>Image Compressor</h1>
       <p style={s.sub}>Compress images online for free. Reduce file size while maintaining quality. No upload to server — everything runs in your browser.</p>
+
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <input ref={inputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])} />
 
@@ -150,7 +201,7 @@ export default function ImageCompressor() {
           </div>
 
           <div style={{ display: "flex", gap: "12px" }}>
-            <button style={s.btn} onClick={download} disabled={processing}>Download Compressed Image</button>
+            <button style={s.btn} onClick={download} disabled={processing || !canUse}>Download Compressed Image</button>
             <button style={s.btnOut} onClick={() => { setFile(null); setPreview(""); setCompressed(""); setOrigSize(0); setCompSize(0); }}>New Image</button>
           </div>
         </>
