@@ -5,6 +5,8 @@ import { useAuth } from '@/context/AuthContext';
 import { useSearchParams } from 'next/navigation';
 import AuthModal from '@/components/AuthModal';
 
+export const dynamic = 'force-dynamic';
+
 const PRICE_MONTHLY = 'price_1UDAZ35cQm71aMnsolHy0jZI';
 const PRICE_ANNUAL = 'price_1UDAZ35cQm71aMnsQif2nm1a';
 
