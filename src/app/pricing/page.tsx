@@ -1,16 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useSearchParams } from 'next/navigation';
 import AuthModal from '@/components/AuthModal';
 
-export const dynamic = 'force-dynamic';
-
 const PRICE_MONTHLY = 'price_1UDAZ35cQm71aMnsolHy0jZI';
 const PRICE_ANNUAL = 'price_1UDAZ35cQm71aMnsQif2nm1a';
 
-export default function PricingPage() {
+function PricingContent() {
   const { user, isPro, loading, profile } = useAuth();
   const searchParams = useSearchParams();
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
@@ -89,7 +87,7 @@ export default function PricingPage() {
             padding: '24px', backgroundColor: '#f0fdf4', borderRadius: '12px',
             border: '1px solid #bbf7d0', marginBottom: '24px',
           }}>
-            <p style={{ fontSize: '18px', fontWeight: 700, color: '#16a34a' }}>\u2713 You are a Pro member</p>
+            <p style={{ fontSize: '18px', fontWeight: 700, color: '#16a34a' }}>✓ You are a Pro member</p>
             <p style={{ color: '#6b7280', marginTop: '8px' }}>
               Plan: {profile?.subscription_plan === 'annual' ? 'Annual' : 'Monthly'}
             </p>
@@ -101,16 +99,15 @@ export default function PricingPage() {
         </div>
       ) : (
         <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          {/* FREE */}
           <div style={cardStyle(false)}>
             <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '4px' }}>Free</h2>
             <p style={{ fontSize: '32px', fontWeight: 800 }}>$0</p>
             <p style={{ color: '#6b7280', marginBottom: '24px', fontSize: '14px' }}>Limited daily usage</p>
             <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', fontSize: '14px', lineHeight: '2' }}>
-              <li>\u2713 Access to all tools</li>
-              <li>\u2713 Daily usage limits</li>
-              <li>\u2717 Watermark on exports</li>
-              <li>\u2717 Priority processing</li>
+              <li>✓ Access to all tools</li>
+              <li>✓ Daily usage limits</li>
+              <li>✗ Watermark on exports</li>
+              <li>✗ Priority processing</li>
             </ul>
             <button disabled style={{
               width: '100%', padding: '10px', backgroundColor: '#e5e7eb', color: '#6b7280',
@@ -118,16 +115,15 @@ export default function PricingPage() {
             }}>Current Plan</button>
           </div>
 
-          {/* MONTHLY */}
           <div style={cardStyle(false)}>
             <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '4px' }}>Monthly</h2>
             <p style={{ fontSize: '32px', fontWeight: 800 }}>$4.99<span style={{ fontSize: '14px', fontWeight: 400, color: '#6b7280' }}>/mo</span></p>
             <p style={{ color: '#6b7280', marginBottom: '24px', fontSize: '14px' }}>Cancel anytime</p>
             <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', fontSize: '14px', lineHeight: '2' }}>
-              <li>\u2713 Unlimited usage</li>
-              <li>\u2713 No watermarks</li>
-              <li>\u2713 Priority processing</li>
-              <li>\u2713 All future tools</li>
+              <li>✓ Unlimited usage</li>
+              <li>✓ No watermarks</li>
+              <li>✓ Priority processing</li>
+              <li>✓ All future tools</li>
             </ul>
             <button onClick={() => handleCheckout(PRICE_MONTHLY)} disabled={!!checkoutLoading} style={{
               width: '100%', padding: '10px', backgroundColor: '#2563eb', color: 'white',
@@ -136,7 +132,6 @@ export default function PricingPage() {
             }}>{checkoutLoading === PRICE_MONTHLY ? 'Redirecting...' : 'Get Monthly'}</button>
           </div>
 
-          {/* ANNUAL */}
           <div style={cardStyle(true)}>
             <div style={{
               position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)',
@@ -147,21 +142,10 @@ export default function PricingPage() {
             <p style={{ fontSize: '32px', fontWeight: 800 }}>$29.99<span style={{ fontSize: '14px', fontWeight: 400, color: '#6b7280' }}>/yr</span></p>
             <p style={{ color: '#16a34a', marginBottom: '24px', fontSize: '14px', fontWeight: 600 }}>Save 50% — 2 months free</p>
             <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', fontSize: '14px', lineHeight: '2' }}>
-              <li>\u2713 Everything in Monthly</li>
-              <li>\u2713 Best price per month</li>
-              <li>\u2713 Priority support</li>
-              <li>\u2713 Early access to new tools</li>
+              <li>✓ Everything in Monthly</li>
+              <li>✓ Best price per month</li>
+              <li>✓ Priority support</li>
+              <li>✓ Early access to new tools</li>
             </ul>
             <button onClick={() => handleCheckout(PRICE_ANNUAL)} disabled={!!checkoutLoading} style={{
               width: '100%', padding: '10px', backgroundColor: '#2563eb', color: 'white',
-              border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600,
-              cursor: checkoutLoading ? 'wait' : 'pointer', opacity: checkoutLoading === PRICE_ANNUAL ? 0.7 : 1,
-            }}>{checkoutLoading === PRICE_ANNUAL ? 'Redirecting...' : 'Get Annual'}</button>
-          </div>
-        </div>
-      )}
-
-      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} defaultTab="signup" />
-    </div>
-  );
-}
