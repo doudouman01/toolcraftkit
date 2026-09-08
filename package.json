@@ -16,5 +16,8 @@
     "stripe": "^22.6.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.6"
   }
 }

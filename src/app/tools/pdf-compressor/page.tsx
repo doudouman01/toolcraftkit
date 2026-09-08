@@ -29,7 +29,7 @@ export default function Page() {
       doc.setTitle(src.getTitle() || "");
       doc.setAuthor(src.getAuthor() || "");
       const bytes = await doc.save({ useObjectStreams: true, addDefaultPage: false });
-      const blob = new Blob([bytes], { type: "application/pdf" });
+      const blob = new Blob([bytes as BlobPart], { type: "application/pdf" });
       setCompSize(blob.size);
       setResult(URL.createObjectURL(blob));
     } catch { alert("Error compressing PDF. The file may be encrypted or corrupted."); }
