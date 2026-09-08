@@ -4,51 +4,67 @@ import path from "path";
 
 const BASE = "https://toolcraftkit.com";
 
-// ── All 35 tools ──────────────────────────────────────────────
+// ── All 45 tools ──────────────────────────────────────────────
 const tools = [
-  // Text Tools (7)
+  // Text Tools (9)
   "word-counter",
   "character-counter",
   "text-case-converter",
-  "lorem-ipsum",
+  "lorem-ipsum-generator",
   "markdown-to-html",
   "remove-duplicates",
   "words-to-pages",
-  // Business Tools (11)
+  "text-compare",
+  "emoji-picker",
+  // Business Tools (13)
   "percentage-calculator",
   "profit-margin-calculator",
   "discount-calculator",
   "roi-calculator",
   "loan-calculator",
   "invoice-generator",
-  "compound-interest-calculator",
+  "compound-interest",
   "mortgage-calculator",
   "salary-calculator",
-  "income-tax-calculator",
+  "tax-calculator",
   "tip-calculator",
-  // Converter Tools (4)
+  "email-signature-generator",
+  "barcode-generator",
+  // Converter Tools (6)
   "unit-converter",
-  "base64-encoder-decoder",
+  "base64",
   "url-encoder",
   "timestamp-converter",
-  // Image Tools (4)
+  "image-to-pdf",
+  "text-to-pdf",
+  // Image Tools (5)
   "hex-to-rgb",
   "color-palette",
   "image-compressor",
   "image-resizer",
-  // Developer Tools (5)
+  "color-picker",
+  // PDF Tools (4)
+  "pdf-merge",
+  "pdf-compressor",
+  "image-to-pdf",
+  "text-to-pdf",
+  // Developer Tools (7)
   "json-formatter",
   "password-generator",
   "regex-tester",
   "qr-code-generator",
   "random-number-generator",
-  // PDF Tools (3)
-  "pdf-merge",
-  "image-to-pdf",
-  "text-to-pdf",
-  // Life Tools (1)
+  "css-gradient-generator",
+  "favicon-generator",
+  // Social Media Tools (1)
+  "hashtag-generator",
+  // Productivity Tools (2)
+  "pomodoro-timer",
   "age-calculator",
 ];
+
+// Deduplicate (image-to-pdf and text-to-pdf appear in both Converter and PDF)
+const uniqueTools = [...new Set(tools)];
 
 // ── Auto-discover all blog articles ───────────────────────────
 function getBlogSlugs(): string[] {
@@ -57,7 +73,6 @@ function getBlogSlugs(): string[] {
     return fs
       .readdirSync(blogDir, { withFileTypes: true })
       .filter((entry) => {
-        // Only folders that contain a page.tsx (= real articles)
         if (!entry.isDirectory()) return false;
         if (entry.name === "components" || entry.name.startsWith("_")) return false;
         return fs.existsSync(path.join(blogDir, entry.name, "page.tsx"));
@@ -81,8 +96,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
 
+    // ── Pricing ──
+    {
+      url: `${BASE}/pricing`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+
     // ── Tool pages (high priority) ──
-    ...tools.map((slug) => ({
+    ...uniqueTools.map((slug) => ({
       url: `${BASE}/tools/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
