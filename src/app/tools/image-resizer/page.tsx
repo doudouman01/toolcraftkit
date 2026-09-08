@@ -1,9 +1,18 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
 
+const TOOL_SLUG = "image-resizer";
+
 export default function ImageResizer() {
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [period, setPeriod] = useState("day");
+
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [result, setResult] = useState("");
@@ -15,6 +24,43 @@ export default function ImageResizer() {
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
+
+  /* ── Fetch usage on mount ── */
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const canUse = isPro || usage < limit;
+
+  /* ── Track a usage event ── */
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (usage >= limit) return false;
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch {
+      return false;
+    }
+  };
 
   const handleFile = (f: File) => {
     if (!f.type.startsWith("image/")) return;
@@ -42,7 +88,10 @@ export default function ImageResizer() {
     setResult(canvas.toDataURL(mime, 0.92));
   };
 
-  const download = () => {
+  const download = async () => {
+    if (!canUse) return;
+    const ok = await trackUsage();
+    if (!ok) return;
     const a = document.createElement("a"); a.href = result;
     const ext = file?.type === "image/png" ? ".png" : ".jpg";
     a.download = "resized-" + newW + "x" + newH + ext; a.click();
@@ -67,7 +116,7 @@ export default function ImageResizer() {
     card: { background: "#fff", border: "1px solid #e5e7eb", borderRadius: "12px", padding: "20px", marginBottom: "20px" } as React.CSSProperties,
     label: { fontSize: "14px", fontWeight: 600, color: "#374151", marginBottom: "8px", display: "block" },
     input: { width: "120px", padding: "8px 12px", border: "1px solid #d1d5db", borderRadius: "6px", fontSize: "15px" } as React.CSSProperties,
-    btn: { background: "#0D9488", color: "#fff", border: "none", borderRadius: "8px", padding: "10px 24px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
+    btn: { background: canUse ? "#0D9488" : "#A8A29E", color: "#fff", border: "none", borderRadius: "8px", padding: "10px 24px", fontSize: "15px", fontWeight: 600, cursor: canUse ? "pointer" : "not-allowed", opacity: canUse ? 1 : 0.6 } as React.CSSProperties,
     btnOut: { background: "#fff", color: "#0D9488", border: "2px solid #0D9488", borderRadius: "8px", padding: "10px 24px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
     btnSmall: { background: "#f0fdfa", color: "#0D9488", border: "1px solid #99f6e4", borderRadius: "6px", padding: "6px 12px", fontSize: "12px", cursor: "pointer", fontWeight: 500 } as React.CSSProperties,
     previewImg: { width: "100%", maxHeight: "300px", objectFit: "contain" as const, borderRadius: "8px", border: "1px solid #e5e7eb" },
@@ -84,6 +133,8 @@ export default function ImageResizer() {
       </div>
       <h1 style={s.h1}>Image Resizer</h1>
       <p style={s.sub}>Resize images to exact dimensions. Social media presets included. No upload — runs in your browser.</p>
+
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <input ref={inputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])} />
 
@@ -125,7 +176,7 @@ export default function ImageResizer() {
           </div>
 
           <div style={{ display: "flex", gap: "12px", marginBottom: "20px" }}>
-            <button style={s.btn} onClick={resize}>Resize Image</button>
+            <button style={s.btn} onClick={resize} disabled={!canUse}>Resize Image</button>
             <button style={s.btnOut} onClick={() => { setFile(null); setPreview(""); setResult(""); }}>New Image</button>
           </div>
 
@@ -134,7 +185,7 @@ export default function ImageResizer() {
               <label style={s.label}>Result: {newW} × {newH} px</label>
               <img src={result} alt="Resized" style={s.previewImg} />
               <div style={{ marginTop: "12px" }}>
-                <button style={s.btn} onClick={download}>Download Resized Image</button>
+                <button style={s.btn} onClick={download} disabled={!canUse}>Download Resized Image</button>
               </div>
             </div>
           )}
