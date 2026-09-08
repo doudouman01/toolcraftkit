@@ -1,14 +1,60 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
 
+const TOOL_SLUG = "text-to-pdf";
+
 export default function TextToPdf() {
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [period, setPeriod] = useState("day");
+
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
   const [fontSize, setFontSize] = useState(12);
   const [result, setResult] = useState("");
   const [converting, setConverting] = useState(false);
+
+  /* ── Fetch usage on mount ── */
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const canUse = isPro || usage < limit;
+
+  /* ── Track a usage event ── */
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (usage >= limit) return false;
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch {
+      return false;
+    }
+  };
 
   const convert = async () => {
     if (!text.trim()) return;
@@ -61,7 +107,12 @@ export default function TextToPdf() {
     setConverting(false);
   };
 
-  const download = () => { const a = document.createElement("a"); a.href = result; a.download = (title || "document") + ".pdf"; a.click(); };
+  const download = async () => {
+    if (!canUse) return;
+    const ok = await trackUsage();
+    if (!ok) return;
+    const a = document.createElement("a"); a.href = result; a.download = (title || "document") + ".pdf"; a.click();
+  };
 
   const s = {
     wrap: { maxWidth: "800px", margin: "0 auto", padding: "20px" } as React.CSSProperties,
@@ -74,7 +125,7 @@ export default function TextToPdf() {
     input: { width: "100%", padding: "10px 14px", border: "1px solid #d1d5db", borderRadius: "8px", fontSize: "15px", boxSizing: "border-box" as const },
     textarea: { width: "100%", minHeight: "250px", padding: "14px", border: "1px solid #d1d5db", borderRadius: "8px", fontSize: "14px", fontFamily: "inherit", lineHeight: 1.6, resize: "vertical" as const, boxSizing: "border-box" as const },
     select: { padding: "8px 12px", border: "1px solid #d1d5db", borderRadius: "6px", fontSize: "14px" } as React.CSSProperties,
-    btn: { background: "#0D9488", color: "#fff", border: "none", borderRadius: "8px", padding: "12px 28px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
+    btn: { background: canUse ? "#0D9488" : "#A8A29E", color: "#fff", border: "none", borderRadius: "8px", padding: "12px 28px", fontSize: "15px", fontWeight: 600, cursor: canUse ? "pointer" : "not-allowed", opacity: canUse ? 1 : 0.6 } as React.CSSProperties,
     btnOut: { background: "#fff", color: "#0D9488", border: "2px solid #0D9488", borderRadius: "8px", padding: "10px 24px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
     success: { background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: "12px", padding: "24px", textAlign: "center" as const, marginBottom: "20px" },
     charCount: { fontSize: "12px", color: "#9ca3af", textAlign: "right" as const, marginTop: "4px" },
@@ -88,6 +139,8 @@ export default function TextToPdf() {
       <div style={s.breadcrumb}><a href="/" style={s.bLink}>Home</a> › <span style={{ color: "#0D9488" }}>Text to PDF</span></div>
       <h1 style={s.h1}>Text to PDF Converter</h1>
       <p style={s.sub}>Convert plain text into a formatted PDF document. Add a title, choose your font size, and download instantly.</p>
+
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <div style={s.card}>
         <label style={s.label}>Document Title (optional)</label>
@@ -112,7 +165,7 @@ export default function TextToPdf() {
       </div>
 
       {!result ? (
-        <button style={s.btn} onClick={convert} disabled={converting || !text.trim()}>
+        <button style={s.btn} onClick={convert} disabled={converting || !text.trim() || !canUse}>
           {converting ? "Converting..." : "Convert to PDF"}
         </button>
       ) : (
@@ -120,7 +173,7 @@ export default function TextToPdf() {
           <div style={{ fontSize: "36px", marginBottom: "12px" }}>✅</div>
           <div style={{ fontSize: "18px", fontWeight: 600, color: "#111827", marginBottom: "16px" }}>PDF created!</div>
           <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-            <button style={s.btn} onClick={download}>Download PDF</button>
+            <button style={s.btn} onClick={download} disabled={!canUse}>Download PDF</button>
             <button style={s.btnOut} onClick={() => setResult("")}>Edit & Reconvert</button>
           </div>
         </div>
