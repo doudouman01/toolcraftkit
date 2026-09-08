@@ -1,17 +1,63 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
 
 interface PdfFile { id: string; name: string; size: number; data: ArrayBuffer; }
 
+const TOOL_SLUG = "pdf-merge";
+
 export default function PdfMerge() {
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(3);
+  const [period, setPeriod] = useState("day");
+
   const [files, setFiles] = useState<PdfFile[]>([]);
   const [merging, setMerging] = useState(false);
   const [result, setResult] = useState<string>("");
   const [error, setError] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  /* ── Fetch usage on mount ── */
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const canUse = isPro || usage < limit;
+
+  /* ── Track a usage event ── */
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (usage >= limit) return false;
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch {
+      return false;
+    }
+  };
 
   const formatSize = (b: number) => b < 1024 ? b + " B" : b < 1048576 ? (b / 1024).toFixed(1) + " KB" : (b / 1048576).toFixed(2) + " MB";
 
@@ -53,7 +99,12 @@ export default function PdfMerge() {
     setMerging(false);
   };
 
-  const download = () => { const a = document.createElement("a"); a.href = result; a.download = "merged.pdf"; a.click(); };
+  const download = async () => {
+    if (!canUse) return;
+    const ok = await trackUsage();
+    if (!ok) return;
+    const a = document.createElement("a"); a.href = result; a.download = "merged.pdf"; a.click();
+  };
 
   const s = {
     wrap: { maxWidth: "800px", margin: "0 auto", padding: "20px" } as React.CSSProperties,
@@ -67,7 +118,7 @@ export default function PdfMerge() {
     fileName: { fontSize: "14px", fontWeight: 500, color: "#111827" },
     fileSize: { fontSize: "12px", color: "#6b7280" },
     iconBtn: { background: "none", border: "none", fontSize: "16px", cursor: "pointer", padding: "4px 8px" } as React.CSSProperties,
-    btn: { background: "#0D9488", color: "#fff", border: "none", borderRadius: "8px", padding: "12px 28px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
+    btn: { background: canUse ? "#0D9488" : "#A8A29E", color: "#fff", border: "none", borderRadius: "8px", padding: "12px 28px", fontSize: "15px", fontWeight: 600, cursor: canUse ? "pointer" : "not-allowed", opacity: canUse ? 1 : 0.6 } as React.CSSProperties,
     btnOut: { background: "#fff", color: "#0D9488", border: "2px solid #0D9488", borderRadius: "8px", padding: "10px 24px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
     error: { color: "#dc2626", fontSize: "14px", marginBottom: "16px" },
     success: { background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: "12px", padding: "24px", textAlign: "center" as const, marginBottom: "20px" },
@@ -83,6 +134,8 @@ export default function PdfMerge() {
       </div>
       <h1 style={s.h1}>Merge PDF Files</h1>
       <p style={s.sub}>Combine multiple PDF files into one document. Drag to reorder. No upload to server — everything runs in your browser.</p>
+
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <input ref={inputRef} type="file" accept=".pdf" multiple style={{ display: "none" }} onChange={(e) => e.target.files && addFiles(e.target.files)} />
 
@@ -114,7 +167,7 @@ export default function PdfMerge() {
       {error && <div style={s.error}>{error}</div>}
 
       {files.length >= 2 && !result && (
-        <button style={s.btn} onClick={merge} disabled={merging}>
+        <button style={s.btn} onClick={merge} disabled={merging || !canUse}>
           {merging ? "Merging..." : `Merge ${files.length} PDFs`}
         </button>
       )}
@@ -124,7 +177,7 @@ export default function PdfMerge() {
           <div style={{ fontSize: "36px", marginBottom: "12px" }}>✅</div>
           <div style={{ fontSize: "18px", fontWeight: 600, color: "#111827", marginBottom: "16px" }}>PDFs merged successfully!</div>
           <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-            <button style={s.btn} onClick={download}>Download Merged PDF</button>
+            <button style={s.btn} onClick={download} disabled={!canUse}>Download Merged PDF</button>
             <button style={s.btnOut} onClick={() => { setFiles([]); setResult(""); }}>Start Over</button>
           </div>
         </div>
