@@ -151,8 +151,7 @@ export default function Page() {
       <h1 style={s.h1}>QR Code Generator</h1>
       <p style={s.sub}>Generate free QR codes for URLs, text, WiFi, email, and phone numbers.</p>
 
-      <UsageBanner usage={usage} limit={limit} period={period} isPro={isPro} />
-
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
       <div style={s.card}>
         <div style={s.row}>
           {MODES.map((m) => (
