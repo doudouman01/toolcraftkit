@@ -1,11 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
 
 interface Item { desc: string; qty: number; price: number; }
 
+const TOOL_SLUG = "invoice-generator";
+
 export default function Page() {
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(3);
+  const [period, setPeriod] = useState("month");
   const [from, setFrom] = useState({ name: "", email: "", address: "" });
   const [to, setTo] = useState({ name: "", email: "", address: "" });
   const [invoiceNo, setInvoiceNo] = useState("INV-001");
@@ -15,6 +23,22 @@ export default function Page() {
   const [taxRate, setTaxRate] = useState(0);
   const [notes, setNotes] = useState("");
   const [currency, setCurrency] = useState("$");
+
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: user.id, toolSlug: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.usage !== undefined) setUsage(data.usage);
+        if (data.limit !== undefined) setLimit(data.limit);
+        if (data.period) setPeriod(data.period);
+      })
+      .catch(() => {});
+  }, [user]);
 
   const addItem = () => setItems([...items, { desc: "", qty: 1, price: 0 }]);
   const removeItem = (i: number) => setItems(items.filter((_, idx) => idx !== i));
@@ -31,7 +55,21 @@ export default function Page() {
   const total = subtotal + tax;
   const fmt = (n: number) => currency + n.toFixed(2);
 
-  const printInvoice = () => {
+  const printInvoice = async () => {
+    if (!isPro && user) {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user.id, toolSlug: TOOL_SLUG, action: "record" }),
+      });
+      const data = await res.json();
+      if (!data.allowed) {
+        window.location.href = "/pricing";
+        return;
+      }
+      setUsage(data.usage || usage + 1);
+    }
+
     const win = window.open("", "_blank");
     if (!win) return;
     win.document.write(`<!DOCTYPE html><html><head><title>Invoice ${invoiceNo}</title><style>
@@ -103,6 +141,8 @@ export default function Page() {
       />
       <h1 style={s.h1}>Invoice Generator</h1>
       <p style={s.sub}>Create professional invoices in seconds. Print or save as PDF.</p>
+
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 16 }}>
         <div style={{ ...s.card, flex: 1, minWidth: 280 }}>
@@ -202,7 +242,7 @@ export default function Page() {
           </div>
         ))}
       </div>
-          <SeoContent />
+      <SeoContent />
     </div>
   );
 }
