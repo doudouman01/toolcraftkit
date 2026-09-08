@@ -14,6 +14,8 @@ const tools = [
       { name: "Markdown to HTML", desc: "Convert Markdown to clean HTML. Live preview, copy, or download.", href: "/tools/markdown-to-html" },
       { name: "Remove Duplicate Lines", desc: "Remove duplicate lines from text. Keep only unique entries, sort, trim.", href: "/tools/remove-duplicates" },
       { name: "Words to Pages", desc: "Estimate how many pages your word count fills. Font size, spacing, presets.", href: "/tools/words-to-pages", hot: true },
+      { name: "Text Compare", desc: "Compare two texts side by side. Find differences instantly. Line-by-line diff.", href: "/tools/text-compare", hot: true },
+      { name: "Emoji Picker", desc: "Browse and copy emojis instantly. 1000+ emojis organized by category.", href: "/tools/emoji-picker", hot: true },
     ],
   },
   {
@@ -31,6 +33,8 @@ const tools = [
       { name: "Salary Calculator", desc: "Convert annual salary to hourly rate and back. Monthly, weekly, daily breakdown.", href: "/tools/salary-calculator" },
       { name: "Income Tax Calculator", desc: "Estimate federal income tax. US, Canada, and UK brackets with breakdown.", href: "/tools/tax-calculator", hot: true },
       { name: "Tip Calculator", desc: "Calculate tip amount, split the bill, and compare tip percentages.", href: "/tools/tip-calculator" },
+      { name: "Email Signature Generator", desc: "Create a professional email signature. Copy and paste into Gmail or Outlook.", href: "/tools/email-signature-generator", hot: true },
+      { name: "Barcode Generator", desc: "Generate barcodes in CODE128, EAN-13, UPC, CODE39. Download as PNG.", href: "/tools/barcode-generator", hot: true },
     ],
   },
   {
@@ -53,6 +57,7 @@ const tools = [
       { name: "Image Resizer", desc: "Resize images to exact dimensions. Social media presets included.", href: "/tools/image-resizer", hot: true },
       { name: "Hex to RGB Converter", desc: "Convert colors between HEX, RGB, HSL, CMYK. Contrast checker & palettes.", href: "/tools/hex-to-rgb" },
       { name: "Color Palette Generator", desc: "Generate harmonious palettes from any color. 6 modes, CSS export.", href: "/tools/color-palette", hot: true },
+      { name: "Color Picker", desc: "Pick any color, get HEX, RGB, HSL values. Shades and tints generator.", href: "/tools/color-picker", hot: true },
     ],
   },
   {
@@ -60,6 +65,7 @@ const tools = [
     color: "#DC2626",
     items: [
       { name: "PDF Merge", desc: "Combine multiple PDF files into one document. Reorder pages before merging.", href: "/tools/pdf-merge", hot: true },
+      { name: "PDF Compressor", desc: "Reduce PDF file size without losing quality. No upload to server.", href: "/tools/pdf-compressor", hot: true },
       { name: "Image to PDF", desc: "Convert multiple images into a single PDF document. Free, no upload.", href: "/tools/image-to-pdf", hot: true },
       { name: "Text to PDF", desc: "Convert plain text into a formatted, downloadable PDF document.", href: "/tools/text-to-pdf" },
     ],
@@ -73,12 +79,22 @@ const tools = [
       { name: "Regex Tester", desc: "Test regular expressions with live highlighting, presets, and replace mode.", href: "/tools/regex-tester", hot: true },
       { name: "QR Code Generator", desc: "Generate QR codes for URLs, WiFi, email, phone. Custom colors, download PNG.", href: "/tools/qr-code-generator", hot: true },
       { name: "Random Number Generator", desc: "Random numbers, dice roller, list picker, coin flip. 4 modes.", href: "/tools/random-number-generator", hot: true },
+      { name: "CSS Gradient Generator", desc: "Create beautiful CSS gradients. Linear and radial with live preview and presets.", href: "/tools/css-gradient-generator", hot: true },
+      { name: "Favicon Generator", desc: "Create favicons from text or emoji. Download 16px, 32px, 180px, 512px.", href: "/tools/favicon-generator", hot: true },
     ],
   },
   {
-    category: "Life Tools",
-    color: "#EC4899",
+    category: "Social Media Tools",
+    color: "#3B82F6",
     items: [
+      { name: "Hashtag Generator", desc: "Generate trending hashtags for Instagram, TikTok, Twitter, and YouTube.", href: "/tools/hashtag-generator", hot: true },
+    ],
+  },
+  {
+    category: "Productivity Tools",
+    color: "#10B981",
+    items: [
+      { name: "Pomodoro Timer", desc: "Stay focused with timed work sessions and breaks. Customizable intervals.", href: "/tools/pomodoro-timer", hot: true },
       { name: "Age Calculator", desc: "Your exact age in years, months, days, hours. Zodiac, birthday countdown.", href: "/tools/age-calculator", hot: true },
     ],
   },
