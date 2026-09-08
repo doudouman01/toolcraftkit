@@ -1,11 +1,20 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
 
 interface ImgFile { id: string; name: string; url: string; data: Uint8Array; type: string; w: number; h: number; }
 
+const TOOL_SLUG = "image-to-pdf";
+
 export default function ImageToPdf() {
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(3);
+  const [period, setPeriod] = useState("day");
+
   const [images, setImages] = useState<ImgFile[]>([]);
   const [converting, setConverting] = useState(false);
   const [result, setResult] = useState("");
@@ -13,6 +22,43 @@ export default function ImageToPdf() {
   const [margin, setMargin] = useState(20);
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  /* ── Fetch usage on mount ── */
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const canUse = isPro || usage < limit;
+
+  /* ── Track a usage event ── */
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (usage >= limit) return false;
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch {
+      return false;
+    }
+  };
 
   const addFiles = async (fileList: FileList) => {
     const newImgs: ImgFile[] = [];
@@ -67,7 +113,12 @@ export default function ImageToPdf() {
     setConverting(false);
   };
 
-  const download = () => { const a = document.createElement("a"); a.href = result; a.download = "images.pdf"; a.click(); };
+  const download = async () => {
+    if (!canUse) return;
+    const ok = await trackUsage();
+    if (!ok) return;
+    const a = document.createElement("a"); a.href = result; a.download = "images.pdf"; a.click();
+  };
 
   const s = {
     wrap: { maxWidth: "800px", margin: "0 auto", padding: "20px" } as React.CSSProperties,
@@ -83,7 +134,7 @@ export default function ImageToPdf() {
     removeBtn: { position: "absolute" as const, top: "4px", right: "4px", background: "rgba(0,0,0,0.6)", color: "#fff", border: "none", borderRadius: "50%", width: "24px", height: "24px", cursor: "pointer", fontSize: "14px" },
     label: { fontSize: "14px", fontWeight: 600, color: "#374151", marginBottom: "8px", display: "block" },
     select: { padding: "8px 12px", border: "1px solid #d1d5db", borderRadius: "6px", fontSize: "14px" } as React.CSSProperties,
-    btn: { background: "#0D9488", color: "#fff", border: "none", borderRadius: "8px", padding: "12px 28px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
+    btn: { background: canUse ? "#0D9488" : "#A8A29E", color: "#fff", border: "none", borderRadius: "8px", padding: "12px 28px", fontSize: "15px", fontWeight: 600, cursor: canUse ? "pointer" : "not-allowed", opacity: canUse ? 1 : 0.6 } as React.CSSProperties,
     btnOut: { background: "#fff", color: "#0D9488", border: "2px solid #0D9488", borderRadius: "8px", padding: "10px 24px", fontSize: "15px", fontWeight: 600, cursor: "pointer" } as React.CSSProperties,
     success: { background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: "12px", padding: "24px", textAlign: "center" as const, marginBottom: "20px" },
   };
@@ -96,6 +147,8 @@ export default function ImageToPdf() {
       <div style={s.breadcrumb}><a href="/" style={s.bLink}>Home</a> › <span style={{ color: "#0D9488" }}>Image to PDF</span></div>
       <h1 style={s.h1}>Image to PDF Converter</h1>
       <p style={s.sub}>Convert images to a PDF document. Upload multiple images, arrange them, and download as a single PDF. No upload to server.</p>
+
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <input ref={inputRef} type="file" accept="image/*" multiple style={{ display: "none" }} onChange={(e) => e.target.files && addFiles(e.target.files)} />
 
@@ -138,7 +191,7 @@ export default function ImageToPdf() {
           </div>
 
           {!result ? (
-            <button style={s.btn} onClick={convert} disabled={converting}>
+            <button style={s.btn} onClick={convert} disabled={converting || !canUse}>
               {converting ? "Converting..." : `Convert ${images.length} Image${images.length > 1 ? "s" : ""} to PDF`}
             </button>
           ) : (
@@ -146,7 +199,7 @@ export default function ImageToPdf() {
               <div style={{ fontSize: "36px", marginBottom: "12px" }}>✅</div>
               <div style={{ fontSize: "18px", fontWeight: 600, color: "#111827", marginBottom: "16px" }}>PDF created!</div>
               <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-                <button style={s.btn} onClick={download}>Download PDF</button>
+                <button style={s.btn} onClick={download} disabled={!canUse}>Download PDF</button>
                 <button style={s.btnOut} onClick={() => { setImages([]); setResult(""); }}>Start Over</button>
               </div>
             </div>
