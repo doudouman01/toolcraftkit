@@ -209,10 +209,10 @@ export default function FuelCalculatorPage() {
 
         <p style={{ marginTop: "1.5rem", fontSize: "0.9rem", color: "#888" }}>
           More tools:{" "}
-          <a href="/invoice-generator" style={{ color: "#C4A265" }}>Invoice Generator</a>{" · "}
-          <a href="/qr-code-generator" style={{ color: "#C4A265" }}>QR Code Generator</a>{" · "}
-          <a href="/word-counter" style={{ color: "#C4A265" }}>Word Counter</a>{" · "}
-          <a href="/password-generator" style={{ color: "#C4A265" }}>Password Generator</a>
+          <a href="/tools/invoice-generator" style={{ color: "#C4A265" }}>Invoice Generator</a>{" · "}
+          <a href="/tools/qr-code-generator" style={{ color: "#C4A265" }}>QR Code Generator</a>{" · "}
+          <a href="/tools/word-counter" style={{ color: "#C4A265" }}>Word Counter</a>{" · "}
+          <a href="/tools/password-generator" style={{ color: "#C4A265" }}>Password Generator</a>
         </p>
       </div>
     </div>
