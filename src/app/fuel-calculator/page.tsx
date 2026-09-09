@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export default function FuelCalculatorPage() {
   const [currentMpg, setCurrentMpg] = useState("");
@@ -59,6 +60,7 @@ export default function FuelCalculatorPage() {
 
   return (
     <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem", fontFamily: "'Inter', -apple-system, sans-serif" }}>
+      <Breadcrumb toolSlug="fuel-calculator" toolName="Fuel Calculator" />
 
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
         <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "#1a1a2e", marginBottom: "0.5rem" }}>

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export default function Page() {
   const [principal, setPrincipal] = useState("10000");
@@ -68,6 +69,7 @@ export default function Page() {
 
   return (
     <div style={s.page}>
+      <Breadcrumb toolSlug="compound-interest" toolName="Compound Interest" />
       <h1 style={s.h1}>Compound Interest Calculator</h1>
       <p style={s.sub}>See how your money grows over time with compound interest and regular contributions.</p>
 
