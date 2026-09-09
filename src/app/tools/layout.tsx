@@ -16,6 +16,7 @@ const CATEGORIES = [
   { name: "Dev", anchor: "dev-tools", color: "#10B981" },
   { name: "PDF", anchor: "pdf-tools", color: "#EF4444" },
   { name: "Security", anchor: "security-tools", color: "#6366F1" },
+  { name: "Author", anchor: "author-tools", color: "#D97706" },
   { name: "Converter", anchor: "converter-tools", color: "#14B8A6" },
 ];
 
