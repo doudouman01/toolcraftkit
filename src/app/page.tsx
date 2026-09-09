@@ -95,13 +95,18 @@ const tools = [
     color: "#10B981",
     items: [
       { name: "Pomodoro Timer", desc: "Stay focused with timed work sessions and breaks. Customizable intervals.", href: "/tools/pomodoro-timer", hot: true },
-        {
-          name: "Fuel Cost Calculator",
-          href: "/fuel-calculator",
-          icon: "⛽",
-          description: "Calculate annual fuel costs and savings potential",
-        },
+      { name: "Fuel Cost Calculator", desc: "Calculate annual fuel costs, efficiency gap, and savings potential.", href: "/fuel-calculator", hot: true },
       { name: "Age Calculator", desc: "Your exact age in years, months, days, hours. Zodiac, birthday countdown.", href: "/tools/age-calculator", hot: true },
+    ],
+  },
+    {
+    category: "Author Tools",
+    color: "#D97706",
+    items: [
+      { name: "KDP Royalty Calculator", desc: "Calculate Amazon KDP ebook royalties. Compare 35% vs 70% across all marketplaces.", href: "/tools/kdp-royalty-calculator", hot: true },
+      { name: "Book Description Formatter", desc: "Write your blurb in plain text, get Amazon-ready HTML. Templates included.", href: "/tools/book-description-formatter", hot: true },
+      { name: "Series Revenue Calculator", desc: "Project total series revenue based on read-through rates and KU page reads.", href: "/tools/series-revenue-calculator", premium: true },
+      { name: "Author Productivity Planner", desc: "Plan your manuscript timeline, track progress, build a publication calendar.", href: "/tools/author-productivity-planner", premium: true },
     ],
   },
 ];
@@ -142,6 +147,12 @@ export default function Home() {
                         fontSize: 10, fontWeight: 700, color: "#fff", background: "#0D9488",
                         borderRadius: 4, padding: "2px 6px", letterSpacing: 0.5, textTransform: "uppercase",
                       }}>POPULAR</span>
+                    )}
+                    {tool.premium && (
+                      <span style={{
+                        fontSize: 10, fontWeight: 700, color: "#fff", background: "#D97706",
+                        borderRadius: 4, padding: "2px 6px", letterSpacing: 0.5, textTransform: "uppercase",
+                      }}>PREMIUM</span>
                     )}
                   </div>
                   <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>{tool.desc}</p>
