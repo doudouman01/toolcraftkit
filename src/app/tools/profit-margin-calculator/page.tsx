@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Breadcrumb from "@/components/Breadcrumb";
 import ProfitMargin from "./ProfitMargin.jsx";
 
 export const metadata: Metadata = {
@@ -6,4 +7,11 @@ export const metadata: Metadata = {
   description: "Free profit margin calculator. Calculate margin, markup, and selling price from costs. Three modes, visual breakdown. For entrepreneurs and small businesses.",
 };
 
-export default function Page() { return <ProfitMargin />; }
+export default function Page() {
+  return (
+    <>
+      <Breadcrumb toolSlug="profit-margin-calculator" toolName="Profit Margin Calculator" />
+      <ProfitMargin />
+    </>
+  );
+}
