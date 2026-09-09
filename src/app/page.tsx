@@ -95,6 +95,12 @@ const tools = [
     color: "#10B981",
     items: [
       { name: "Pomodoro Timer", desc: "Stay focused with timed work sessions and breaks. Customizable intervals.", href: "/tools/pomodoro-timer", hot: true },
+        {
+          name: "Fuel Cost Calculator",
+          href: "/fuel-calculator",
+          icon: "⛽",
+          description: "Calculate annual fuel costs and savings potential",
+        },
       { name: "Age Calculator", desc: "Your exact age in years, months, days, hours. Zodiac, birthday countdown.", href: "/tools/age-calculator", hot: true },
     ],
   },
