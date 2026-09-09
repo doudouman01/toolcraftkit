@@ -248,14 +248,16 @@ export default function TextCaseConverter() {
       <main style={{ maxWidth: 880, margin: "0 auto", padding: "24px 16px 60px" }}>
 
         {/* Breadcrumb */}
-        <div style={{
-          fontSize: 12, color: theme.textLight, marginBottom: 14,
+        <nav aria-label="Breadcrumb" style={{
+          fontSize: 13, color: theme.textLight, marginBottom: 14,
           display: "flex", gap: 6, alignItems: "center",
         }}>
-          <span style={{ cursor: "pointer", color: theme.textMuted }}>Home</span><span>›</span>
-          <span style={{ cursor: "pointer", color: theme.textMuted }}>Text Tools</span><span>›</span>
-          <span style={{ color: theme.primary, fontWeight: 500 }}>Text Case Converter</span>
-        </div>
+          <a href="/" style={{ color: theme.primary, textDecoration: "none", fontWeight: 500 }}>Home</a>
+          <span>›</span>
+          <a href="/#text-tools" style={{ color: theme.primary, textDecoration: "none", fontWeight: 500 }}>Text Tools</a>
+          <span>›</span>
+          <span style={{ color: theme.primary, fontWeight: 600 }}>Text Case Converter</span>
+        </nav>
 
         <AdSlot position="header" theme={theme} />
 
