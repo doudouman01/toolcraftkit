@@ -2,7 +2,7 @@ import Link from "next/link";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-const tools = [
+const tools: { category: string; color: string; items: { name: string; desc: string; href: string; hot?: boolean; premium?: boolean }[] }[] = [
   {
     category: "Text Tools",
     color: "#0D9488",
