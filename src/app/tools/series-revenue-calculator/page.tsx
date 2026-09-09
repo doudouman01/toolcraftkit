@@ -1,6 +1,6 @@
 "use client";
 
-import PremiumGate from "@/app/components/PremiumGate";
+import PremiumGate from "@/components/PremiumGate";
 import SeriesRevenueCalculatorTool from "./SeriesRevenueCalculator";
 
 export default function SeriesRevenueCalculatorPage() {
