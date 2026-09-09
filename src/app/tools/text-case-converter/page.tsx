@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Breadcrumb from "@/components/Breadcrumb";
 import TextCaseConverter from "./TextCaseConverter.jsx";
 
 export const metadata: Metadata = {
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <Breadcrumb toolSlug="text-case-converter" toolName="Text Case Converter" />
       <TextCaseConverter />
     </>
   );

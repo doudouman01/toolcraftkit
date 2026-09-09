@@ -2,8 +2,6 @@
 
 import React, { useState, useCallback } from "react";
 import type { Metadata } from "next";
-import Breadcrumb from "@/components/Breadcrumb";
-
 // ============================================================
 // FUEL COST CALCULATOR — ToolCraftKit.com/fuel-calculator
 // Cross-promotion tool for "Drive Smarter, Spend Less" ebook
@@ -85,7 +83,6 @@ export default function FuelCalculatorPage() {
 
   return (
     <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem", fontFamily: "'Inter', -apple-system, sans-serif" }}>
-      <Breadcrumb toolSlug="fuel-calculator" toolName="Fuel Calculator" />
       
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>

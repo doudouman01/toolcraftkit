@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Breadcrumb from "@/components/Breadcrumb";
 import JsonFormatter from "./JsonFormatter.jsx";
 
 export const metadata: Metadata = {
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <Breadcrumb toolSlug="json-formatter" toolName="Json Formatter" />
       <JsonFormatter />
     </>
   );

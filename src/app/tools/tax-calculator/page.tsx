@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-
 const US_BRACKETS_2026 = [
   { min: 0, max: 11600, rate: 10 },
   { min: 11600, max: 47150, rate: 12 },
@@ -74,7 +72,6 @@ export default function Page() {
 
   return (
     <div style={s.page}>
-      <Breadcrumb toolSlug="tax-calculator" toolName="Tax Calculator" />
       <h1 style={s.h1}>Income Tax Calculator</h1>
       <p style={s.sub}>Estimate your federal income tax based on your annual income. US, Canada, and UK brackets.</p>
 

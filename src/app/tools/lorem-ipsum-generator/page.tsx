@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Breadcrumb from "@/components/Breadcrumb";
 import LoremIpsum from "./LoremIpsum.jsx";
 
 export const metadata: Metadata = {
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <Breadcrumb toolSlug="lorem-ipsum-generator" toolName="Lorem Ipsum Generator" />
       <LoremIpsum />
     </>
   );

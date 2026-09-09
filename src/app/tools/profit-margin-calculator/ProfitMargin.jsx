@@ -116,50 +116,12 @@ export default function ProfitMarginCalculator() {
 
   const costPct = results ? (results.cost / results.revenue) * 100 : 0;
   const profitPct = results ? (results.profit / results.revenue) * 100 : 0;
-
-  const navItems = ["Text", "Writing", "Image", "Business", "Social", "Dev"];
-
-  return (
+return (
     <div style={{
       minHeight: "100vh", background: theme.bg,
       fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
       color: theme.text, transition: "background 0.3s ease, color 0.3s ease",
     }}>
-      <header style={{
-        background: theme.surface, borderBottom: `1px solid ${theme.border}`,
-        padding: "0 20px", height: 54, display: "flex", alignItems: "center",
-        justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, boxShadow: theme.shadow,
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{
-            width: 30, height: 30, borderRadius: 7,
-            background: `linear-gradient(135deg, ${theme.primary}, ${theme.primaryLight})`,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            color: dark ? "#0C0A09" : "#fff", fontSize: 15, fontWeight: 800,
-          }}>T</div>
-          <span style={{ fontSize: 15, fontWeight: 700, letterSpacing: "-0.02em" }}>
-            Tool<span style={{ color: theme.primary }}>Craft</span>Kit
-            <span style={{ color: theme.textLight, fontWeight: 400 }}>.com</span>
-          </span>
-        </div>
-        <nav style={{ display: "flex", gap: 6, alignItems: "center" }}>
-          <div style={{ display: "flex", gap: 4 }}>
-            {navItems.map((item) => (
-              <span key={item} style={{
-                padding: "5px 10px", fontSize: 13, fontWeight: 500, borderRadius: 6,
-                color: item === "Business" ? theme.primary : theme.textMuted,
-                background: item === "Business" ? (dark ? "rgba(45,212,191,0.1)" : "rgba(13,148,136,0.06)") : "transparent",
-                cursor: "pointer",
-              }}>{item}</span>
-            ))}
-          </div>
-          <button onClick={() => setDark(!dark)} style={{
-            width: 34, height: 34, borderRadius: 8, border: `1px solid ${theme.border}`,
-            background: theme.surfaceAlt, cursor: "pointer", fontSize: 16,
-            display: "flex", alignItems: "center", justifyContent: "center", marginLeft: 8, color: theme.textMuted,
-          }}>{dark ? "☀" : "☾"}</button>
-        </nav>
-      </header>
 
       <main style={{ maxWidth: 880, margin: "0 auto", padding: "24px 16px 60px" }}>
 

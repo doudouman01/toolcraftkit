@@ -1,6 +1,4 @@
 "use client";
-import Breadcrumb from "@/components/Breadcrumb";
-
 import { useState } from "react";
 
 export default function Page() {
@@ -43,7 +41,6 @@ export default function Page() {
 
   return (
     <div style={s.page}>
-      <Breadcrumb toolSlug="base64" toolName="Base64" />
       <h1 style={s.h1}>Base64 Encoder / Decoder</h1>
       <p style={s.sub}>Encode text to Base64 or decode Base64 back to text. Runs entirely in your browser.</p>
       <div style={s.card}>
