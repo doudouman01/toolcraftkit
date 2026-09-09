@@ -195,8 +195,8 @@ export default function PercentageCalculator() {
       <main style={{ maxWidth: 880, margin: "0 auto", padding: "24px 16px 60px" }}>
 
         <div style={{ fontSize: 12, color: theme.textLight, marginBottom: 14, display: "flex", gap: 6, alignItems: "center" }}>
-          <span style={{ cursor: "pointer", color: theme.textMuted }}>Home</span><span>›</span>
-          <span style={{ cursor: "pointer", color: theme.textMuted }}>Business Tools</span><span>›</span>
+          <a href="/" style={{ cursor: "pointer", color: theme.textMuted , textDecoration: "none" }}>Home</a><span>›</span>
+          <a href="/#business-tools" style={{ cursor: "pointer", color: theme.textMuted , textDecoration: "none" }}>Business Tools</a><span>›</span>
           <span style={{ color: theme.primary, fontWeight: 500 }}>Percentage Calculator</span>
         </div>
 

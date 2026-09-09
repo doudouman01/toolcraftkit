@@ -221,8 +221,8 @@ export default function LoremIpsumGenerator() {
           fontSize: 12, color: theme.textLight, marginBottom: 14,
           display: "flex", gap: 6, alignItems: "center",
         }}>
-          <span style={{ cursor: "pointer", color: theme.textMuted }}>Home</span><span>›</span>
-          <span style={{ cursor: "pointer", color: theme.textMuted }}>Text Tools</span><span>›</span>
+          <a href="/" style={{ cursor: "pointer", color: theme.textMuted , textDecoration: "none" }}>Home</a><span>›</span>
+          <a href="/#text-tools" style={{ cursor: "pointer", color: theme.textMuted , textDecoration: "none" }}>Text Tools</a><span>›</span>
           <span style={{ color: theme.primary, fontWeight: 500 }}>Lorem Ipsum Generator</span>
         </div>
 
