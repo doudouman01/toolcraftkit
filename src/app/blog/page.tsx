@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Practical guides, tips, and tutorials for online tools. Learn how to use calculators, image editors, PDF tools, and developer utilities.",
 };
 
-const posts = [
+let posts = [
   // ===== TEXT COMPARE SEO ARTICLES (Sept 2026) =====
   { slug: 'how-to-compare-two-texts-online', title: 'How to Compare Two Texts Online — Free Side-by-Side Diff Tool', desc: 'Learn how to compare two texts online and find differences instantly. Free text comparison tool with side-by-side diff.', date: 'September 12, 2026', read: '6 min read' },
   { slug: 'best-free-text-comparison-tools-2026', title: 'Best Free Text Comparison Tools in 2026', desc: 'We compare the top online text diff tools for developers, writers, and professionals.', date: 'September 12, 2026', read: '5 min read' },
@@ -173,6 +173,8 @@ const posts = [
   { slug: "how-to-use-spreadsheets-basics", title: "Spreadsheet Basics: Essential Formulas Everyone Should Know", desc: "Master the spreadsheet formulas that handle 90% of everyday calculations: SUM, AVERAGE, IF, VLOOKUP, and basic formatting.", date: "September 5, 2026", read: "5 min read" },
   { slug: "how-to-estimate-project-costs", title: "How to Estimate Project Costs: A Framework for Freelancers and Small Business", desc: "Create accurate project cost estimates that protect your profit and win client confidence. Templates and formulas included.", date: "September 5, 2026", read: "5 min read" },
   { slug: "how-to-plan-content-calendar", title: "How to Plan a Content Calendar for Your Blog or Social Media", desc: "Create a content calendar that keeps your publishing consistent. Planning frameworks, topic selection, and scheduling strategies.", date: "September 5, 2026", read: "5 min read" },];
+posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
 
 export default function BlogPage() {
   return (
