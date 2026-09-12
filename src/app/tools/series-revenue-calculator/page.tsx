@@ -1,23 +1,26 @@
-"use client";
+import { Metadata } from 'next';
+import ClientPage from './ClientPage';
 
-import PremiumGate from "@/components/PremiumGate";
-import SeriesRevenueCalculatorTool from "./SeriesRevenueCalculator";
+export const metadata: Metadata = {
+  title: 'Series Revenue Calculator — Project Total Series Revenue | ToolCraftKit',
+  description: 'Project total book series revenue based on read-through rates and KU page reads. Plan your series strategy with data.',
+  openGraph: {
+    title: 'Series Revenue Calculator — Project Total Series Revenue | ToolCraftKit',
+    description: 'Project total book series revenue based on read-through rates and KU page reads. Plan your series strategy with data.',
+    url: 'https://toolcraftkit.com/tools/series-revenue-calculator',
+    siteName: 'ToolCraftKit',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Series Revenue Calculator — Project Total Series Revenue | ToolCraftKit',
+    description: 'Project total book series revenue based on read-through rates and KU page reads. Plan your series strategy with data.',
+  },
+  alternates: {
+    canonical: 'https://toolcraftkit.com/tools/series-revenue-calculator',
+  },
+};
 
-export default function SeriesRevenueCalculatorPage() {
-  return (
-    <PremiumGate
-      toolName="Series Revenue Calculator"
-      toolDescription="Project your total series revenue based on read-through rates, KU page reads, and sales per book."
-      features={[
-        "Calculate revenue per reader across your entire series",
-        "Model read-through rates from Book 1 through Book 20",
-        "Include Kindle Unlimited page read revenue",
-        "Visual revenue-per-book chart with detailed breakdown",
-        "ROI analysis for adding new books to your series",
-        "Monthly and annual revenue projections",
-      ]}
-    >
-      <SeriesRevenueCalculatorTool />
-    </PremiumGate>
-  );
+export default function Page() {
+  return <ClientPage />;
 }
