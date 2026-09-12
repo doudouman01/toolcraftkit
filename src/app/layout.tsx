@@ -18,8 +18,6 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://toolcraftkit.com"),
   openGraph: {
-    title: "ToolCraftKit — Free Online Tools for Creators & Entrepreneurs",
-    description: "Free online tools. No signup required. Just tools that work.",
     url: "https://toolcraftkit.com",
     siteName: "ToolCraftKit",
     type: "website",
