@@ -9,6 +9,11 @@ export const metadata: Metadata = {
 };
 
 const posts = [
+  // ===== TEXT COMPARE SEO ARTICLES (Sept 2026) =====
+  { slug: 'how-to-compare-two-texts-online', title: 'How to Compare Two Texts Online — Free Side-by-Side Diff Tool', desc: 'Learn how to compare two texts online and find differences instantly. Free text comparison tool with side-by-side diff.', date: 'September 12, 2026', read: '6 min read' },
+  { slug: 'best-free-text-comparison-tools-2026', title: 'Best Free Text Comparison Tools in 2026', desc: 'We compare the top online text diff tools for developers, writers, and professionals.', date: 'September 12, 2026', read: '5 min read' },
+  { slug: 'find-differences-between-two-documents', title: 'How to Find Differences Between Two Documents Instantly', desc: 'Use a free online text diff tool to spot every addition, deletion, and modification in seconds.', date: 'September 12, 2026', read: '6 min read' },
+  { slug: 'online-string-compare-tool-for-developers', title: 'Online String Compare Tool — Compare Code Strings and Text Diffs', desc: 'Free online string compare tool for developers. Compare code snippets, config files, and API responses.', date: 'September 12, 2026', read: '5 min read' },
   // ===== ORIGINAL 5 ARTICLES =====
   { slug: "how-to-calculate-loan-payments", title: "How to Calculate Loan Payments", desc: "Learn the math behind monthly loan payments and how our calculator can help.", date: "June 1, 2025", read: "4 min read" },
   { slug: "how-many-pages-is-1000-words", title: "How Many Pages Is 1000 Words?", desc: "Find out how many pages your word count fills based on font, spacing, and margins.", date: "August 20, 2026", read: "3 min read" },
