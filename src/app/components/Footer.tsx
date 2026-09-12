@@ -15,6 +15,13 @@ export default function Footer() {
         <Link href="/terms" style={{ cursor: "pointer" }}>Terms</Link>
         <Link href="/contact" style={{ cursor: "pointer" }}>Contact</Link>
       </div>
+          <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid #E7E5E4', width: '100%', textAlign: 'center' }}>
+          <p style={{ fontSize: 11, color: '#A8A29E', marginBottom: 6 }}>Our Sites</p>
+          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a href='https://aigradelab.com' target='_blank' rel='noopener' style={{ fontSize: 11, color: '#78716C', textDecoration: 'none' }}>AIGradeLab</a>
+            <a href='https://solutionsdirectespro.com' target='_blank' rel='noopener' style={{ fontSize: 11, color: '#78716C', textDecoration: 'none' }}>SolutionsDirectesPro</a>
+          </div>
+        </div>
     </footer>
   );
 }
