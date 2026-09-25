@@ -17,6 +17,9 @@ export const metadata: Metadata = {
     "profit margin calculator", "hex to rgb", "json formatter",
   ],
   metadataBase: new URL("https://toolcraftkit.com"),
+  alternates: {
+    canonical: './',
+  },
   openGraph: {
     url: "https://toolcraftkit.com",
     siteName: "ToolCraftKit",
@@ -26,7 +29,7 @@ export const metadata: Metadata = {
   verification: {
     google: 'YccvnsA5nHRNIbJ7eqcqGXq0O6Qubsr9s4JXaDBL3J4',
   },
-};
+    };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
