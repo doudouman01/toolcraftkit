@@ -66,6 +66,21 @@ const tools = [
 // Deduplicate (image-to-pdf and text-to-pdf appear in both Converter and PDF)
 const uniqueTools = [...new Set(tools)];
 
+// ── Get real file modification date ───────────────────────────
+function getFileDate(filePath: string): Date {
+  try {
+    const stat = fs.statSync(filePath);
+    return stat.mtime;
+  } catch {
+    return new Date("2026-09-01"); // fallback date
+  }
+}
+
+function getPageDate(dir: string): Date {
+  const pagePath = path.join(dir, "page.tsx");
+  return getFileDate(pagePath);
+}
+
 // ── Auto-discover all blog articles ───────────────────────────
 function getBlogSlugs(): string[] {
   const blogDir = path.join(process.cwd(), "src", "app", "blog");
@@ -84,14 +99,15 @@ function getBlogSlugs(): string[] {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const srcApp = path.join(process.cwd(), "src", "app");
+  const blogDir = path.join(srcApp, "blog");
   const blogSlugs = getBlogSlugs();
 
   return [
     // ── Homepage ──
     {
       url: BASE,
-      lastModified: now,
+      lastModified: getPageDate(srcApp),
       changeFrequency: "weekly",
       priority: 1.0,
     },
@@ -99,7 +115,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Pricing ──
     {
       url: `${BASE}/pricing`,
-      lastModified: now,
+      lastModified: getPageDate(path.join(srcApp, "pricing")),
       changeFrequency: "monthly",
       priority: 0.7,
     },
@@ -107,7 +123,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Tool pages (high priority) ──
     ...uniqueTools.map((slug) => ({
       url: `${BASE}/tools/${slug}`,
-      lastModified: now,
+      lastModified: getPageDate(path.join(srcApp, "tools", slug)),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
@@ -115,7 +131,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Blog index ──
     {
       url: `${BASE}/blog`,
-      lastModified: now,
+      lastModified: getPageDate(blogDir),
       changeFrequency: "weekly",
       priority: 0.7,
     },
@@ -123,7 +139,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Blog articles (auto-discovered) ──
     ...blogSlugs.map((slug) => ({
       url: `${BASE}/blog/${slug}`,
-      lastModified: now,
+      lastModified: getPageDate(path.join(blogDir, slug)),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
@@ -131,13 +147,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Legal pages ──
     {
       url: `${BASE}/privacy`,
-      lastModified: now,
+      lastModified: getPageDate(path.join(srcApp, "privacy")),
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${BASE}/terms`,
-      lastModified: now,
+      lastModified: getPageDate(path.join(srcApp, "terms")),
       changeFrequency: "yearly",
       priority: 0.3,
     },
