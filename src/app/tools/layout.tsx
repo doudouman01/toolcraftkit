@@ -12,6 +12,8 @@ const CATEGORIES = [
   { name: "Writing", anchor: "writing-tools", color: "#8B5CF6" },
   { name: "Image", anchor: "image-tools", color: "#EC4899" },
   { name: "Business", anchor: "business-tools", color: "#F59E0B" },
+  { name: "Health", anchor: "health-tools", color: "#EF4444" },
+  { name: "Education", anchor: "education-tools", color: "#6366F1" },
   { name: "Social", anchor: "social-tools", color: "#3B82F6" },
   { name: "Dev", anchor: "dev-tools", color: "#10B981" },
   { name: "PDF", anchor: "pdf-tools", color: "#EF4444" },
@@ -34,13 +36,26 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
   "words-to-pages": { category: "Text", anchor: "text-tools", displayName: "Words to Pages" },
 
   // Writing
-  
+  "readability-score": { category: "Writing", anchor: "writing-tools", displayName: "Readability Score Checker" },
+  "ai-content-detector": { category: "Writing", anchor: "writing-tools", displayName: "AI Content Detector" },
+  "paraphrasing-tool": { category: "Writing", anchor: "writing-tools", displayName: "Paraphrasing Tool" },
+  "markdown-editor": { category: "Text", anchor: "text-tools", displayName: "Markdown Editor" },
+
   // Image
   "hex-to-rgb": { category: "Image", anchor: "image-tools", displayName: "Hex to RGB Converter" },
   "color-palette": { category: "Image", anchor: "image-tools", displayName: "Color Palette" },
   "image-compressor": { category: "Image", anchor: "image-tools", displayName: "Image Compressor" },
   "image-resizer": { category: "Image", anchor: "image-tools", displayName: "Image Resizer" },
   "image-to-pdf": { category: "Image", anchor: "image-tools", displayName: "Image to PDF" },
+  "aspect-ratio-calculator": { category: "Image", anchor: "image-tools", displayName: "Aspect Ratio Calculator" },
+
+  // Health & Fitness
+  "bmi-calculator": { category: "Health", anchor: "health-tools", displayName: "BMI Calculator" },
+  "calorie-calculator": { category: "Health", anchor: "health-tools", displayName: "Calorie Calculator" },
+
+  // Education
+  "gpa-calculator": { category: "Education", anchor: "education-tools", displayName: "GPA Calculator" },
+  "typing-speed-test": { category: "Education", anchor: "education-tools", displayName: "Typing Speed Test" },
 
   // Business
   "invoice-generator": { category: "Business", anchor: "business-tools", displayName: "Invoice Generator" },
@@ -57,6 +72,9 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
   "percentage-calculator": { category: "Business", anchor: "business-tools", displayName: "Percentage Calculator" },
   "profit-margin-calculator": { category: "Business", anchor: "business-tools", displayName: "Profit Margin Calculator" },
   "age-calculator": { category: "Business", anchor: "business-tools", displayName: "Age Calculator" },
+  "date-calculator": { category: "Business", anchor: "business-tools", displayName: "Date Calculator" },
+  "countdown-timer": { category: "Business", anchor: "business-tools", displayName: "Countdown Timer" },
+  "ats-resume-checker": { category: "Business", anchor: "business-tools", displayName: "ATS Resume Checker" },
 
   // Social
 
@@ -66,6 +84,7 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
   "timestamp-converter": { category: "Dev", anchor: "dev-tools", displayName: "Timestamp Converter" },
   "regex-tester": { category: "Dev", anchor: "dev-tools", displayName: "Regex Tester" },
   "url-encoder": { category: "Dev", anchor: "dev-tools", displayName: "URL Encoder" },
+  "color-contrast-checker": { category: "Dev", anchor: "dev-tools", displayName: "Color Contrast Checker" },
 
   // PDF
   "pdf-merge": { category: "PDF", anchor: "pdf-tools", displayName: "PDF Merge" },

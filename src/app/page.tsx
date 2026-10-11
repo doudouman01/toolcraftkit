@@ -16,6 +16,16 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Words to Pages", desc: "Estimate how many pages your word count fills. Font size, spacing, presets.", href: "/tools/words-to-pages", hot: true },
       { name: "Text Compare", desc: "Compare two texts side by side. Find differences instantly. Line-by-line diff.", href: "/tools/text-compare", hot: true },
       { name: "Emoji Picker", desc: "Browse and copy emojis instantly. 1000+ emojis organized by category.", href: "/tools/emoji-picker", hot: true },
+      { name: "Markdown Editor", desc: "Write Markdown with live preview. Toolbar, split view, and export.", href: "/tools/markdown-editor" },
+    ],
+  },
+  {
+    category: "Writing Tools",
+    color: "#8B5CF6",
+    items: [
+      { name: "Readability Score Checker", desc: "Check Flesch, Gunning Fog, and Coleman-Liau scores. Write for your audience.", href: "/tools/readability-score", hot: true },
+      { name: "AI Content Detector", desc: "Analyze text for AI-generated patterns. Sentence-level highlighting.", href: "/tools/ai-content-detector", premium: true },
+      { name: "Paraphrasing Tool", desc: "Rephrase text in 4 modes: standard, formal, simple, creative.", href: "/tools/paraphrasing-tool", premium: true },
     ],
   },
   {
@@ -35,6 +45,9 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Tip Calculator", desc: "Calculate tip amount, split the bill, and compare tip percentages.", href: "/tools/tip-calculator" },
       { name: "Email Signature Generator", desc: "Create a professional email signature. Copy and paste into Gmail or Outlook.", href: "/tools/email-signature-generator", hot: true },
       { name: "Barcode Generator", desc: "Generate barcodes in CODE128, EAN-13, UPC, CODE39. Download as PNG.", href: "/tools/barcode-generator", hot: true },
+      { name: "Date Calculator", desc: "Days between dates, add/subtract days, find day of week.", href: "/tools/date-calculator" },
+      { name: "Countdown Timer", desc: "Visual countdown with presets. Work sessions, cooking, meetings.", href: "/tools/countdown-timer" },
+      { name: "ATS Resume Checker", desc: "Check your resume against job descriptions. Keyword matching & score.", href: "/tools/ats-resume-checker", premium: true },
     ],
   },
   {
@@ -58,6 +71,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Hex to RGB Converter", desc: "Convert colors between HEX, RGB, HSL, CMYK. Contrast checker & palettes.", href: "/tools/hex-to-rgb" },
       { name: "Color Palette Generator", desc: "Generate harmonious palettes from any color. 6 modes, CSS export.", href: "/tools/color-palette", hot: true },
       { name: "Color Picker", desc: "Pick any color, get HEX, RGB, HSL values. Shades and tints generator.", href: "/tools/color-picker", hot: true },
+      { name: "Aspect Ratio Calculator", desc: "Calculate ratios for images & video. Presets for social media and film.", href: "/tools/aspect-ratio-calculator" },
     ],
   },
   {
@@ -81,6 +95,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Random Number Generator", desc: "Random numbers, dice roller, list picker, coin flip. 4 modes.", href: "/tools/random-number-generator", hot: true },
       { name: "CSS Gradient Generator", desc: "Create beautiful CSS gradients. Linear and radial with live preview and presets.", href: "/tools/css-gradient-generator", hot: true },
       { name: "Favicon Generator", desc: "Create favicons from text or emoji. Download 16px, 32px, 180px, 512px.", href: "/tools/favicon-generator", hot: true },
+      { name: "Color Contrast Checker", desc: "Check WCAG AA/AAA contrast ratios. Ensure accessible text and backgrounds.", href: "/tools/color-contrast-checker" },
     ],
   },
   {
@@ -97,6 +112,22 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Pomodoro Timer", desc: "Stay focused with timed work sessions and breaks. Customizable intervals.", href: "/tools/pomodoro-timer", hot: true },
       { name: "Fuel Cost Calculator", desc: "Calculate annual fuel costs, efficiency gap, and savings potential.", href: "/fuel-calculator", hot: true },
       { name: "Age Calculator", desc: "Your exact age in years, months, days, hours. Zodiac, birthday countdown.", href: "/tools/age-calculator", hot: true },
+    ],
+  },
+  {
+    category: "Health & Fitness Tools",
+    color: "#EF4444",
+    items: [
+      { name: "BMI Calculator", desc: "Calculate BMI with visual gauge. Metric & imperial. Healthy weight range.", href: "/tools/bmi-calculator", hot: true },
+      { name: "Calorie Calculator", desc: "Calculate daily calorie needs (TDEE). Weight loss, gain, or maintenance goals.", href: "/tools/calorie-calculator", hot: true },
+    ],
+  },
+  {
+    category: "Education Tools",
+    color: "#6366F1",
+    items: [
+      { name: "GPA Calculator", desc: "Calculate semester GPA on a 4.0 scale. Enter courses, grades, credits.", href: "/tools/gpa-calculator", hot: true },
+      { name: "Typing Speed Test", desc: "Test your WPM with real passages. Track accuracy and improvement.", href: "/tools/typing-speed-test", hot: true },
     ],
   },
     {
