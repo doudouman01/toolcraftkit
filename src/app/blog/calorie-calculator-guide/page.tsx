@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>← Back to Blog</Link>
         <h1 style={s.h1}>How to Calculate Daily Calories: BMR, TDEE & the Mifflin-St Jeor Equation</h1>
-        <p style={s.meta}>October 4, 2026 · 5 min read</p>
+        <p style={s.meta}>September 25, 2026 · 5 min read</p>
 
         <p style={s.p}>Knowing how many calories your body needs each day is the single most important number in any nutrition plan. Whether you are trying to lose weight, build muscle, or simply maintain your current physique, your Total Daily Energy Expenditure (TDEE) gives you a concrete target to work from. This guide explains the science behind calorie calculations and how to use the results effectively.</p>
 

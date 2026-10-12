@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>&larr; Back to Blog</Link>
         <h1 style={s.h1}>The Complete Guide to Writing with a Markdown Editor</h1>
-        <p style={s.meta}>October 4, 2026 &middot; 6 min read</p>
+        <p style={s.meta}>October 5, 2026 &middot; 6 min read</p>
 
         <p style={s.p}>Markdown has become the default writing format for developers, technical writers, bloggers, and anyone who wants clean, portable text. If you have ever written a README on GitHub, taken notes in Obsidian, or formatted a message in Slack, you have already used Markdown. This guide covers everything you need to know to write efficiently with a Markdown editor.</p>
 

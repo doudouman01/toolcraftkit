@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>&larr; Back to Blog</Link>
         <h1 style={s.h1}>How to Paraphrase Text Effectively: A Complete Guide for Writers</h1>
-        <p style={s.meta}>October 4, 2026 &middot; 5 min read</p>
+        <p style={s.meta}>October 10, 2026 &middot; 5 min read</p>
 
         <p style={s.p}>Paraphrasing is the skill of restating someone else&apos;s ideas &mdash; or your own earlier draft &mdash; in fresh words while keeping the original meaning intact. It is one of the most practical writing skills you can develop, whether you are a student summarizing research, a marketer adapting copy for a new audience, or a professional refining a report. Done well, paraphrasing makes your writing clearer, more original, and better suited to your readers.</p>
 

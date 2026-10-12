@@ -27,7 +27,7 @@ export default function Page() {
           ← Back to Blog
         </Link>
         <h1 style={s.h1}>Readability Scores Explained: How to Write Content That Ranks and Converts</h1>
-        <p style={s.meta}>October 4, 2026 · 5 min read</p>
+        <p style={s.meta}>October 7, 2026 · 5 min read</p>
 
         <p style={s.p}>
           You can have the best keyword strategy in the world, but if readers bounce after two sentences because your writing is too dense, none of it matters. Readability is the bridge between getting a click and keeping a visitor on the page long enough to convert. Understanding readability scores gives you a concrete, measurable way to ensure your content connects with its intended audience.

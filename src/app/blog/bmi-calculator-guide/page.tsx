@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>← Back to Blog</Link>
         <h1 style={s.h1}>How to Calculate BMI: Formula, Charts & What Your Number Means</h1>
-        <p style={s.meta}>October 4, 2026 · 6 min read</p>
+        <p style={s.meta}>September 22, 2026 · 6 min read</p>
 
         <p style={s.p}>Body Mass Index is one of the most widely used health screening tools in the world. Doctors, insurers, and fitness professionals all reference it. Understanding what your BMI means — and what it does not mean — helps you make informed decisions about your health.</p>
 

@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>← Back to Blog</Link>
         <h1 style={s.h1}>Aspect Ratio Guide: Video, Photography & Social Media Dimensions</h1>
-        <p style={s.meta}>October 4, 2026 · 5 min read</p>
+        <p style={s.meta}>October 1, 2026 · 5 min read</p>
 
         <p style={s.p}>Aspect ratio is one of those fundamentals that affects every piece of visual content you create. Get it wrong and your images get cropped, your videos get letterboxed, and your designs look stretched. This guide covers the aspect ratios that matter most across video, photography, and social media so you can pick the right dimensions every time.</p>
 

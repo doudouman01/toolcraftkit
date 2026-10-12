@@ -25,7 +25,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>&larr; Back to Blog</Link>
         <h1 style={s.h1}>How AI Content Detectors Work — A Complete Guide</h1>
-        <p style={s.meta}>October 4, 2026 &middot; 5 min read</p>
+        <p style={s.meta}>October 8, 2026 &middot; 5 min read</p>
 
         <p style={s.p}>AI-generated text is everywhere. From blog posts to product descriptions, marketing emails to academic essays, large language models are producing content at scale. This has created demand for tools that can distinguish between human-written and machine-generated text. But how do these detectors actually work? And what are their real-world limitations?</p>
 

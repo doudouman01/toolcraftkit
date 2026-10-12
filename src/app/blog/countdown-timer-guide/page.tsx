@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>&larr; Back to Blog</Link>
         <h1 style={s.h1}>How to Use a Countdown Timer for Better Time Management</h1>
-        <p style={s.meta}>October 4, 2026 &middot; 5 min read</p>
+        <p style={s.meta}>September 29, 2026 &middot; 5 min read</p>
 
         <p style={s.p}>A countdown timer is one of the simplest and most effective productivity tools available. By making time visible, it creates urgency, reduces distraction, and helps you work within clear boundaries. Whether you are managing a workday, timing a recipe, or structuring a workout, a countdown timer turns vague intentions into concrete action.</p>
 

@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>← Back to Blog</Link>
         <h1 style={s.h1}>How to Calculate GPA: Complete Guide for College & High School Students</h1>
-        <p style={s.meta}>October 4, 2026 · 5 min read</p>
+        <p style={s.meta}>September 24, 2026 · 5 min read</p>
 
         <p style={s.p}>Your GPA is a single number that summarizes your academic performance across all your courses. Whether you are applying for scholarships, targeting graduate school, or checking if you meet your major's requirements, knowing how to calculate and track your GPA is essential.</p>
 

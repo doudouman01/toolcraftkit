@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>&larr; Back to Blog</Link>
         <h1 style={s.h1}>Date Calculator Guide: Days Between Dates, Business Days & Date Math</h1>
-        <p style={s.meta}>October 4, 2026 &middot; 5 min read</p>
+        <p style={s.meta}>September 27, 2026 &middot; 5 min read</p>
 
         <p style={s.p}>Whether you are tracking a project deadline, counting down to an event, or calculating a contract period, date math comes up more often than most people expect. Counting days by hand across months with different lengths and leap years is tedious and error-prone. A date calculator handles all of it instantly.</p>
 

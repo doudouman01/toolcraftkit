@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>&larr; Back to Blog</Link>
         <h1 style={s.h1}>How to Beat ATS Systems: Resume Optimization Guide</h1>
-        <p style={s.meta}>October 4, 2026 &middot; 6 min read</p>
+        <p style={s.meta}>October 11, 2026 &middot; 6 min read</p>
 
         <p style={s.p}>You spent hours crafting the perfect resume, hit submit, and never heard back. The problem is not your experience — it is the Applicant Tracking System standing between your resume and a human recruiter. Understanding how ATS software works and how to optimize for it is the difference between landing interviews and disappearing into a digital black hole.</p>
 

@@ -24,7 +24,7 @@ export default function Page() {
       <main style={s.page}>
         <Link href="/blog" style={{ fontSize: 13, color: "#0D9488", textDecoration: "none", marginBottom: 16, display: "block" }}>← Back to Blog</Link>
         <h1 style={s.h1}>How to Improve Your Typing Speed: WPM Benchmarks & Practical Tips</h1>
-        <p style={s.meta}>October 4, 2026 · 5 min read</p>
+        <p style={s.meta}>October 2, 2026 · 5 min read</p>
 
         <p style={s.p}>Whether you are a student, a professional, or someone who spends hours each day at a keyboard, typing speed directly impacts your productivity. Faster typing means more time for thinking, editing, and doing the work that actually matters. This guide covers everything you need to know about typing speed, from understanding WPM benchmarks to actionable techniques for getting faster.</p>
 
