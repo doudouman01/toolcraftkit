@@ -41,7 +41,7 @@ async function recordUsage(userId: string) {
   await supabase.from('usage_logs').insert({ user_id: userId, tool_slug: TOOL_SLUG });
 }
 
-// ─── YouTube caption fetcher ──────────────────────────────
+// ─── YouTube caption fetcher (youtubei API) ───────────────
 function extractVideoId(url: string): string | null {
   const patterns = [
     /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
@@ -56,38 +56,48 @@ function extractVideoId(url: string): string | null {
 
 async function fetchYouTubeCaptions(videoId: string, preferLang?: string): Promise<{ text: string; language: string } | null> {
   try {
-    // Fetch the YouTube page to find caption tracks
-    const pageRes = await fetch(`https://www.youtube.com/watch?v=${videoId}`, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
+    // Use YouTube's internal player API to get caption tracks
+    const playerRes = await fetch('https://www.youtube.com/youtubei/v1/player', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      },
+      body: JSON.stringify({
+        videoId,
+        context: {
+          client: {
+            clientName: 'WEB',
+            clientVersion: '2.20240101.00.00',
+            hl: preferLang || 'en',
+          },
+        },
+      }),
     });
-    const html = await pageRes.text();
 
-    // Extract captions JSON from the page
-    const captionMatch = html.match(/"captions":\s*(\{[\s\S]*?"playerCaptionsTracklistRenderer"[\s\S]*?\})\s*,\s*"videoDetails"/);
-    if (!captionMatch) return null;
+    if (!playerRes.ok) return null;
+    const playerData = await playerRes.json();
 
-    let captionsData;
-    try {
-      captionsData = JSON.parse(captionMatch[1]);
-    } catch {
-      return null;
-    }
-
-    const tracks = captionsData?.playerCaptionsTracklistRenderer?.captionTracks;
+    const tracks = playerData?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
     if (!tracks || tracks.length === 0) return null;
 
-    // Pick the best track: prefer user-specified language, then manual, then first auto
+    // Pick the best track
     let track = tracks[0];
+
+    // Prefer user-specified language
     if (preferLang) {
       const preferred = tracks.find((t: any) => t.languageCode === preferLang);
       if (preferred) track = preferred;
     }
+
     // Prefer manual captions over auto-generated
     const manual = tracks.find((t: any) => t.kind !== 'asr' && (!preferLang || t.languageCode === preferLang));
     if (manual) track = manual;
 
+    // Fetch the caption track as JSON
     const captionUrl = track.baseUrl + '&fmt=json3';
     const captionRes = await fetch(captionUrl);
+    if (!captionRes.ok) return null;
     const captionJson = await captionRes.json();
 
     if (!captionJson.events) return null;
@@ -99,6 +109,8 @@ async function fetchYouTubeCaptions(videoId: string, preferLang?: string): Promi
       const text = event.segs.map((s: any) => s.utf8 || '').join('').trim();
       if (text && text !== '\n') lines.push(text);
     }
+
+    if (lines.length === 0) return null;
 
     return {
       text: lines.join(' ').replace(/\s+/g, ' ').trim(),
