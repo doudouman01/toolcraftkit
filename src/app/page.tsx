@@ -48,6 +48,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Date Calculator", desc: "Days between dates, add/subtract days, find day of week.", href: "/tools/date-calculator" },
       { name: "Countdown Timer", desc: "Visual countdown with presets. Work sessions, cooking, meetings.", href: "/tools/countdown-timer" },
       { name: "ATS Resume Checker", desc: "Check your resume against job descriptions. Keyword matching & score.", href: "/tools/ats-resume-checker", premium: true },
+      { name: "Privacy Policy Generator", desc: "Generate a custom privacy policy for your website. GDPR, CCPA, COPPA compliant.", href: "/tools/privacy-policy-generator", hot: true },
     ],
   },
   {
@@ -60,6 +61,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Timestamp Converter", desc: "Convert Unix timestamps to dates and back. Live clock, multiple formats.", href: "/tools/timestamp-converter" },
       { name: "Image to PDF", desc: "Convert multiple images into a single PDF document. Free.", href: "/tools/image-to-pdf", hot: true },
       { name: "Text to PDF", desc: "Convert plain text into a formatted, downloadable PDF document.", href: "/tools/text-to-pdf" },
+      { name: "JSON ↔ CSV Converter", desc: "Convert JSON to CSV and CSV to JSON. Upload files or paste data. Free, instant.", href: "/tools/json-csv-converter", hot: true },
     ],
   },
   {
@@ -72,6 +74,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Color Palette Generator", desc: "Generate harmonious palettes from any color. 6 modes, CSS export.", href: "/tools/color-palette", hot: true },
       { name: "Color Picker", desc: "Pick any color, get HEX, RGB, HSL values. Shades and tints generator.", href: "/tools/color-picker", hot: true },
       { name: "Aspect Ratio Calculator", desc: "Calculate ratios for images & video. Presets for social media and film.", href: "/tools/aspect-ratio-calculator" },
+      { name: "Image Cropper", desc: "Crop images online. Custom aspect ratios: 1:1, 16:9, 4:3, 9:16. Download PNG or JPEG.", href: "/tools/image-cropper", hot: true },
     ],
   },
   {
@@ -103,6 +106,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
     color: "#3B82F6",
     items: [
       { name: "Hashtag Generator", desc: "Generate trending hashtags for Instagram, TikTok, Twitter, and YouTube.", href: "/tools/hashtag-generator", hot: true },
+      { name: "YouTube Thumbnail Downloader", desc: "Download YouTube video thumbnails in all sizes. HD, HQ, SD. Free, no signup.", href: "/tools/youtube-thumbnail-downloader", hot: true },
     ],
   },
   {

@@ -40,6 +40,11 @@ export const TOOL_LIMITS: Record<string, { free: number; period: 'day' | 'month'
     "free": 3,
     "period": "month",
     "label": "3 transcriptions/month"
+  },
+  "image-cropper": {
+    "free": 5,
+    "period": "day",
+    "label": "5 crops/day"
   }
 };
 
