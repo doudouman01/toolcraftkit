@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServiceClient } from '@/lib/supabase';
+import { YoutubeTranscript } from 'youtube-transcript';
 
 const ASSEMBLYAI_KEY = process.env.ASSEMBLYAI_API_KEY!;
 const ASSEMBLYAI_BASE = 'https://api.assemblyai.com/v2';
@@ -41,7 +42,7 @@ async function recordUsage(userId: string) {
   await supabase.from('usage_logs').insert({ user_id: userId, tool_slug: TOOL_SLUG });
 }
 
-// ─── YouTube caption fetcher (youtubei API) ───────────────
+// ─── YouTube caption fetcher (youtube-transcript package) ─
 function extractVideoId(url: string): string | null {
   const patterns = [
     /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
@@ -56,67 +57,30 @@ function extractVideoId(url: string): string | null {
 
 async function fetchYouTubeCaptions(videoId: string, preferLang?: string): Promise<{ text: string; language: string } | null> {
   try {
-    // Use YouTube's internal player API to get caption tracks
-    const playerRes = await fetch('https://www.youtube.com/youtubei/v1/player', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      },
-      body: JSON.stringify({
-        videoId,
-        context: {
-          client: {
-            clientName: 'WEB',
-            clientVersion: '2.20240101.00.00',
-            hl: preferLang || 'en',
-          },
-        },
-      }),
-    });
-
-    if (!playerRes.ok) return null;
-    const playerData = await playerRes.json();
-
-    const tracks = playerData?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
-    if (!tracks || tracks.length === 0) return null;
-
-    // Pick the best track
-    let track = tracks[0];
-
-    // Prefer user-specified language
-    if (preferLang) {
-      const preferred = tracks.find((t: any) => t.languageCode === preferLang);
-      if (preferred) track = preferred;
+    const config: any = {};
+    if (preferLang && preferLang !== 'auto') {
+      config.lang = preferLang;
     }
 
-    // Prefer manual captions over auto-generated
-    const manual = tracks.find((t: any) => t.kind !== 'asr' && (!preferLang || t.languageCode === preferLang));
-    if (manual) track = manual;
+    const transcriptItems = await YoutubeTranscript.fetchTranscript(videoId, config);
 
-    // Fetch the caption track as JSON
-    const captionUrl = track.baseUrl + '&fmt=json3';
-    const captionRes = await fetch(captionUrl);
-    if (!captionRes.ok) return null;
-    const captionJson = await captionRes.json();
+    if (!transcriptItems || transcriptItems.length === 0) return null;
 
-    if (!captionJson.events) return null;
+    const fullText = transcriptItems
+      .map((item: any) => item.text || '')
+      .filter((t: string) => t.trim().length > 0)
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
 
-    // Build clean text from caption events
-    const lines: string[] = [];
-    for (const event of captionJson.events) {
-      if (!event.segs) continue;
-      const text = event.segs.map((s: any) => s.utf8 || '').join('').trim();
-      if (text && text !== '\n') lines.push(text);
-    }
-
-    if (lines.length === 0) return null;
+    if (!fullText) return null;
 
     return {
-      text: lines.join(' ').replace(/\s+/g, ' ').trim(),
-      language: track.languageCode || 'unknown',
+      text: fullText,
+      language: preferLang || 'auto',
     };
-  } catch {
+  } catch (err: any) {
+    console.error('YouTube transcript error:', err.message);
     return null;
   }
 }
