@@ -35,6 +35,11 @@ export const TOOL_LIMITS: Record<string, { free: number; period: 'day' | 'month'
     "free": 5,
     "period": "day",
     "label": "5 conversions/day"
+  },
+  "video-transcription": {
+    "free": 3,
+    "period": "month",
+    "label": "3 transcriptions/month"
   }
 };
 

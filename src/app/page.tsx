@@ -112,6 +112,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Pomodoro Timer", desc: "Stay focused with timed work sessions and breaks. Customizable intervals.", href: "/tools/pomodoro-timer", hot: true },
       { name: "Fuel Cost Calculator", desc: "Calculate annual fuel costs, efficiency gap, and savings potential.", href: "/fuel-calculator", hot: true },
       { name: "Age Calculator", desc: "Your exact age in years, months, days, hours. Zodiac, birthday countdown.", href: "/tools/age-calculator", hot: true },
+      { name: "Video Transcription", desc: "Transcribe video & audio to text. YouTube, MP3, MP4. 90+ languages.", href: "/tools/video-transcription", hot: true },
     ],
   },
   {
