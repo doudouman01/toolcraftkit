@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServiceClient } from '@/lib/supabase';
-import { YoutubeTranscript } from 'youtube-transcript';
 
 const ASSEMBLYAI_KEY = process.env.ASSEMBLYAI_API_KEY!;
 const ASSEMBLYAI_BASE = 'https://api.assemblyai.com/v2';
 
 const TOOL_SLUG = 'video-transcription';
-const FREE_LIMIT = 3; // 3 transcriptions/month for free users
+const FREE_LIMIT = 3;
 const PERIOD = 'month';
 
 // ─── helpers ───────────────────────────────────────────────
@@ -42,50 +41,7 @@ async function recordUsage(userId: string) {
   await supabase.from('usage_logs').insert({ user_id: userId, tool_slug: TOOL_SLUG });
 }
 
-// ─── YouTube caption fetcher (youtube-transcript package) ─
-function extractVideoId(url: string): string | null {
-  const patterns = [
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
-    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
-  ];
-  for (const p of patterns) {
-    const m = url.match(p);
-    if (m) return m[1];
-  }
-  return null;
-}
-
-async function fetchYouTubeCaptions(videoId: string, preferLang?: string): Promise<{ text: string; language: string } | null> {
-  try {
-    const config: any = {};
-    if (preferLang && preferLang !== 'auto') {
-      config.lang = preferLang;
-    }
-
-    const transcriptItems = await YoutubeTranscript.fetchTranscript(videoId, config);
-
-    if (!transcriptItems || transcriptItems.length === 0) return null;
-
-    const fullText = transcriptItems
-      .map((item: any) => item.text || '')
-      .filter((t: string) => t.trim().length > 0)
-      .join(' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-
-    if (!fullText) return null;
-
-    return {
-      text: fullText,
-      language: preferLang || 'auto',
-    };
-  } catch (err: any) {
-    console.error('YouTube transcript error:', err.message);
-    return null;
-  }
-}
-
-// ─── AssemblyAI: upload file ──────────────────────────────
+// ─── AssemblyAI ───────────────────────────────────────────
 async function uploadToAssemblyAI(fileBuffer: Buffer): Promise<string> {
   const res = await fetch(`${ASSEMBLYAI_BASE}/upload`, {
     method: 'POST',
@@ -100,7 +56,6 @@ async function uploadToAssemblyAI(fileBuffer: Buffer): Promise<string> {
   return data.upload_url;
 }
 
-// ─── AssemblyAI: create transcription ─────────────────────
 async function createTranscription(audioUrl: string, languageCode?: string): Promise<string> {
   const body: any = { audio_url: audioUrl };
   if (languageCode && languageCode !== 'auto') {
@@ -122,7 +77,6 @@ async function createTranscription(audioUrl: string, languageCode?: string): Pro
   return data.id;
 }
 
-// ─── AssemblyAI: check status ─────────────────────────────
 async function getTranscriptionStatus(id: string) {
   const res = await fetch(`${ASSEMBLYAI_BASE}/transcript/${id}`, {
     headers: { authorization: ASSEMBLYAI_KEY },
@@ -136,52 +90,23 @@ export async function POST(req: NextRequest) {
   try {
     const contentType = req.headers.get('content-type') || '';
 
-    // ── JSON requests (youtube, status, check) ──
+    // ── JSON requests (status, check) ──
     if (contentType.includes('application/json')) {
       const body = await req.json();
-      const { action, url, id, userId, language } = body;
+      const { action, id, userId } = body;
 
-      // Check usage
       if (action === 'check' && userId) {
         const usage = await checkUsage(userId);
         return NextResponse.json({ ...usage, period: PERIOD });
       }
 
-      // YouTube caption fetch
-      if (action === 'youtube' && url) {
-        if (userId) {
-          const usage = await checkUsage(userId);
-          if (!usage.allowed) {
-            return NextResponse.json({ error: 'limit_reached', usage: usage.usage, limit: usage.limit });
-          }
-        }
-
-        const videoId = extractVideoId(url);
-        if (!videoId) {
-          return NextResponse.json({ error: 'invalid_url' }, { status: 400 });
-        }
-
-        const captions = await fetchYouTubeCaptions(videoId, language);
-        if (!captions) {
-          return NextResponse.json({
-            error: 'no_captions',
-            message: 'No captions found for this video. Try uploading the audio file instead.',
-          });
-        }
-
-        // Record usage on success
-        if (userId) await recordUsage(userId);
-
+      if (action === 'youtube') {
         return NextResponse.json({
-          text: captions.text,
-          language: captions.language,
-          source: 'youtube_captions',
-          charCount: captions.text.length,
-          wordCount: captions.text.split(/\s+/).length,
+          error: 'no_captions',
+          message: 'YouTube transcription coming soon. Please upload the audio file instead.',
         });
       }
 
-      // Poll transcription status
       if (action === 'status' && id) {
         const result = await getTranscriptionStatus(id);
         if (result.status === 'completed') {
@@ -215,19 +140,17 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'no_file' }, { status: 400 });
       }
 
-      // Check file size (25MB max)
       if (file.size > 25 * 1024 * 1024) {
         return NextResponse.json({ error: 'file_too_large', message: 'Maximum file size is 25MB' }, { status: 400 });
       }
 
-      // Check usage
-      if (userId) {
-        const usage = await checkUsage(userId);
-        if (!usage.allowed) {
-          return NextResponse.json({ error: 'limit_reached', usage: usage.usage, limit: usage.limit });
-        }
-      } else {
+      if (!userId) {
         return NextResponse.json({ error: 'login_required' }, { status: 401 });
+      }
+
+      const usage = await checkUsage(userId);
+      if (!usage.allowed) {
+        return NextResponse.json({ error: 'limit_reached', usage: usage.usage, limit: usage.limit });
       }
 
       // Upload to AssemblyAI
@@ -244,7 +167,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         status: 'processing',
         id: transcriptId,
-        message: 'Transcription started. Poll with action: status.',
       });
     }
 
