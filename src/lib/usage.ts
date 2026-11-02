@@ -45,6 +45,11 @@ export const TOOL_LIMITS: Record<string, { free: number; period: 'day' | 'month'
     "free": 5,
     "period": "day",
     "label": "5 crops/day"
+  },
+  "image-format-converter": {
+    "free": 5,
+    "period": "day",
+    "label": "5 conversions/day"
   }
 };
 

@@ -49,6 +49,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Countdown Timer", desc: "Visual countdown with presets. Work sessions, cooking, meetings.", href: "/tools/countdown-timer" },
       { name: "ATS Resume Checker", desc: "Check your resume against job descriptions. Keyword matching & score.", href: "/tools/ats-resume-checker", premium: true },
       { name: "Privacy Policy Generator", desc: "Generate a custom privacy policy for your website. GDPR, CCPA, COPPA compliant.", href: "/tools/privacy-policy-generator", hot: true },
+      { name: "Terms of Service Generator", desc: "Generate Terms of Service for your website. US, EU, Canada, Australia. Free.", href: "/tools/terms-of-service-generator", hot: true },
     ],
   },
   {
@@ -75,6 +76,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Color Picker", desc: "Pick any color, get HEX, RGB, HSL values. Shades and tints generator.", href: "/tools/color-picker", hot: true },
       { name: "Aspect Ratio Calculator", desc: "Calculate ratios for images & video. Presets for social media and film.", href: "/tools/aspect-ratio-calculator" },
       { name: "Image Cropper", desc: "Crop images online. Custom aspect ratios: 1:1, 16:9, 4:3, 9:16. Download PNG or JPEG.", href: "/tools/image-cropper", hot: true },
+      { name: "Image Format Converter", desc: "Convert images: PNG, JPG, WebP, BMP, GIF. Quality control. Free.", href: "/tools/image-format-converter", hot: true },
     ],
   },
   {
@@ -99,6 +101,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "CSS Gradient Generator", desc: "Create beautiful CSS gradients. Linear and radial with live preview and presets.", href: "/tools/css-gradient-generator", hot: true },
       { name: "Favicon Generator", desc: "Create favicons from text or emoji. Download 16px, 32px, 180px, 512px.", href: "/tools/favicon-generator", hot: true },
       { name: "Color Contrast Checker", desc: "Check WCAG AA/AAA contrast ratios. Ensure accessible text and backgrounds.", href: "/tools/color-contrast-checker" },
+      { name: "Meta Tag Generator", desc: "Generate SEO meta tags, Open Graph, Twitter cards. Live preview. Free.", href: "/tools/meta-tag-generator", hot: true },
     ],
   },
   {
@@ -116,6 +119,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Pomodoro Timer", desc: "Stay focused with timed work sessions and breaks. Customizable intervals.", href: "/tools/pomodoro-timer", hot: true },
       { name: "Fuel Cost Calculator", desc: "Calculate annual fuel costs, efficiency gap, and savings potential.", href: "/fuel-calculator", hot: true },
       { name: "Age Calculator", desc: "Your exact age in years, months, days, hours. Zodiac, birthday countdown.", href: "/tools/age-calculator", hot: true },
+      { name: "Text to Speech", desc: "Convert text to speech online. 90+ voices, multiple languages. Free.", href: "/tools/text-to-speech", hot: true },
      
     ],
   },

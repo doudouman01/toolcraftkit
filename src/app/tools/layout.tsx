@@ -109,6 +109,12 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
 
   // Social (additional)
   "youtube-thumbnail-downloader": { category: "Social", anchor: "social-tools", displayName: "YouTube Thumbnail Downloader" },
+
+  // Batch 2
+  "terms-of-service-generator": { category: "Business", anchor: "business-tools", displayName: "Terms of Service Generator" },
+  "meta-tag-generator": { category: "Dev", anchor: "dev-tools", displayName: "Meta Tag Generator" },
+  "image-format-converter": { category: "Image", anchor: "image-tools", displayName: "Image Format Converter" },
+  "text-to-speech": { category: "Productivity", anchor: "productivity-tools", displayName: "Text to Speech" },
 };
 
 function slugToName(slug: string): string {
