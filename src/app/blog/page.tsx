@@ -187,6 +187,14 @@ let posts = [
   { slug: "ai-content-detector-guide", title: "AI Content Detector: How to Check If Text Was Written by AI", desc: "Detect AI-generated content with heuristic analysis. Understand how AI detection works and what the scores mean for your writing.", date: "October 8, 2026", read: "5 min read" },
   { slug: "paraphrasing-tool-guide", title: "Paraphrasing Tool: Rewrite Text Without Losing Meaning", desc: "Rephrase sentences and paragraphs while keeping the original meaning. Improve clarity, avoid plagiarism, and adapt tone for any audience.", date: "October 10, 2026", read: "5 min read" },
   { slug: "ats-resume-checker-guide", title: "ATS Resume Checker: Optimize Your Resume for Applicant Tracking Systems", desc: "Check if your resume passes ATS filters. Match keywords from job descriptions and improve your chances of getting an interview.", date: "October 11, 2026", read: "5 min read" },
+  { slug: "privacy-policy-generator-free", title: "Free Privacy Policy Generator for Any Website", desc: "Why every website needs a privacy policy in 2026 and how to generate one in 60 seconds.", date: "November 1, 2026", read: "6 min read" },
+{ slug: "crop-image-online-free", title: "Crop Image Online Free — No Signup, No Download", desc: "The fastest way to crop images for social media with custom aspect ratios.", date: "November 1, 2026", read: "5 min read" },
+{ slug: "json-to-csv-converter", title: "Convert JSON to CSV Online — Free Instant Converter", desc: "Developer's guide to converting JSON to CSV and back instantly.", date: "November 1, 2026", read: "6 min read" },
+{ slug: "download-youtube-thumbnail", title: "Download YouTube Thumbnail in HD — All Sizes", desc: "How to download any YouTube thumbnail in HD — all sizes, one click.", date: "November 1, 2026", read: "5 min read" },
+{ slug: "terms-of-service-generator-free", title: "Free Terms of Service Generator for Websites & Apps", desc: "Generate legally sound Terms of Service in 2 minutes. US, EU, Canada templates.", date: "November 1, 2026", read: "6 min read" },
+{ slug: "meta-tag-generator-seo", title: "Meta Tag Generator for SEO in 2026", desc: "The SEO meta tags checklist every page needs, with a free generator and live preview.", date: "November 1, 2026", read: "6 min read" },
+{ slug: "convert-image-format-online", title: "PNG vs JPG vs WebP — Convert Image Format Online", desc: "Which image format to use and how to convert between them instantly.", date: "November 1, 2026", read: "6 min read" },
+{ slug: "text-to-speech-online-free", title: "Text to Speech Online Free — 90+ Voices", desc: "Turn any text into natural speech with 90+ voices and multiple languages.", date: "November 1, 2026", read: "6 min read" },
 ];
 posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
