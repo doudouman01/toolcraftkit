@@ -115,6 +115,13 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
   "meta-tag-generator": { category: "Dev", anchor: "dev-tools", displayName: "Meta Tag Generator" },
   "image-format-converter": { category: "Image", anchor: "image-tools", displayName: "Image Format Converter" },
   "text-to-speech": { category: "Productivity", anchor: "productivity-tools", displayName: "Text to Speech" },
+
+  // Batch 3 — New tools
+  "cookie-policy-generator": { category: "Business", anchor: "business-tools", displayName: "Cookie Policy Generator" },
+  "cookie-consent-generator": { category: "Dev", anchor: "dev-tools", displayName: "Cookie Consent Banner Generator" },
+  "open-graph-preview": { category: "Dev", anchor: "dev-tools", displayName: "Open Graph Preview" },
+  "json-ld-generator": { category: "Dev", anchor: "dev-tools", displayName: "JSON-LD Schema Generator" },
+  "subtitle-generator": { category: "Social", anchor: "social-tools", displayName: "Subtitle Generator" },
 };
 
 function slugToName(slug: string): string {
@@ -126,7 +133,7 @@ function slugToName(slug: string): string {
 // ============================================================
 export default function ToolsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  
+
   // Extract tool slug from pathname: /tools/word-counter → word-counter
   const slug = pathname?.replace("/tools/", "").replace("/", "") || "";
   const toolInfo = TOOL_MAP[slug];
