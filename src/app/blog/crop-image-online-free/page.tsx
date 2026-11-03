@@ -126,7 +126,7 @@ export default function Page() {
             Image Compressor
           </Link>{" "}
           and a{" "}
-          <Link href="/tools/image-converter" style={{ color: "#0D9488" }}>
+          <Link href="/tools/image-format-converter" style={{ color: "#0D9488" }}>
             Image Format Converter
           </Link>
           . Chain them together: crop first, compress second, convert third. All free, all in-browser.
