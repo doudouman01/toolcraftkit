@@ -148,7 +148,7 @@ Alice,32,Vancouver,Canada,"Python, SQL"`}
             JSON Formatter & Validator
           </Link>{" "}
           useful for cleaning up messy payloads before conversion, and the{" "}
-          <Link href="/tools/tools/base64" style={{ color: "#0D9488" }}>
+          <Link href="/tools/base64" style={{ color: "#0D9488" }}>
             Base64 Encoder/Decoder
           </Link>{" "}
           for handling encoded data fields you encounter along the way.
