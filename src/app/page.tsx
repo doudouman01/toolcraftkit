@@ -87,6 +87,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "PDF Compressor", desc: "Reduce PDF file size without losing quality. No upload to server.", href: "/tools/pdf-compressor", hot: true },
       { name: "Image to PDF", desc: "Convert multiple images into a single PDF document. Free, no upload.", href: "/tools/image-to-pdf", hot: true },
       { name: "Text to PDF", desc: "Convert plain text into a formatted, downloadable PDF document.", href: "/tools/text-to-pdf" },
+      { name: "PDF to Word", desc: "Convert PDF to editable Word documents (.docx). Preserves text and structure. Free.", href: "/tools/pdf-to-word", hot: true },
     ],
   },
   {

@@ -30,17 +30,9 @@ const TOOL_LIMITS: Record<string, { free: number; period: 'day' | 'month' }> = {
     "free": 5,
     "period": "day"
   },
-  "video-transcription": {
+  "pdf-to-word": {
     "free": 3,
     "period": "month"
-  },
-  "image-cropper": {
-    "free": 5,
-    "period": "day"
-  },
-  "image-format-converter": {
-    "free": 5,
-    "period": "day"
   }
 };
 
