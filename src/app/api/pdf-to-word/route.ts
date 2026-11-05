@@ -1,93 +1,144 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServiceClient } from '@/lib/supabase';
+import { getDocumentProxy } from 'unpdf';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
-
-const pdfParse = require('pdf-parse');
 
 const TOOL_SLUG = 'pdf-to-word';
 const FREE_LIMIT = 3;
 const PERIOD = 'month';
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-function isHeading(line: string): false | 'h1' | 'h2' {
-  const trimmed = line.trim();
-  if (!trimmed) return false;
+// ─── Usage helpers ────────────────────────────────────────
+async function checkUsage(userId: string) {
+  const supabase = createServiceClient();
 
-  // Short all-caps lines are likely H1
-  if (trimmed.length <= 80 && trimmed === trimmed.toUpperCase() && /[A-Z]/.test(trimmed)) {
-    return 'h1';
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('subscription_status')
+    .eq('id', userId)
+    .single();
+
+  if (profile?.subscription_status === 'active') {
+    return { allowed: true, isPro: true, usage: 0, limit: 999 };
   }
 
-  // Short lines (under 60 chars) that don't end with common sentence punctuation
-  if (trimmed.length <= 60 && !/[.,;:!?]$/.test(trimmed) && /[A-Za-z]/.test(trimmed)) {
-    return 'h2';
-  }
+  const now = new Date();
+  const startDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
 
-  return false;
+  const { count } = await supabase
+    .from('usage_logs')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .eq('tool_slug', TOOL_SLUG)
+    .gte('used_at', startDate);
+
+  const currentUsage = count || 0;
+  return { allowed: currentUsage < FREE_LIMIT, isPro: false, usage: currentUsage, limit: FREE_LIMIT };
 }
 
-function buildDocxFromText(text: string): Document {
-  const lines = text.split('\n');
-  const paragraphs: Paragraph[] = [];
+async function recordUsage(userId: string) {
+  const supabase = createServiceClient();
+  await supabase.from('usage_logs').insert({ user_id: userId, tool_slug: TOOL_SLUG });
+}
 
-  for (const line of lines) {
-    const trimmed = line.trim();
+// ─── PDF text extraction using unpdf ──────────────────────
+async function extractPdfText(buffer: ArrayBuffer): Promise<string[]> {
+  const pdf = await getDocumentProxy(new Uint8Array(buffer));
+  const pages: string[] = [];
 
-    // Empty line → spacing paragraph
-    if (!trimmed) {
-      paragraphs.push(
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const textContent = await page.getTextContent();
+    const pageText = textContent.items
+      .map((item: any) => item.str || '')
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    pages.push(pageText);
+  }
+
+  return pages;
+}
+
+// ─── Build DOCX from extracted text ───────────────────────
+function buildDocx(pages: string[], fileName: string): Document {
+  const children: Paragraph[] = [];
+
+  // Title
+  children.push(
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: fileName.replace(/\.pdf$/i, ''),
+          bold: true,
+          size: 32,
+          font: 'Calibri',
+        }),
+      ],
+      heading: HeadingLevel.TITLE,
+      spacing: { after: 200 },
+    })
+  );
+
+  for (let i = 0; i < pages.length; i++) {
+    const pageText = pages[i];
+    if (!pageText) continue;
+
+    // Page separator (except first page)
+    if (i > 0) {
+      children.push(
         new Paragraph({
-          spacing: { after: 120 },
-          children: [],
+          children: [
+            new TextRun({
+              text: `— Page ${i + 1} —`,
+              bold: true,
+              size: 20,
+              font: 'Calibri',
+              color: '666666',
+            }),
+          ],
+          spacing: { before: 400, after: 200 },
+          alignment: AlignmentType.CENTER,
         })
       );
-      continue;
     }
 
-    const headingType = isHeading(trimmed);
+    // Split text into sentences/paragraphs
+    const sentences = pageText.split(/(?<=[.!?])\s+/);
+    let currentParagraph: string[] = [];
 
-    if (headingType === 'h1') {
-      paragraphs.push(
+    for (const sentence of sentences) {
+      currentParagraph.push(sentence);
+
+      // Group ~3-4 sentences per paragraph for readability
+      if (currentParagraph.length >= 3 || sentence.length > 200) {
+        children.push(
+          new Paragraph({
+            children: [
+              new TextRun({
+                text: currentParagraph.join(' '),
+                size: 22,
+                font: 'Calibri',
+              }),
+            ],
+            spacing: { after: 120 },
+          })
+        );
+        currentParagraph = [];
+      }
+    }
+
+    // Remaining text
+    if (currentParagraph.length > 0) {
+      children.push(
         new Paragraph({
-          heading: HeadingLevel.HEADING_1,
-          spacing: { before: 240, after: 120 },
           children: [
             new TextRun({
-              text: trimmed,
-              bold: true,
+              text: currentParagraph.join(' '),
+              size: 22,
               font: 'Calibri',
-              size: 32, // 16pt
             }),
           ],
-        })
-      );
-    } else if (headingType === 'h2') {
-      paragraphs.push(
-        new Paragraph({
-          heading: HeadingLevel.HEADING_2,
-          spacing: { before: 200, after: 100 },
-          children: [
-            new TextRun({
-              text: trimmed,
-              bold: true,
-              font: 'Calibri',
-              size: 26, // 13pt
-            }),
-          ],
-        })
-      );
-    } else {
-      paragraphs.push(
-        new Paragraph({
-          spacing: { after: 80, line: 276 }, // 1.15 line spacing
-          alignment: AlignmentType.LEFT,
-          children: [
-            new TextRun({
-              text: trimmed,
-              font: 'Calibri',
-              size: 22, // 11pt
-            }),
-          ],
+          spacing: { after: 120 },
         })
       );
     }
@@ -99,19 +150,20 @@ function buildDocxFromText(text: string): Document {
         properties: {
           page: {
             margin: {
-              top: 1440,    // 1 inch
+              top: 1440,
               right: 1440,
               bottom: 1440,
               left: 1440,
             },
           },
         },
-        children: paragraphs,
+        children,
       },
     ],
   });
 }
 
+// ─── MAIN HANDLER ─────────────────────────────────────────
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
@@ -119,133 +171,74 @@ export async function POST(req: NextRequest) {
     const userId = formData.get('userId') as string | null;
 
     if (!file) {
-      return NextResponse.json(
-        { error: 'No file provided' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'no_file' }, { status: 400 });
     }
 
     // Validate file type
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-      return NextResponse.json(
-        { error: 'Only PDF files are accepted' },
-        { status: 400 }
-      );
+    if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
+      return NextResponse.json({ error: 'invalid_type', message: 'Please upload a PDF file.' }, { status: 415 });
     }
 
-    // Validate file size
-    if (file.size > MAX_FILE_SIZE) {
-      return NextResponse.json(
-        { error: 'File size exceeds 10MB limit' },
-        { status: 400 }
-      );
+    // Check file size (10MB max)
+    if (file.size > 10 * 1024 * 1024) {
+      return NextResponse.json({ error: 'file_too_large', message: 'Maximum file size is 10MB.' }, { status: 413 });
     }
 
-    // --- Usage check ---
-    const supabase = createServiceClient();
-    let isPro = false;
-
+    // Check auth
     if (!userId) {
-      return NextResponse.json(
-        { error: 'Login required to use this tool', reason: 'login_required', limit: FREE_LIMIT, period: PERIOD },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'login_required' }, { status: 401 });
     }
 
-    // Check if user is pro
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('subscription_status')
-      .eq('id', userId)
-      .single();
-
-    if (profile?.subscription_status === 'active') {
-      isPro = true;
+    // Check usage
+    const usage = await checkUsage(userId);
+    if (!usage.allowed) {
+      return NextResponse.json({ error: 'limit_reached', usage: usage.usage, limit: usage.limit }, { status: 429 });
     }
-
-    if (!isPro) {
-      // Check usage count for free user
-      const now = new Date();
-      const startDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-
-      const { count } = await supabase
-        .from('usage_logs')
-        .select('*', { count: 'exact', head: true })
-        .eq('user_id', userId)
-        .eq('tool_slug', TOOL_SLUG)
-        .gte('used_at', startDate);
-
-      const currentUsage = count || 0;
-
-      if (currentUsage >= FREE_LIMIT) {
-        return NextResponse.json(
-          {
-            error: 'Monthly limit reached. Upgrade to Pro for unlimited conversions.',
-            reason: 'limit_reached',
-            usage: currentUsage,
-            limit: FREE_LIMIT,
-            period: PERIOD,
-          },
-          { status: 429 }
-        );
-      }
-    }
-
-    // --- Convert PDF to Word ---
-    const arrayBuffer = await file.arrayBuffer();
-    const pdfBuffer = Buffer.from(arrayBuffer);
 
     // Extract text from PDF
-    let pdfData;
+    const arrayBuffer = await file.arrayBuffer();
+    let pages: string[];
+
     try {
-      pdfData = await pdfParse(pdfBuffer);
-    } catch (parseError: any) {
-      console.error('PDF parse error:', parseError);
-      return NextResponse.json(
-        { error: 'Failed to parse PDF. The file may be corrupted or password-protected.' },
-        { status: 422 }
-      );
+      pages = await extractPdfText(arrayBuffer);
+    } catch (err: any) {
+      return NextResponse.json({
+        error: 'pdf_error',
+        message: 'Could not read this PDF. It may be encrypted, corrupted, or contain only images (scanned documents).',
+      }, { status: 422 });
     }
 
-    const extractedText = pdfData.text;
-
-    if (!extractedText || extractedText.trim().length === 0) {
-      return NextResponse.json(
-        { error: 'No text could be extracted from this PDF. It may be a scanned image PDF.' },
-        { status: 422 }
-      );
+    // Check if we got any text
+    const totalText = pages.join(' ').trim();
+    if (!totalText || totalText.length < 10) {
+      return NextResponse.json({
+        error: 'no_text',
+        message: 'This PDF appears to contain only images or scanned content. Text-based PDFs are required for conversion.',
+      }, { status: 422 });
     }
 
-    // Build the DOCX document
-    const doc = buildDocxFromText(extractedText);
-
-    // Generate the .docx buffer
+    // Build DOCX
+    const doc = buildDocx(pages, file.name);
     const docxBuffer = await Packer.toBuffer(doc);
 
-    // Record usage on success
-    await supabase.from('usage_logs').insert({
-      user_id: userId,
-      tool_slug: TOOL_SLUG,
-    });
+    // Record usage
+    await recordUsage(userId);
 
-    // Generate filename from original PDF name
-    const originalName = file.name.replace(/\.pdf$/i, '');
-    const outputFilename = `${originalName}.docx`;
-
-    // Return the .docx file as binary
+    // Return DOCX file
+    const outputName = file.name.replace(/\.pdf$/i, '.docx');
     return new Response(new Uint8Array(docxBuffer), {
       status: 200,
       headers: {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'Content-Disposition': `attachment; filename="${outputFilename}"`,
-        'Content-Length': docxBuffer.byteLength.toString(),
+        'Content-Disposition': `attachment; filename="${outputName}"`,
+        'Content-Length': String(docxBuffer.byteLength),
       },
     });
   } catch (err: any) {
-    console.error('PDF to Word API error:', err);
-    return NextResponse.json(
-      { error: 'An unexpected error occurred during conversion.' },
-      { status: 500 }
-    );
+    console.error('PDF to Word error:', err);
+    return NextResponse.json({
+      error: 'server_error',
+      message: err.message || 'An unexpected error occurred.',
+    }, { status: 500 });
   }
 }
