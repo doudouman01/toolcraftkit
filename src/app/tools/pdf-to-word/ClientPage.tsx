@@ -29,19 +29,7 @@ export default function ClientPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!user) return;
-    fetch("/api/usage", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId: user.id, toolSlug: TOOL_SLUG, action: "check" }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.usage !== undefined) setUsage(data.usage);
-        if (data.limit !== undefined) setLimit(data.limit);
-        if (data.period) setPeriod(data.period);
-      })
-      .catch(() => {});
+    // Usage is tracked by /api/pdf-to-word directly
   }, [user]);
 
   const validateFile = (f: File): string | null => {
@@ -95,25 +83,6 @@ export default function ClientPage() {
       return;
     }
 
-    if (!isPro) {
-      try {
-        const res = await fetch("/api/usage", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: user.id, toolSlug: TOOL_SLUG, action: "record" }),
-        });
-        const data = await res.json();
-        if (!data.allowed) {
-          window.location.href = "/pricing";
-          return;
-        }
-        setUsage(data.usage || usage + 1);
-      } catch {
-        setError("Could not verify usage. Please try again.");
-        return;
-      }
-    }
-
     setIsConverting(true);
     setError("");
     setSuccess(false);
@@ -132,7 +101,11 @@ export default function ClientPage() {
         const contentType = res.headers.get("content-type") || "";
         if (contentType.includes("application/json")) {
           const errData = await res.json();
-          throw new Error(errData.error || "Conversion failed. Please try again.");
+          if (errData.error === "limit_reached") {
+            window.location.href = "/pricing";
+            return;
+          }
+          throw new Error(errData.message || errData.error || "Conversion failed. Please try again.");
         }
         if (res.status === 413) throw new Error("File is too large. Maximum size is 10 MB.");
         if (res.status === 415) throw new Error("Invalid file type. Please upload a PDF file.");
