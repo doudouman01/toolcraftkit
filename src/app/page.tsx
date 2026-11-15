@@ -49,6 +49,8 @@ const tools = [
     items: [
       { name: "Hex to RGB Converter", desc: "Convert colors between HEX, RGB, HSL, CMYK. Contrast checker & palettes.", href: "/tools/hex-to-rgb" },
       { name: "Color Palette Generator", desc: "Generate harmonious palettes from any color. 6 modes, CSS export.", href: "/tools/color-palette", hot: true },
+      { name: "Background Remover", desc: "Remove image backgrounds instantly. AI-powered, transparent PNG output. Free.", href: "/tools/background-remover", hot: true },
+      { name: "Image Upscaler", desc: "Upscale images 2x or 4x with AI. Enhance resolution without losing quality.", href: "/tools/image-upscaler", hot: true },
     ],
   },
   {

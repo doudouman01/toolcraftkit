@@ -47,7 +47,9 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
   "image-compressor": { category: "Image", anchor: "image-tools", displayName: "Image Compressor" },
   "image-resizer": { category: "Image", anchor: "image-tools", displayName: "Image Resizer" },
   "image-to-pdf": { category: "Image", anchor: "image-tools", displayName: "Image to PDF" },
-  "aspect-ratio-calculator": { category: "Image", anchor: "image-tools", displayName: "Aspect Ratio Calculator" },
+  "aspect-ratio-calculator": { category: "Image", anchor: "image-tools", displayName: "Aspect Ratio Calculator"
+  "background-remover": { category: "Image", anchor: "image-tools", displayName: "Background Remover" },
+  "image-upscaler": { category: "Image", anchor: "image-tools", displayName: "Image Upscaler" },
 
   // Health & Fitness
   "bmi-calculator": { category: "Health", anchor: "health-tools", displayName: "BMI Calculator" },
