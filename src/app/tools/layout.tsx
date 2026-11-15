@@ -99,6 +99,23 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
 
   // Converter
   "unit-converter": { category: "Converter", anchor: "converter-tools", displayName: "Unit Converter" },
+  "json-csv-converter": { category: "Converter", anchor: "converter-tools", displayName: "JSON / CSV Converter" },
+  "text-to-speech": { category: "Converter", anchor: "converter-tools", displayName: "Text to Speech" },
+  "image-format-converter": { category: "Image", anchor: "image-tools", displayName: "Image Format Converter" },
+  "image-cropper": { category: "Image", anchor: "image-tools", displayName: "Image Cropper" },
+
+  // Social
+  "youtube-thumbnail-downloader": { category: "Social", anchor: "social-tools", displayName: "YouTube Thumbnail Downloader" },
+  "open-graph-preview": { category: "Social", anchor: "social-tools", displayName: "Open Graph Preview" },
+  "meta-tag-generator": { category: "Social", anchor: "social-tools", displayName: "Meta Tag Generator" },
+
+  // Legal
+  "privacy-policy-generator": { category: "Legal", anchor: "legal-tools", displayName: "Privacy Policy Generator" },
+  "terms-of-service-generator": { category: "Legal", anchor: "legal-tools", displayName: "Terms of Service Generator" },
+  "cookie-consent-generator": { category: "Legal", anchor: "legal-tools", displayName: "Cookie Consent Generator" },
+
+  // Dev (extra)
+  "json-ld-generator": { category: "Dev", anchor: "dev-tools", displayName: "JSON-LD Generator" },
 };
 
 function slugToName(slug: string): string {

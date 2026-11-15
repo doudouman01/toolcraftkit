@@ -2,7 +2,7 @@ import Link from "next/link";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-const tools = [
+const tools: { category: string; color: string; items: { name: string; desc: string; href: string; hot?: boolean; premium?: boolean }[] }[] = [
   {
     category: "Text Tools",
     color: "#0D9488",
@@ -14,6 +14,18 @@ const tools = [
       { name: "Markdown to HTML", desc: "Convert Markdown to clean HTML. Live preview, copy, or download.", href: "/tools/markdown-to-html" },
       { name: "Remove Duplicate Lines", desc: "Remove duplicate lines from text. Keep only unique entries, sort, trim.", href: "/tools/remove-duplicates" },
       { name: "Words to Pages", desc: "Estimate how many pages your word count fills. Font size, spacing, presets.", href: "/tools/words-to-pages", hot: true },
+      { name: "Text Compare", desc: "Compare two texts side by side. Find differences instantly. Line-by-line diff.", href: "/tools/text-compare", hot: true },
+      { name: "Emoji Picker", desc: "Browse and copy emojis instantly. 1000+ emojis organized by category.", href: "/tools/emoji-picker", hot: true },
+      { name: "Markdown Editor", desc: "Write Markdown with live preview. Toolbar, split view, and export.", href: "/tools/markdown-editor" },
+    ],
+  },
+  {
+    category: "Writing Tools",
+    color: "#8B5CF6",
+    items: [
+      { name: "Readability Score Checker", desc: "Check Flesch, Gunning Fog, and Coleman-Liau scores. Write for your audience.", href: "/tools/readability-score", hot: true },
+      { name: "AI Content Detector", desc: "Analyze text for AI-generated patterns. Sentence-level highlighting.", href: "/tools/ai-content-detector", premium: true },
+      { name: "Paraphrasing Tool", desc: "Rephrase text in 4 modes: standard, formal, simple, creative.", href: "/tools/paraphrasing-tool", premium: true },
     ],
   },
   {
@@ -31,6 +43,11 @@ const tools = [
       { name: "Salary Calculator", desc: "Convert annual salary to hourly rate and back. Monthly, weekly, daily breakdown.", href: "/tools/salary-calculator" },
       { name: "Income Tax Calculator", desc: "Estimate federal income tax. US, Canada, and UK brackets with breakdown.", href: "/tools/tax-calculator", hot: true },
       { name: "Tip Calculator", desc: "Calculate tip amount, split the bill, and compare tip percentages.", href: "/tools/tip-calculator" },
+      { name: "Email Signature Generator", desc: "Create a professional email signature. Copy and paste into Gmail or Outlook.", href: "/tools/email-signature-generator", hot: true },
+      { name: "Barcode Generator", desc: "Generate barcodes in CODE128, EAN-13, UPC, CODE39. Download as PNG.", href: "/tools/barcode-generator", hot: true },
+      { name: "Date Calculator", desc: "Days between dates, add/subtract days, find day of week.", href: "/tools/date-calculator" },
+      { name: "Countdown Timer", desc: "Visual countdown with presets. Work sessions, cooking, meetings.", href: "/tools/countdown-timer" },
+      { name: "ATS Resume Checker", desc: "Check your resume against job descriptions. Keyword matching & score.", href: "/tools/ats-resume-checker", premium: true },
     ],
   },
   {
@@ -41,14 +58,35 @@ const tools = [
       { name: "Base64 Encoder/Decoder", desc: "Encode text to Base64 or decode Base64 to text instantly.", href: "/tools/base64" },
       { name: "URL Encoder/Decoder", desc: "Encode or decode URLs and query strings. Component or full URI mode.", href: "/tools/url-encoder", hot: true },
       { name: "Timestamp Converter", desc: "Convert Unix timestamps to dates and back. Live clock, multiple formats.", href: "/tools/timestamp-converter" },
+      { name: "JSON / CSV Converter", desc: "Convert between JSON and CSV formats. Paste or upload, instant conversion.", href: "/tools/json-csv-converter", hot: true },
+      { name: "Text to Speech", desc: "Convert text to natural speech audio. Multiple voices and languages.", href: "/tools/text-to-speech", hot: true },
     ],
   },
   {
     category: "Image Tools",
     color: "#8B5CF6",
     items: [
+      { name: "Image Compressor", desc: "Compress images without losing quality. JPEG, PNG, WebP. Free.", href: "/tools/image-compressor", hot: true },
+      { name: "Image Resizer", desc: "Resize images to exact dimensions. Social media presets included.", href: "/tools/image-resizer", hot: true },
       { name: "Hex to RGB Converter", desc: "Convert colors between HEX, RGB, HSL, CMYK. Contrast checker & palettes.", href: "/tools/hex-to-rgb" },
       { name: "Color Palette Generator", desc: "Generate harmonious palettes from any color. 6 modes, CSS export.", href: "/tools/color-palette", hot: true },
+      { name: "Color Picker", desc: "Pick any color, get HEX, RGB, HSL values. Shades and tints generator.", href: "/tools/color-picker", hot: true },
+      { name: "Aspect Ratio Calculator", desc: "Calculate ratios for images & video. Presets for social media and film.", href: "/tools/aspect-ratio-calculator" },
+      { name: "Image Cropper", desc: "Crop images with precision. Freeform or fixed aspect ratio presets.", href: "/tools/image-cropper", hot: true },
+      { name: "Image Format Converter", desc: "Convert images between PNG, JPEG, WebP, BMP, GIF formats instantly.", href: "/tools/image-format-converter", hot: true },
+      { name: "Background Remover", desc: "Remove image backgrounds instantly. AI-powered, transparent PNG output.", href: "/tools/background-remover", hot: true },
+      { name: "Image Upscaler", desc: "Upscale images 2x or 4x with AI. Enhance resolution without losing quality.", href: "/tools/image-upscaler", hot: true },
+    ],
+  },
+  {
+    category: "PDF Tools",
+    color: "#DC2626",
+    items: [
+      { name: "PDF Merge", desc: "Combine multiple PDF files into one document. Reorder pages before merging.", href: "/tools/pdf-merge", hot: true },
+      { name: "PDF Compressor", desc: "Reduce PDF file size without losing quality. No upload to server.", href: "/tools/pdf-compressor", hot: true },
+      { name: "Image to PDF", desc: "Convert multiple images into a single PDF document. Free, no upload.", href: "/tools/image-to-pdf", hot: true },
+      { name: "Text to PDF", desc: "Convert plain text into a formatted, downloadable PDF document.", href: "/tools/text-to-pdf" },
+      { name: "PDF to Word", desc: "Convert PDF files to editable Word documents (.docx). Preserves text structure.", href: "/tools/pdf-to-word", hot: true },
     ],
   },
   {
@@ -60,13 +98,64 @@ const tools = [
       { name: "Regex Tester", desc: "Test regular expressions with live highlighting, presets, and replace mode.", href: "/tools/regex-tester", hot: true },
       { name: "QR Code Generator", desc: "Generate QR codes for URLs, WiFi, email, phone. Custom colors, download PNG.", href: "/tools/qr-code-generator", hot: true },
       { name: "Random Number Generator", desc: "Random numbers, dice roller, list picker, coin flip. 4 modes.", href: "/tools/random-number-generator", hot: true },
+      { name: "CSS Gradient Generator", desc: "Create beautiful CSS gradients. Linear and radial with live preview and presets.", href: "/tools/css-gradient-generator", hot: true },
+      { name: "Favicon Generator", desc: "Create favicons from text or emoji. Download 16px, 32px, 180px, 512px.", href: "/tools/favicon-generator", hot: true },
+      { name: "Color Contrast Checker", desc: "Check WCAG AA/AAA contrast ratios. Ensure accessible text and backgrounds.", href: "/tools/color-contrast-checker" },
+      { name: "JSON-LD Generator", desc: "Generate structured data markup for SEO. Schema.org ready.", href: "/tools/json-ld-generator" },
     ],
   },
   {
-    category: "Life Tools",
-    color: "#EC4899",
+    category: "Legal Tools",
+    color: "#7C3AED",
     items: [
+      { name: "Privacy Policy Generator", desc: "Generate a privacy policy for your website. GDPR & CCPA compliant.", href: "/tools/privacy-policy-generator", hot: true },
+      { name: "Terms of Service Generator", desc: "Generate terms of service for your website or app. Customizable.", href: "/tools/terms-of-service-generator", hot: true },
+      { name: "Cookie Consent Generator", desc: "Generate cookie consent banner code for your website.", href: "/tools/cookie-consent-generator" },
+    ],
+  },
+  {
+    category: "Social Media Tools",
+    color: "#3B82F6",
+    items: [
+      { name: "Hashtag Generator", desc: "Generate trending hashtags for Instagram, TikTok, Twitter, and YouTube.", href: "/tools/hashtag-generator", hot: true },
+      { name: "YouTube Thumbnail Downloader", desc: "Download YouTube video thumbnails in all resolutions. Free.", href: "/tools/youtube-thumbnail-downloader", hot: true },
+      { name: "Open Graph Preview", desc: "Preview how your page looks when shared on social media.", href: "/tools/open-graph-preview" },
+      { name: "Meta Tag Generator", desc: "Generate SEO meta tags for your website. Copy-paste ready HTML.", href: "/tools/meta-tag-generator", hot: true },
+    ],
+  },
+  {
+    category: "Productivity Tools",
+    color: "#10B981",
+    items: [
+      { name: "Pomodoro Timer", desc: "Stay focused with timed work sessions and breaks. Customizable intervals.", href: "/tools/pomodoro-timer", hot: true },
+      { name: "Fuel Cost Calculator", desc: "Calculate annual fuel costs, efficiency gap, and savings potential.", href: "/fuel-calculator", hot: true },
       { name: "Age Calculator", desc: "Your exact age in years, months, days, hours. Zodiac, birthday countdown.", href: "/tools/age-calculator", hot: true },
+    ],
+  },
+  {
+    category: "Health & Fitness Tools",
+    color: "#EF4444",
+    items: [
+      { name: "BMI Calculator", desc: "Calculate BMI with visual gauge. Metric & imperial. Healthy weight range.", href: "/tools/bmi-calculator", hot: true },
+      { name: "Calorie Calculator", desc: "Calculate daily calorie needs (TDEE). Weight loss, gain, or maintenance goals.", href: "/tools/calorie-calculator", hot: true },
+    ],
+  },
+  {
+    category: "Education Tools",
+    color: "#6366F1",
+    items: [
+      { name: "GPA Calculator", desc: "Calculate semester GPA on a 4.0 scale. Enter courses, grades, credits.", href: "/tools/gpa-calculator", hot: true },
+      { name: "Typing Speed Test", desc: "Test your WPM with real passages. Track accuracy and improvement.", href: "/tools/typing-speed-test", hot: true },
+    ],
+  },
+    {
+    category: "Author Tools",
+    color: "#D97706",
+    items: [
+      { name: "KDP Royalty Calculator", desc: "Calculate Amazon KDP ebook royalties. Compare 35% vs 70% across all marketplaces.", href: "/tools/kdp-royalty-calculator", hot: true },
+      { name: "Book Description Formatter", desc: "Write your blurb in plain text, get Amazon-ready HTML. Templates included.", href: "/tools/book-description-formatter", hot: true },
+      { name: "Series Revenue Calculator", desc: "Project total series revenue based on read-through rates and KU page reads.", href: "/tools/series-revenue-calculator", premium: true },
+      { name: "Author Productivity Planner", desc: "Plan your manuscript timeline, track progress, build a publication calendar.", href: "/tools/author-productivity-planner", premium: true },
     ],
   },
 ];
@@ -108,6 +197,12 @@ export default function Home() {
                         borderRadius: 4, padding: "2px 6px", letterSpacing: 0.5, textTransform: "uppercase",
                       }}>POPULAR</span>
                     )}
+                    {tool.premium && (
+                      <span style={{
+                        fontSize: 10, fontWeight: 700, color: "#fff", background: "#D97706",
+                        borderRadius: 4, padding: "2px 6px", letterSpacing: 0.5, textTransform: "uppercase",
+                      }}>PREMIUM</span>
+                    )}
                   </div>
                   <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>{tool.desc}</p>
                 </Link>
@@ -122,7 +217,7 @@ export default function Home() {
             ToolCraftKit is a collection of free online tools built for creators, entrepreneurs, developers, and anyone who works with text, numbers, colors, or data. Every tool runs entirely in your browser — nothing is uploaded, stored, or tracked.
           </p>
           <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>
-            Whether you need to count words for an essay, calculate profit margins for your business, convert color codes for a design project, generate secure passwords, convert units, or format JSON for an API, ToolCraftKit has you covered. New tools are added regularly.
+            Whether you need to count words for an essay, calculate profit margins for your business, convert color codes for a design project, generate secure passwords, convert units, compress images, merge PDFs, or format JSON for an API, ToolCraftKit has you covered. New tools are added regularly.
           </p>
         </section>
       </main>
