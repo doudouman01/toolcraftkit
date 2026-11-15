@@ -46,14 +46,14 @@ export async function POST(req: NextRequest) {
     const apiToken = process.env.REPLICATE_API_TOKEN;
     if (!apiToken) return NextResponse.json({ error: 'server_error', message: 'API key not configured.' }, { status: 500 });
 
-    const response = await fetch('https://api.replicate.com/v1/predictions', {
+    const response = await fetch('https://api.replicate.com/v1/models/nightmareai/real-esrgan/predictions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiToken}`,
         'Content-Type': 'application/json',
+        'Prefer': 'wait',
       },
       body: JSON.stringify({
-        version: 'f121d640bd286e1fdc67f9799164c1d5be36ff74576ee11c803ae5b665dd46aa',
         input: {
           image,
           scale: scale || 2,
