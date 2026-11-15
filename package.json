@@ -11,7 +11,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
     "@vercel/analytics": "^2.0.1",
-    "docx": "^9.4.1",
+    "docx": "^9.15.4",
     "jsbarcode": "^3.11.6",
     "next": "16.3.2",
     "pdf-lib": "^1.17.1",
@@ -19,7 +19,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "stripe": "^17.7.0",
-    "unpdf": "^0.14.1"
+    "unpdf": "^2.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
