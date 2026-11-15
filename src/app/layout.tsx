@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { WebsiteSchema } from "@/app/components/JsonLd";
-import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: {
@@ -17,19 +15,15 @@ export const metadata: Metadata = {
     "profit margin calculator", "hex to rgb", "json formatter",
   ],
   metadataBase: new URL("https://toolcraftkit.com"),
-  alternates: {
-    canonical: './',
-  },
   openGraph: {
+    title: "ToolCraftKit — Free Online Tools for Creators & Entrepreneurs",
+    description: "Free online tools. No signup required. Just tools that work.",
     url: "https://toolcraftkit.com",
     siteName: "ToolCraftKit",
     type: "website",
   },
   robots: { index: true, follow: true },
-  verification: {
-    google: 'YccvnsA5nHRNIbJ7eqcqGXq0O6Qubsr9s4JXaDBL3J4',
-  },
-    };
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -42,11 +36,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
-        <AuthProvider>
-          <WebsiteSchema />
-          {children}
-          <Analytics />
-        </AuthProvider>
+        {children}
+        <Analytics />
       </body>
     </html>
   );
