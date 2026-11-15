@@ -32,6 +32,9 @@ export async function POST(req: NextRequest) {
         headers: { 'Authorization': `Bearer ${apiToken}` },
       });
       const data = await res.json();
+      if (data.status === 'failed') {
+        return NextResponse.json({ status: 'failed', message: data.error || 'Processing failed', logs: data.logs });
+      }
       return NextResponse.json({ status: data.status, output: data.output });
     }
 
@@ -46,12 +49,12 @@ export async function POST(req: NextRequest) {
     const apiToken = process.env.REPLICATE_API_TOKEN;
     if (!apiToken) return NextResponse.json({ error: 'server_error', message: 'API key not configured.' }, { status: 500 });
 
+    // Create prediction using official model endpoint
     const response = await fetch('https://api.replicate.com/v1/models/nightmareai/real-esrgan/predictions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiToken}`,
         'Content-Type': 'application/json',
-        'Prefer': 'wait',
       },
       body: JSON.stringify({
         input: {
@@ -62,19 +65,33 @@ export async function POST(req: NextRequest) {
       }),
     });
 
+    const prediction = await response.json();
+
     if (!response.ok) {
-      const errText = await response.text();
-      console.error('Replicate error:', response.status, errText);
-      return NextResponse.json({ error: 'api_error', message: 'Upscaling failed. Please try again.' }, { status: 502 });
+      console.error('Replicate create error:', response.status, JSON.stringify(prediction));
+      return NextResponse.json({
+        error: 'api_error',
+        message: prediction.detail || prediction.title || `Replicate API error (${response.status})`,
+        debug: JSON.stringify(prediction),
+      }, { status: 502 });
     }
 
-    const prediction = await response.json();
-    await recordUsage(userId);
-
+    // If prediction completed immediately
     if (prediction.status === 'succeeded') {
+      await recordUsage(userId);
       return NextResponse.json({ status: 'succeeded', output: prediction.output });
     }
 
+    if (prediction.status === 'failed') {
+      return NextResponse.json({
+        error: 'api_error',
+        message: prediction.error || 'Model failed to process image.',
+        debug: prediction.logs,
+      }, { status: 502 });
+    }
+
+    // Still processing - return prediction ID for polling
+    await recordUsage(userId);
     return NextResponse.json({ status: 'processing', predictionId: prediction.id });
   } catch (err: any) {
     console.error('Image upscaler error:', err);

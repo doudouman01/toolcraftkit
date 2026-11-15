@@ -53,7 +53,7 @@ export default function ClientPage() {
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         if (data.error === "limit_reached") { window.location.href = "/pricing"; return; }
-        throw new Error(data.message || "Failed to upscale image.");
+        throw new Error(data.message || data.debug || "Failed to upscale image.");
       }
       const data = await res.json();
       if (data.status === "processing") {
@@ -68,7 +68,7 @@ export default function ClientPage() {
           });
           const pollData = await poll.json();
           if (pollData.status === "succeeded") { setResult(pollData.output); break; }
-          if (pollData.status === "failed") throw new Error("Upscaling failed. Please try again.");
+          if (pollData.status === "failed") throw new Error(pollData.message || "Upscaling failed. Please try again.");
           attempts++;
         }
         if (!result && attempts >= 60) throw new Error("Processing timed out. Please try again.");
