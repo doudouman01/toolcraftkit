@@ -103,9 +103,9 @@ export default function ClientPage() {
         {num > 0 && (
           <div style={s.resultCard}>
             <div style={{ fontSize: 14, color: "#57534E", marginBottom: 6 }}>
-              {RATES[from].symbol}{num.toLocaleString()} {from} =
+              {num.toFixed(2)} {from} ({RATES[from].symbol}) =
             </div>
-            <div style={s.big}>{RATES[to].symbol}{result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })} {to}</div>
+            <div style={s.big}>{result.toFixed(2)} {to}</div>
             <div style={{ marginTop: 16, fontSize: 13, color: "#78716C", display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
               <span>1 {from} = {rate.toFixed(4)} {to}</span>
               <span>1 {to} = {inverseRate.toFixed(4)} {from}</span>
