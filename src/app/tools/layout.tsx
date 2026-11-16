@@ -116,6 +116,13 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
 
   // Dev (extra)
   "json-ld-generator": { category: "Dev", anchor: "dev-tools", displayName: "JSON-LD Generator" },
+
+  // New tools
+  "heic-to-jpg": { category: "Converter", anchor: "converter-tools", displayName: "HEIC to JPG" },
+  "font-generator": { category: "Text", anchor: "text-tools", displayName: "Font Generator" },
+  "meme-generator": { category: "Image", anchor: "image-tools", displayName: "Meme Generator" },
+  "pdf-split": { category: "PDF", anchor: "pdf-tools", displayName: "PDF Split" },
+  "word-to-pdf": { category: "PDF", anchor: "pdf-tools", displayName: "Word to PDF" },
 };
 
 function slugToName(slug: string): string {

@@ -17,6 +17,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Text Compare", desc: "Compare two texts side by side. Find differences instantly. Line-by-line diff.", href: "/tools/text-compare", hot: true },
       { name: "Emoji Picker", desc: "Browse and copy emojis instantly. 1000+ emojis organized by category.", href: "/tools/emoji-picker", hot: true },
       { name: "Markdown Editor", desc: "Write Markdown with live preview. Toolbar, split view, and export.", href: "/tools/markdown-editor" },
+      { name: "Fancy Font Generator", desc: "Generate fancy text in 15+ Unicode styles. Bold, script, fraktur, and more.", href: "/tools/font-generator", hot: true },
     ],
   },
   {
@@ -60,6 +61,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Timestamp Converter", desc: "Convert Unix timestamps to dates and back. Live clock, multiple formats.", href: "/tools/timestamp-converter" },
       { name: "JSON / CSV Converter", desc: "Convert between JSON and CSV formats. Paste or upload, instant conversion.", href: "/tools/json-csv-converter", hot: true },
       { name: "Text to Speech", desc: "Convert text to natural speech audio. Multiple voices and languages.", href: "/tools/text-to-speech", hot: true },
+      { name: "HEIC to JPG Converter", desc: "Convert HEIC/HEIF images to JPEG. Adjustable quality, batch support.", href: "/tools/heic-to-jpg", hot: true },
     ],
   },
   {
@@ -76,6 +78,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Image Format Converter", desc: "Convert images between PNG, JPEG, WebP, BMP, GIF formats instantly.", href: "/tools/image-format-converter", hot: true },
       { name: "Background Remover", desc: "Remove image backgrounds instantly. AI-powered, transparent PNG output.", href: "/tools/background-remover", hot: true },
       { name: "Image Upscaler", desc: "Upscale images 2x or 4x with AI. Enhance resolution without losing quality.", href: "/tools/image-upscaler", hot: true },
+      { name: "Meme Generator", desc: "Create memes with custom text on any image. Download as PNG.", href: "/tools/meme-generator", hot: true },
     ],
   },
   {
@@ -87,6 +90,8 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Image to PDF", desc: "Convert multiple images into a single PDF document. Free, no upload.", href: "/tools/image-to-pdf", hot: true },
       { name: "Text to PDF", desc: "Convert plain text into a formatted, downloadable PDF document.", href: "/tools/text-to-pdf" },
       { name: "PDF to Word", desc: "Convert PDF files to editable Word documents (.docx). Preserves text structure.", href: "/tools/pdf-to-word", hot: true },
+      { name: "PDF Split", desc: "Split PDF files into individual pages or extract page ranges. Free.", href: "/tools/pdf-split", hot: true },
+      { name: "Word to PDF", desc: "Convert text content with formatting to a downloadable PDF document.", href: "/tools/word-to-pdf", hot: true },
     ],
   },
   {
