@@ -1,47 +1,24 @@
 import type { MetadataRoute } from "next";
+import fs from "fs";
+import path from "path";
+
+function getSlugs(dir: string): string[] {
+  const fullPath = path.join(process.cwd(), dir);
+  try {
+    return fs
+      .readdirSync(fullPath, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && fs.existsSync(path.join(fullPath, d.name, "page.tsx")))
+      .map((d) => d.name)
+      .sort();
+  } catch {
+    return [];
+  }
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://toolcraftkit.com";
-  const tools = [
-    "word-counter",
-    "character-counter",
-    "text-case-converter",
-    "lorem-ipsum-generator",
-    "percentage-calculator",
-    "profit-margin-calculator",
-    "hex-to-rgb",
-    "json-formatter",
-    "password-generator",
-    "base64",
-    "markdown-to-html",
-    "unit-converter",
-    "url-encoder",
-    "discount-calculator",
-    "timestamp-converter",
-    "remove-duplicates",
-    "regex-tester",
-    "words-to-pages",
-    "roi-calculator",
-    "color-palette",
-    "qr-code-generator",
-    "age-calculator",
-    "invoice-generator",
-    "loan-calculator",
-    "random-number-generator",
-    "compound-interest",
-    "mortgage-calculator",
-    "salary-calculator",
-    "tax-calculator",
-    "tip-calculator",
-  ];
-
-  const blogPosts = [
-    "how-many-pages-is-1000-words",
-    "how-to-create-qr-code-for-wifi",
-    "how-to-calculate-loan-payments",
-    "what-is-a-good-roi",
-    "how-to-remove-duplicate-lines-in-excel",
-  ];
+  const tools = getSlugs("src/app/tools");
+  const blogPosts = getSlugs("src/app/blog");
 
   return [
     { url: base, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
@@ -58,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
+    { url: `${base}/pricing`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.5 },
     { url: `${base}/privacy`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
     { url: `${base}/terms`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
   ];
