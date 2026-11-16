@@ -81,7 +81,7 @@ export default function ClientPage() {
       <div style={s.card}>
         <div style={s.row}>
           {(["male", "female"] as const).map(g => (
-            <button key={g} onClick={() => setGender(g)} style={s.pill(gender === g)}>{g === "male" ? "Male" : "Female"}</button>
+            <button key={g} onClick={() => { setGender(g); if (g === "female" && !hip) setHip(unit === "metric" ? "95" : "37"); }} style={s.pill(gender === g)}>{g === "male" ? "Male" : "Female"}</button>
           ))}
           <div style={{ flex: 1 }} />
           {(["imperial", "metric"] as const).map(u => (
