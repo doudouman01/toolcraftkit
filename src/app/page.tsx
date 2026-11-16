@@ -52,6 +52,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Paycheck Calculator", desc: "Estimate take-home pay. Federal tax, state tax, Social Security, Medicare.", href: "/tools/paycheck-calculator", hot: true },
       { name: "Business Name Generator", desc: "Generate 20+ creative business name ideas from keywords. Five styles.", href: "/tools/business-name-generator", hot: true },
       { name: "Signature Generator", desc: "Draw or type your signature. Download as PNG or JPG. No signup.", href: "/tools/signature-generator", hot: true },
+      { name: "Resume Builder", desc: "Build a professional resume with live preview. Download as PDF. Free.", href: "/tools/resume-builder", hot: true },
     ],
   },
   {
@@ -86,6 +87,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Meme Generator", desc: "Create memes with custom text on any image. Download as PNG.", href: "/tools/meme-generator", hot: true },
       { name: "Video to GIF", desc: "Extract frames from video. Set frame rate, preview animation, download PNGs.", href: "/tools/video-to-gif", hot: true },
       { name: "SVG to PNG", desc: "Convert SVG to high-quality PNG. Custom size, 1x-4x scale, transparent bg.", href: "/tools/svg-to-png", hot: true },
+      { name: "Image Watermark", desc: "Add text watermarks to images. Customize font, color, opacity, position.", href: "/tools/image-watermark", hot: true },
     ],
   },
   {
@@ -99,6 +101,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "PDF to Word", desc: "Convert PDF files to editable Word documents (.docx). Preserves text structure.", href: "/tools/pdf-to-word", hot: true },
       { name: "PDF Split", desc: "Split PDF files into individual pages or extract page ranges. Free.", href: "/tools/pdf-split", hot: true },
       { name: "Word to PDF", desc: "Convert text content with formatting to a downloadable PDF document.", href: "/tools/word-to-pdf", hot: true },
+      { name: "Markdown to PDF", desc: "Convert Markdown to PDF with live preview. Headers, lists, code blocks.", href: "/tools/markdown-to-pdf", hot: true },
     ],
   },
   {
@@ -114,6 +117,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Favicon Generator", desc: "Create favicons from text or emoji. Download 16px, 32px, 180px, 512px.", href: "/tools/favicon-generator", hot: true },
       { name: "Color Contrast Checker", desc: "Check WCAG AA/AAA contrast ratios. Ensure accessible text and backgrounds.", href: "/tools/color-contrast-checker" },
       { name: "JSON-LD Generator", desc: "Generate structured data markup for SEO. Schema.org ready.", href: "/tools/json-ld-generator" },
+      { name: "Image to Base64", desc: "Convert images to Base64 strings. Data URI, copy, size comparison.", href: "/tools/image-to-base64", hot: true },
     ],
   },
   {
@@ -142,6 +146,9 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Pomodoro Timer", desc: "Stay focused with timed work sessions and breaks. Customizable intervals.", href: "/tools/pomodoro-timer", hot: true },
       { name: "Fuel Cost Calculator", desc: "Calculate annual fuel costs, efficiency gap, and savings potential.", href: "/fuel-calculator", hot: true },
       { name: "Age Calculator", desc: "Your exact age in years, months, days, hours. Zodiac, birthday countdown.", href: "/tools/age-calculator", hot: true },
+      { name: "Screen Recorder", desc: "Record your screen with optional audio. Download as WebM. No install.", href: "/tools/screen-recorder", hot: true },
+      { name: "Stopwatch", desc: "Online stopwatch with lap timer. Millisecond precision. Start, stop, lap.", href: "/tools/stopwatch", hot: true },
+      { name: "Habit Tracker", desc: "Track daily habits with a 7-day grid. Build streaks. Saved locally.", href: "/tools/habit-tracker", hot: true },
     ],
   },
   {
@@ -151,6 +158,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "BMI Calculator", desc: "Calculate BMI with visual gauge. Metric & imperial. Healthy weight range.", href: "/tools/bmi-calculator", hot: true },
       { name: "Calorie Calculator", desc: "Calculate daily calorie needs (TDEE). Weight loss, gain, or maintenance goals.", href: "/tools/calorie-calculator", hot: true },
       { name: "Body Fat Calculator", desc: "US Navy method. Visual gauge, lean mass breakdown. Metric & imperial.", href: "/tools/body-fat-calculator", hot: true },
+      { name: "Pregnancy Calculator", desc: "Calculate due date, current week, trimester, and key milestones from your LMP.", href: "/tools/pregnancy-calculator", hot: true },
     ],
   },
   {

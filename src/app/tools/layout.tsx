@@ -20,6 +20,7 @@ const CATEGORIES = [
   { name: "Security", anchor: "security-tools", color: "#6366F1" },
   { name: "Author", anchor: "author-tools", color: "#D97706" },
   { name: "Converter", anchor: "converter-tools", color: "#14B8A6" },
+  { name: "Productivity", anchor: "productivity-tools", color: "#10B981" },
 ];
 
 // ============================================================
@@ -134,6 +135,16 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
   "svg-to-png": { category: "Image", anchor: "image-tools", displayName: "SVG to PNG" },
   "body-fat-calculator": { category: "Health", anchor: "health-tools", displayName: "Body Fat Calculator" },
   "fraction-calculator": { category: "Education", anchor: "education-tools", displayName: "Fraction Calculator" },
+
+  // New tools batch
+  "pregnancy-calculator": { category: "Health", anchor: "health-tools", displayName: "Pregnancy Calculator" },
+  "image-watermark": { category: "Image", anchor: "image-tools", displayName: "Image Watermark" },
+  "resume-builder": { category: "Business", anchor: "business-tools", displayName: "Resume Builder" },
+  "screen-recorder": { category: "Productivity", anchor: "productivity-tools", displayName: "Screen Recorder" },
+  "stopwatch": { category: "Productivity", anchor: "productivity-tools", displayName: "Stopwatch" },
+  "habit-tracker": { category: "Productivity", anchor: "productivity-tools", displayName: "Habit Tracker" },
+  "markdown-to-pdf": { category: "PDF", anchor: "pdf-tools", displayName: "Markdown to PDF" },
+  "image-to-base64": { category: "Dev", anchor: "dev-tools", displayName: "Image to Base64" },
 };
 
 function slugToName(slug: string): string {
