@@ -123,6 +123,17 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
   "meme-generator": { category: "Image", anchor: "image-tools", displayName: "Meme Generator" },
   "pdf-split": { category: "PDF", anchor: "pdf-tools", displayName: "PDF Split" },
   "word-to-pdf": { category: "PDF", anchor: "pdf-tools", displayName: "Word to PDF" },
+
+  // New tools
+  "currency-converter": { category: "Converter", anchor: "converter-tools", displayName: "Currency Converter" },
+  "paycheck-calculator": { category: "Business", anchor: "business-tools", displayName: "Paycheck Calculator" },
+  "business-name-generator": { category: "Business", anchor: "business-tools", displayName: "Business Name Generator" },
+  "signature-generator": { category: "Business", anchor: "business-tools", displayName: "Signature Generator" },
+  "audio-converter": { category: "Converter", anchor: "converter-tools", displayName: "Audio Converter" },
+  "video-to-gif": { category: "Image", anchor: "image-tools", displayName: "Video to GIF" },
+  "svg-to-png": { category: "Image", anchor: "image-tools", displayName: "SVG to PNG" },
+  "body-fat-calculator": { category: "Health", anchor: "health-tools", displayName: "Body Fat Calculator" },
+  "fraction-calculator": { category: "Education", anchor: "education-tools", displayName: "Fraction Calculator" },
 };
 
 function slugToName(slug: string): string {

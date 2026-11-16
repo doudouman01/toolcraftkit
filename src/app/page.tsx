@@ -49,6 +49,9 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Date Calculator", desc: "Days between dates, add/subtract days, find day of week.", href: "/tools/date-calculator" },
       { name: "Countdown Timer", desc: "Visual countdown with presets. Work sessions, cooking, meetings.", href: "/tools/countdown-timer" },
       { name: "ATS Resume Checker", desc: "Check your resume against job descriptions. Keyword matching & score.", href: "/tools/ats-resume-checker", premium: true },
+      { name: "Paycheck Calculator", desc: "Estimate take-home pay. Federal tax, state tax, Social Security, Medicare.", href: "/tools/paycheck-calculator", hot: true },
+      { name: "Business Name Generator", desc: "Generate 20+ creative business name ideas from keywords. Five styles.", href: "/tools/business-name-generator", hot: true },
+      { name: "Signature Generator", desc: "Draw or type your signature. Download as PNG or JPG. No signup.", href: "/tools/signature-generator", hot: true },
     ],
   },
   {
@@ -62,6 +65,8 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "JSON / CSV Converter", desc: "Convert between JSON and CSV formats. Paste or upload, instant conversion.", href: "/tools/json-csv-converter", hot: true },
       { name: "Text to Speech", desc: "Convert text to natural speech audio. Multiple voices and languages.", href: "/tools/text-to-speech", hot: true },
       { name: "HEIC to JPG Converter", desc: "Convert HEIC/HEIF images to JPEG. Adjustable quality, batch support.", href: "/tools/heic-to-jpg", hot: true },
+      { name: "Currency Converter", desc: "Convert between 30+ world currencies. Instant rates, swap button.", href: "/tools/currency-converter", hot: true },
+      { name: "Audio Converter", desc: "Convert audio files between WAV, OGG, WEBM, M4A formats. 100% client-side.", href: "/tools/audio-converter", hot: true },
     ],
   },
   {
@@ -79,6 +84,8 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Background Remover", desc: "Remove image backgrounds instantly. AI-powered, transparent PNG output.", href: "/tools/background-remover", hot: true },
       { name: "Image Upscaler", desc: "Upscale images 2x or 4x with AI. Enhance resolution without losing quality.", href: "/tools/image-upscaler", hot: true },
       { name: "Meme Generator", desc: "Create memes with custom text on any image. Download as PNG.", href: "/tools/meme-generator", hot: true },
+      { name: "Video to GIF", desc: "Extract frames from video. Set frame rate, preview animation, download PNGs.", href: "/tools/video-to-gif", hot: true },
+      { name: "SVG to PNG", desc: "Convert SVG to high-quality PNG. Custom size, 1x-4x scale, transparent bg.", href: "/tools/svg-to-png", hot: true },
     ],
   },
   {
@@ -143,6 +150,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
     items: [
       { name: "BMI Calculator", desc: "Calculate BMI with visual gauge. Metric & imperial. Healthy weight range.", href: "/tools/bmi-calculator", hot: true },
       { name: "Calorie Calculator", desc: "Calculate daily calorie needs (TDEE). Weight loss, gain, or maintenance goals.", href: "/tools/calorie-calculator", hot: true },
+      { name: "Body Fat Calculator", desc: "US Navy method. Visual gauge, lean mass breakdown. Metric & imperial.", href: "/tools/body-fat-calculator", hot: true },
     ],
   },
   {
@@ -151,6 +159,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
     items: [
       { name: "GPA Calculator", desc: "Calculate semester GPA on a 4.0 scale. Enter courses, grades, credits.", href: "/tools/gpa-calculator", hot: true },
       { name: "Typing Speed Test", desc: "Test your WPM with real passages. Track accuracy and improvement.", href: "/tools/typing-speed-test", hot: true },
+      { name: "Fraction Calculator", desc: "Add, subtract, multiply, divide fractions. Step-by-step solutions.", href: "/tools/fraction-calculator", hot: true },
     ],
   },
     {
