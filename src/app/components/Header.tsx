@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import LanguageSelector from "./LanguageSelector";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -62,6 +63,8 @@ export default function Header() {
             background: "linear-gradient(135deg, #0D9488, #14B8A6)",
             textDecoration: "none", whiteSpace: "nowrap",
           }}>Pro ✨</Link>
+
+          <LanguageSelector />
 
           {/* Hamburger button (mobile) */}
           <button

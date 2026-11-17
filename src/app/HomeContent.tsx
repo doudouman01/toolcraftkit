@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const tools: { category: string; color: string; items: { name: string; desc: string; href: string; hot?: boolean; premium?: boolean }[] }[] = [
   {
@@ -201,7 +202,14 @@ const popularTools = [
   { name: "Color Palette", desc: "Generate harmonious palettes", href: "/tools/color-palette", icon: "CLR" },
 ];
 
-function ToolCard({ tool, showCategory }: { tool: typeof allTools[number]; showCategory?: boolean }) {
+function ToolCard({ tool, showCategory, t }: { tool: typeof allTools[number]; showCategory?: boolean; t: (k: string) => string }) {
+  const translatedName = t(`tools.${tool.href}.name`);
+  const translatedDesc = t(`tools.${tool.href}.desc`);
+  const displayName = translatedName !== `tools.${tool.href}.name` ? translatedName : tool.name;
+  const displayDesc = translatedDesc !== `tools.${tool.href}.desc` ? translatedDesc : tool.desc;
+  const translatedCategory = t(`categories.${tool.category}`);
+  const displayCategory = translatedCategory !== `categories.${tool.category}` ? translatedCategory : tool.category;
+
   return (
     <Link href={tool.href} className="tool-card" style={{
       display: "block", padding: "16px 18px 16px 21px", background: "#fff",
@@ -210,30 +218,31 @@ function ToolCard({ tool, showCategory }: { tool: typeof allTools[number]; showC
       transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-        <span style={{ fontWeight: 600, fontSize: 15, color: "#1C1917" }}>{tool.name}</span>
+        <span style={{ fontWeight: 600, fontSize: 15, color: "#1C1917" }}>{displayName}</span>
         {tool.hot && (
           <span style={{
             width: 6, height: 6, borderRadius: "50%", background: "#0D9488", display: "inline-block", flexShrink: 0,
-          }} title="Popular" />
+          }} title={t("common.popular")} />
         )}
         {tool.premium && (
           <span style={{
             fontSize: 10, fontWeight: 600, color: "#D97706", background: "#FEF3C7",
             borderRadius: 4, padding: "2px 6px", letterSpacing: 0.3, display: "inline-flex", alignItems: "center", gap: 3,
-          }}>&#x1F512; PRO</span>
+          }}>&#x1F512; {t("common.premium")}</span>
         )}
       </div>
       {showCategory && (
         <div style={{ marginBottom: 2 }}>
-          <span style={{ fontSize: 11, color: tool.color, fontWeight: 600 }}>{tool.category}</span>
+          <span style={{ fontSize: 11, color: tool.color, fontWeight: 600 }}>{displayCategory}</span>
         </div>
       )}
-      <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>{tool.desc}</p>
+      <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>{displayDesc}</p>
     </Link>
   );
 }
 
 export default function HomeContent() {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
@@ -285,11 +294,11 @@ export default function HomeContent() {
             padding: "6px 16px", borderRadius: 20, background: "rgba(13,148,136,0.08)",
             border: "1px solid rgba(13,148,136,0.15)", marginBottom: 20,
           }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: "#0D9488" }}>106+ Free Tools</span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: "#0D9488" }}>{t("hero.badge")}</span>
           </div>
 
           <h1 style={{ fontSize: 44, fontWeight: 800, color: "#1C1917", lineHeight: 1.15, marginBottom: 12, letterSpacing: "-0.02em" }}>
-            The Toolkit for{" "}
+            {t("hero.title1")}{" "}
             <span style={{
               background: "linear-gradient(135deg, #0D9488, #14B8A6, #0D9488)",
               backgroundSize: "200% 200%",
@@ -297,19 +306,19 @@ export default function HomeContent() {
               WebkitTextFillColor: "transparent",
               animation: "gradientShift 4s ease infinite",
             }}>
-              Creators &amp; Builders
+              {t("hero.title2")}
             </span>
           </h1>
           <p style={{ fontSize: 17, color: "#78716C", maxWidth: 520, margin: "0 auto 28px", lineHeight: 1.6 }}>
-            Free, fast, browser-based tools. No signup, no tracking, no limits. Just open and use.
+            {t("hero.subtitle")}
           </p>
 
           {/* Trust badges */}
           <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 36, flexWrap: "wrap" }}>
             {[
-              { icon: "🔒", label: "100% Private" },
-              { icon: "⚡", label: "Instant Results" },
-              { icon: "💰", label: "No Hidden Fees" },
+              { icon: "🔒", label: t("hero.trust1") },
+              { icon: "⚡", label: t("hero.trust2") },
+              { icon: "💰", label: t("hero.trust3") },
             ].map((b) => (
               <span key={b.label} style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, color: "#57534E", fontWeight: 500 }}>
                 <span style={{ fontSize: 15 }}>{b.icon}</span> {b.label}
@@ -329,7 +338,7 @@ export default function HomeContent() {
             </svg>
             <input
               type="text"
-              placeholder="Search 106+ tools... (e.g. PDF, calculator, color)"
+              placeholder={t("hero.searchPlaceholder")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="hero-search"
@@ -360,7 +369,7 @@ export default function HomeContent() {
           </div>
           {filtered !== null && (
             <div style={{ textAlign: "center", fontSize: 13, color: "#78716C", marginTop: 8 }}>
-              {filtered.length} {filtered.length === 1 ? "tool" : "tools"} found
+              {filtered.length} {t("common.toolsFound")}
             </div>
           )}
         </div>
@@ -371,12 +380,12 @@ export default function HomeContent() {
         <section style={{ marginBottom: 32 }}>
           {filtered.length === 0 ? (
             <p style={{ textAlign: "center", color: "#A8A29E", fontSize: 15, padding: "32px 0" }}>
-              No tools match your search. Try a different keyword.
+              {t("common.noResults")}
             </p>
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10 }}>
               {filtered.map((tool) => (
-                <ToolCard key={tool.href} tool={tool} showCategory />
+                <ToolCard key={tool.href} tool={tool} showCategory t={t} />
               ))}
             </div>
           )}
@@ -386,8 +395,8 @@ export default function HomeContent() {
           {/* ===== POPULAR TOOLS ROW ===== */}
           <section style={{ marginBottom: 40 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-              <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1C1917", margin: 0 }}>Popular Tools</h2>
-              <span style={{ fontSize: 12, color: "#A8A29E" }}>Most used by our visitors</span>
+              <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1C1917", margin: 0 }}>{t("popular.title")}</h2>
+              <span style={{ fontSize: 12, color: "#A8A29E" }}>{t("popular.subtitle")}</span>
             </div>
             <div className="popular-scroll" style={{
               display: "flex", gap: 12, overflowX: "auto", paddingBottom: 8,
@@ -404,8 +413,8 @@ export default function HomeContent() {
                     display: "flex", alignItems: "center", justifyContent: "center",
                     fontSize: 14, fontWeight: 800, color: "#0D9488", letterSpacing: "-0.02em",
                   }}>{pt.icon}</div>
-                  <div style={{ fontWeight: 600, fontSize: 14, color: "#1C1917", marginBottom: 4 }}>{pt.name}</div>
-                  <div style={{ fontSize: 12, color: "#78716C", lineHeight: 1.4 }}>{pt.desc}</div>
+                  <div style={{ fontWeight: 600, fontSize: 14, color: "#1C1917", marginBottom: 4 }}>{t(`tools.${pt.href}.name`) !== `tools.${pt.href}.name` ? t(`tools.${pt.href}.name`) : pt.name}</div>
+                  <div style={{ fontSize: 12, color: "#78716C", lineHeight: 1.4 }}>{t(`tools.${pt.href}.desc`) !== `tools.${pt.href}.desc` ? t(`tools.${pt.href}.desc`) : pt.desc}</div>
                 </Link>
               ))}
             </div>
@@ -416,12 +425,12 @@ export default function HomeContent() {
             <section key={group.category} id={group.category.toLowerCase().replace(/ /g, "-")} style={{ marginBottom: 32, scrollMarginTop: 70 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
                 <div style={{ width: 4, height: 22, borderRadius: 2, background: group.color }} />
-                <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1C1917" }}>{group.category}</h2>
-                <span style={{ fontSize: 12, color: "#A8A29E" }}>{group.items.length} {group.items.length === 1 ? "tool" : "tools"}</span>
+                <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1C1917" }}>{t(`categories.${group.category}`) !== `categories.${group.category}` ? t(`categories.${group.category}`) : group.category}</h2>
+                <span style={{ fontSize: 12, color: "#A8A29E" }}>{group.items.length} {t("common.toolsFound").split(" ").pop()}</span>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10 }}>
                 {group.items.map((tool) => (
-                  <ToolCard key={tool.href} tool={{ ...tool, category: group.category, color: group.color }} />
+                  <ToolCard key={tool.href} tool={{ ...tool, category: group.category, color: group.color }} t={t} />
                 ))}
               </div>
             </section>
@@ -439,10 +448,10 @@ export default function HomeContent() {
           gap: 24, textAlign: "center",
         }}>
           {[
-            { value: "106+", label: "Tools" },
-            { value: "197+", label: "Articles" },
-            { value: "100%", label: "Free" },
-            { value: "0", label: "Signup Required" },
+            { value: "106+", label: t("stats.tools") },
+            { value: "197+", label: t("stats.articles") },
+            { value: "100%", label: t("stats.free") },
+            { value: "0", label: t("stats.noSignup") },
           ].map((stat) => (
             <div key={stat.label}>
               <div style={{ fontSize: 36, fontWeight: 800, color: "#0D9488", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
@@ -456,12 +465,12 @@ export default function HomeContent() {
 
       {/* ===== ABOUT SECTION ===== */}
       <section style={{ marginTop: 48 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#1C1917", marginBottom: 10 }}>About ToolCraftKit</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#1C1917", marginBottom: 10 }}>{t("about.title")}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>
-          ToolCraftKit is a collection of free online tools built for creators, entrepreneurs, developers, and anyone who works with text, numbers, colors, or data. Every tool runs entirely in your browser — nothing is uploaded, stored, or tracked.
+          {t("about.p1")}
         </p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>
-          Whether you need to count words for an essay, calculate profit margins for your business, convert color codes for a design project, generate secure passwords, convert units, compress images, merge PDFs, or format JSON for an API, ToolCraftKit has you covered. New tools are added regularly.
+          {t("about.p2")}
         </p>
       </section>
     </>
