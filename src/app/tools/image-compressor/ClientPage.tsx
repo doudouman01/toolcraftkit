@@ -242,7 +242,7 @@ export default function ClientPage() {
 
   // Minimal ZIP file creator (no library needed)
   function createZip(files: { name: string; data: Uint8Array }[]): Blob {
-    const parts: Uint8Array[] = [];
+    const parts: (Uint8Array | ArrayBuffer)[] = [];
     const centralDir: Uint8Array[] = [];
     let offset = 0;
 
@@ -316,7 +316,7 @@ export default function ClientPage() {
     ev.setUint16(20, 0, true);
     parts.push(eocd);
 
-    return new Blob(parts, { type: "application/zip" });
+    return new Blob(parts as BlobPart[], { type: "application/zip" });
   }
 
   function crc32(data: Uint8Array): number {
