@@ -145,6 +145,13 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
   "habit-tracker": { category: "Productivity", anchor: "productivity-tools", displayName: "Habit Tracker" },
   "markdown-to-pdf": { category: "PDF", anchor: "pdf-tools", displayName: "Markdown to PDF" },
   "image-to-base64": { category: "Dev", anchor: "dev-tools", displayName: "Image to Base64" },
+
+  // New tools batch 2
+  "temperature-converter": { category: "Converter", anchor: "converter-tools", displayName: "Temperature Converter" },
+  "qr-code-scanner": { category: "Dev", anchor: "dev-tools", displayName: "QR Code Scanner" },
+  "color-picker-advanced": { category: "Image", anchor: "image-tools", displayName: "Color Picker Advanced" },
+  "text-encryption": { category: "Text", anchor: "text-tools", displayName: "Text Encryption" },
+  "json-to-yaml": { category: "Converter", anchor: "converter-tools", displayName: "JSON to YAML" },
 };
 
 function slugToName(slug: string): string {
