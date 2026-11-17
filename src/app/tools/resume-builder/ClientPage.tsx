@@ -1,7 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
+
+const TOOL_SLUG = "resume-builder";
 
 interface WorkExp { title: string; company: string; dates: string; description: string; }
 interface Education { degree: string; school: string; dates: string; }
@@ -15,6 +19,43 @@ export default function ClientPage() {
   const [work, setWork] = useState<WorkExp[]>([{ title: "", company: "", dates: "", description: "" }]);
   const [education, setEducation] = useState<Education[]>([{ degree: "", school: "", dates: "" }]);
   const [generating, setGenerating] = useState(false);
+  const [error, setError] = useState("");
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(2);
+  const [period, setPeriod] = useState("month");
+
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (!user) return false;
+    if (usage >= limit) { window.location.href = "/pricing"; return false; }
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch { return false; }
+  };
 
   const updateWork = (i: number, field: keyof WorkExp, val: string) => {
     const copy = [...work]; copy[i] = { ...copy[i], [field]: val }; setWork(copy);
@@ -24,7 +65,11 @@ export default function ClientPage() {
   };
 
   const generatePdf = async () => {
+    if (!user) { setError("Please sign in to use this tool."); return; }
+    const allowed = await trackUsage();
+    if (!allowed) return;
     setGenerating(true);
+    setError("");
     try {
       const { PDFDocument, rgb, StandardFonts } = await import("pdf-lib");
       const doc = await PDFDocument.create();
@@ -143,6 +188,8 @@ export default function ClientPage() {
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "32px 20px" }}>
         <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Resume Builder</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "28px" }}>Fill in your details and download a professional PDF resume.</p>
+        <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
+        {error && <div style={{ color: "#dc2626", fontSize: "14px", marginBottom: "16px", padding: "8px 12px", background: "#FEF2F2", borderRadius: "6px" }}>{error}</div>}
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", alignItems: "start" }}>
           {/* Form */}

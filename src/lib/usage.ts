@@ -40,7 +40,15 @@ export const TOOL_LIMITS: Record<string, { free: number; period: 'day' | 'month'
     "free": 3,
     "period": "month",
     "label": "3 conversions/month"
-  }
+  },
+  "font-generator": { free: 10, period: "day", label: "10 generations/day" },
+  "word-to-pdf": { free: 3, period: "day", label: "3 conversions/day" },
+  "meme-generator": { free: 5, period: "day", label: "5 memes/day" },
+  "resume-builder": { free: 2, period: "month", label: "2 resumes/month" },
+  "pdf-split": { free: 3, period: "day", label: "3 splits/day" },
+  "image-watermark": { free: 5, period: "day", label: "5 watermarks/day" },
+  "heic-to-jpg": { free: 5, period: "day", label: "5 conversions/day" },
+  "svg-to-png": { free: 5, period: "day", label: "5 conversions/day" }
 };
 
 export async function getUsageCount(userId: string, toolSlug: string): Promise<number> {

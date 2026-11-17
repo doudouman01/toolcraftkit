@@ -2,6 +2,10 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
+
+const TOOL_SLUG = "meme-generator";
 
 export default function ClientPage() {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
@@ -14,6 +18,43 @@ export default function ClientPage() {
   const [canvasSize, setCanvasSize] = useState({ w: 600, h: 500 });
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [period, setPeriod] = useState("day");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (!user) return false;
+    if (usage >= limit) { window.location.href = "/pricing"; return false; }
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch { return false; }
+  };
 
   const drawMeme = useCallback(() => {
     const canvas = canvasRef.current;
@@ -89,9 +130,12 @@ export default function ClientPage() {
     if (e.dataTransfer.files[0]) loadImage(e.dataTransfer.files[0]);
   };
 
-  const download = () => {
+  const download = async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (!user) { setError("Please sign in to download memes."); return; }
+    const allowed = await trackUsage();
+    if (!allowed) return;
     const a = document.createElement("a");
     a.href = canvas.toDataURL("image/png");
     a.download = "meme.png";
@@ -124,6 +168,8 @@ export default function ClientPage() {
 
       <h1 style={s.h1}>Meme Generator</h1>
       <p style={s.sub}>Upload an image, add top and bottom text, and download your meme as PNG.</p>
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
+      {error && <div style={{ color: "#dc2626", fontSize: "14px", marginBottom: "16px", padding: "8px 12px", background: "#FEF2F2", borderRadius: "6px" }}>{error}</div>}
 
       <input ref={inputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={(e) => e.target.files?.[0] && loadImage(e.target.files[0])} />
 

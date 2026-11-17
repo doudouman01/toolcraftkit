@@ -1,7 +1,11 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
+
+const TOOL_SLUG = "heic-to-jpg";
 
 interface ConvertedFile {
   id: string;
@@ -19,6 +23,42 @@ export default function ClientPage() {
   const [error, setError] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [period, setPeriod] = useState("day");
+
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (!user) return false;
+    if (usage >= limit) { window.location.href = "/pricing"; return false; }
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch { return false; }
+  };
 
   const formatSize = (b: number) => b < 1024 ? b + " B" : b < 1048576 ? (b / 1024).toFixed(1) + " KB" : (b / 1048576).toFixed(2) + " MB";
 
@@ -40,6 +80,9 @@ export default function ClientPage() {
 
   const convertAll = async () => {
     if (files.length === 0) return;
+    if (!user) { setError("Please sign in to use this tool."); return; }
+    const allowed = await trackUsage();
+    if (!allowed) return;
     setProcessing(true);
     setError("");
     const results: ConvertedFile[] = [];
@@ -106,6 +149,7 @@ export default function ClientPage() {
 
       <h1 style={s.h1}>HEIC to JPG Converter</h1>
       <p style={s.sub}>Convert HEIC/HEIF images to JPEG. Runs entirely in your browser — nothing is uploaded.</p>
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <input ref={inputRef} type="file" accept=".heic,.heif,image/*" multiple style={{ display: "none" }} onChange={(e) => e.target.files && addFiles(e.target.files)} />
 

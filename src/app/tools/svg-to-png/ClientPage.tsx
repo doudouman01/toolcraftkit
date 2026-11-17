@@ -1,7 +1,11 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
+
+const TOOL_SLUG = "svg-to-png";
 
 export default function ClientPage() {
   const [svgCode, setSvgCode] = useState("");
@@ -14,6 +18,42 @@ export default function ClientPage() {
   const [preview, setPreview] = useState("");
   const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [period, setPeriod] = useState("day");
+
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (!user) return false;
+    if (usage >= limit) { window.location.href = "/pricing"; return false; }
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch { return false; }
+  };
 
   const handleFile = async (f: File) => {
     const text = await f.text();
@@ -55,10 +95,13 @@ export default function ClientPage() {
     if (lockAspect && aspectRatio > 0) setSvgWidth(Math.round(v * aspectRatio));
   };
 
-  const convertToPng = () => {
+  const convertToPng = async () => {
     setError("");
     setPreview("");
     if (!svgCode.trim()) { setError("Please upload or paste SVG code."); return; }
+    if (!user) { setError("Please sign in to use this tool."); return; }
+    const allowed = await trackUsage();
+    if (!allowed) return;
 
     try {
       const finalW = svgWidth * scale;
@@ -115,6 +158,7 @@ export default function ClientPage() {
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "SVG to PNG", url: "https://toolcraftkit.com/tools/svg-to-png" }]} />
       <h1 style={s.h1}>SVG to PNG Converter</h1>
       <p style={s.sub}>Upload SVG or paste code, set size and scale, download as high-quality PNG.</p>
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <div style={s.card}>
         <div

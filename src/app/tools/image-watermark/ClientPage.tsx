@@ -2,6 +2,10 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
+
+const TOOL_SLUG = "image-watermark";
 
 type Position = "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right" | "tiled";
 
@@ -16,6 +20,43 @@ export default function ClientPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [period, setPeriod] = useState("day");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (!user) return false;
+    if (usage >= limit) { window.location.href = "/pricing"; return false; }
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch { return false; }
+  };
 
   const loadImage = (file: File) => {
     if (!file.type.startsWith("image/")) return;
@@ -90,9 +131,12 @@ export default function ClientPage() {
     if (imgRef.current) drawWatermark();
   }, [drawWatermark]);
 
-  const download = () => {
+  const download = async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (!user) { setError("Please sign in to download."); return; }
+    const allowed = await trackUsage();
+    if (!allowed) return;
     const link = document.createElement("a");
     link.download = "watermarked-image.png";
     link.href = canvas.toDataURL("image/png");
@@ -110,6 +154,8 @@ export default function ClientPage() {
       <div style={{ maxWidth: "900px", margin: "0 auto", padding: "32px 20px" }}>
         <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Image Watermark</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "28px" }}>Upload an image and add a text watermark. Customize and download.</p>
+        <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
+        {error && <div style={{ color: "#dc2626", fontSize: "14px", marginBottom: "16px", padding: "8px 12px", background: "#FEF2F2", borderRadius: "6px" }}>{error}</div>}
 
         {!imageSrc ? (
           <div

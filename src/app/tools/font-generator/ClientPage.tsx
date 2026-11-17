@@ -1,7 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
+
+const TOOL_SLUG = "font-generator";
 
 function mapChars(text: string, upper: string[], lower: string[], digits?: string[]): string {
   return Array.from(text).map((c) => {
@@ -152,8 +156,48 @@ const STYLES: FontStyle[] = [
 export default function ClientPage() {
   const [text, setText] = useState("");
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [period, setPeriod] = useState("day");
+  const [error, setError] = useState("");
 
-  const copy = (val: string, idx: number) => {
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (!user) return false;
+    if (usage >= limit) { window.location.href = "/pricing"; return false; }
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch { return false; }
+  };
+
+  const copy = async (val: string, idx: number) => {
+    if (!user) { setError("Please sign in to copy text."); return; }
+    const allowed = await trackUsage();
+    if (!allowed) return;
     navigator.clipboard.writeText(val);
     setCopiedIdx(idx);
     setTimeout(() => setCopiedIdx(null), 1500);
@@ -178,6 +222,8 @@ export default function ClientPage() {
 
       <h1 style={s.h1}>Fancy Font Generator</h1>
       <p style={s.sub}>Type your text and see it in 17 Unicode font styles. Copy and paste anywhere.</p>
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
+      {error && <div style={{ color: "#dc2626", fontSize: "14px", marginBottom: "16px", padding: "8px 12px", background: "#FEF2F2", borderRadius: "6px" }}>{error}</div>}
 
       <div style={s.card}>
         <label style={s.label}>Your Text</label>

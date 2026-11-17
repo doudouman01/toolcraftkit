@@ -1,7 +1,11 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
+
+const TOOL_SLUG = "pdf-split";
 
 export default function ClientPage() {
   const [fileName, setFileName] = useState("");
@@ -13,6 +17,42 @@ export default function ClientPage() {
   const [dragOver, setDragOver] = useState(false);
   const [result, setResult] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(3);
+  const [period, setPeriod] = useState("day");
+
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (!user) return false;
+    if (usage >= limit) { window.location.href = "/pricing"; return false; }
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch { return false; }
+  };
 
   const loadPdf = async (file: File) => {
     if (file.type !== "application/pdf" && !file.name.endsWith(".pdf")) {
@@ -78,6 +118,9 @@ export default function ClientPage() {
 
   const splitPdf = async () => {
     if (!pdfData || selectedPages.size === 0) return;
+    if (!user) { setError("Please sign in to use this tool."); return; }
+    const allowed = await trackUsage();
+    if (!allowed) return;
     setProcessing(true);
     setError("");
     try {
@@ -149,6 +192,7 @@ export default function ClientPage() {
 
       <h1 style={s.h1}>PDF Split</h1>
       <p style={s.sub}>Extract pages from a PDF. Select individual pages or ranges. Everything runs in your browser.</p>
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <input ref={inputRef} type="file" accept=".pdf" style={{ display: "none" }} onChange={(e) => e.target.files?.[0] && loadPdf(e.target.files[0])} />
 

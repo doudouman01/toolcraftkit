@@ -1,7 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useAuth } from "@/context/AuthContext";
+import UsageBanner from "@/components/UsageBanner";
+
+const TOOL_SLUG = "word-to-pdf";
 
 type FormatTag = "bold" | "italic" | "h1" | "h2";
 
@@ -10,6 +14,42 @@ export default function ClientPage() {
   const [title, setTitle] = useState("");
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState("");
+  const { user, isPro } = useAuth();
+  const [usage, setUsage] = useState(0);
+  const [limit, setLimit] = useState(3);
+  const [period, setPeriod] = useState("day");
+
+  useEffect(() => {
+    if (!user) return;
+    fetch("/api/usage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: TOOL_SLUG, action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.usage !== undefined) setUsage(d.usage);
+        if (d.limit !== undefined) setLimit(d.limit);
+        if (d.period) setPeriod(d.period);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  const trackUsage = async () => {
+    if (isPro) return true;
+    if (!user) return false;
+    if (usage >= limit) { window.location.href = "/pricing"; return false; }
+    try {
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: TOOL_SLUG, action: "increment" }),
+      });
+      const d = await res.json();
+      if (d.usage !== undefined) setUsage(d.usage);
+      return d.allowed !== false;
+    } catch { return false; }
+  };
 
   const insertFormat = (tag: FormatTag) => {
     const markers: Record<FormatTag, [string, string]> = {
@@ -24,6 +64,9 @@ export default function ClientPage() {
 
   const generatePdf = async () => {
     if (!content.trim()) { setError("Please enter some content."); return; }
+    if (!user) { setError("Please sign in to use this tool."); return; }
+    const allowed = await trackUsage();
+    if (!allowed) return;
     setGenerating(true);
     setError("");
     try {
@@ -187,6 +230,7 @@ export default function ClientPage() {
 
       <h1 style={s.h1}>Word to PDF</h1>
       <p style={s.sub}>Type or paste your content, add formatting, and generate a PDF document. Runs in your browser.</p>
+      <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <div style={s.card}>
         <div style={{ marginBottom: "16px" }}>
