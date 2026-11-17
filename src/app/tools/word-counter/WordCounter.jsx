@@ -82,6 +82,7 @@ function analyze(text) {
       paragraphs: 0, syllables: 0, readingTime: "0 sec",
       speakingTime: "0 sec", fleschScore: 0, fleschGrade: "—",
       topKeywords: [], uniqueWords: 0, avgWordLength: 0, language: null,
+    longestWord: "", shortestWord: "", avgSentenceLength: 0, topFrequentWords: [],
     };
   }
   const words = text.match(/\S+/g) || [];
@@ -96,10 +97,17 @@ function analyze(text) {
   const uniqueSet = new Set();
   let totalSyllables = 0;
   let totalWordLen = 0;
+  let longestWord = "";
+  let shortestWord = "";
   words.forEach((w) => {
     totalSyllables += countSyllables(w);
     const clean = w.toLowerCase().replace(/[^a-z0-9'-]/g, "");
-    if (clean) { uniqueSet.add(clean); totalWordLen += clean.length; }
+    if (clean) {
+      uniqueSet.add(clean);
+      totalWordLen += clean.length;
+      if (clean.length > longestWord.length) longestWord = clean;
+      if (shortestWord === "" || clean.length < shortestWord.length) shortestWord = clean;
+    }
   });
 
   const readMin = wordCount / 250;
@@ -140,6 +148,13 @@ function analyze(text) {
       word, count, density: ((count / wordCount) * 100).toFixed(1),
     }));
 
+  const topFrequentWords = Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([word, count]) => ({ word, count }));
+
+  const avgSentenceLength = wordCount > 0 ? parseFloat((wordCount / sentenceCount).toFixed(1)) : 0;
+
   return {
     words: wordCount, chars, charsNoSpaces, sentences: sentenceCount,
     paragraphs: paragraphCount, syllables: totalSyllables,
@@ -148,6 +163,7 @@ function analyze(text) {
     uniqueWords: uniqueSet.size,
     avgWordLength: wordCount > 0 ? (totalWordLen / wordCount).toFixed(1) : 0,
     language: detectLanguage(text),
+    longestWord, shortestWord, avgSentenceLength, topFrequentWords,
   };
 }
 
@@ -466,8 +482,32 @@ export default function WordCounterV2() {
   const [sessionTotal, setSessionTotal] = useState(0);
   const [copied, setCopied] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [autoSaved, setAutoSaved] = useState(false);
+  const [fullScreen, setFullScreen] = useState(false);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const autoSaveTimer = useRef(null);
   const theme = dark ? DARK : LIGHT;
   const stats = useMemo(() => analyze(text), [text]);
+
+  /* ─── AUTO-SAVE: load on mount ─── */
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("tck-word-counter-text");
+      if (saved) setText(saved);
+    } catch {}
+  }, []);
+
+  /* ─── AUTO-SAVE: save after 1s idle ─── */
+  useEffect(() => {
+    if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
+    autoSaveTimer.current = setTimeout(() => {
+      try {
+        localStorage.setItem("tck-word-counter-text", text);
+        if (text.length > 0) { setAutoSaved(true); setTimeout(() => setAutoSaved(false), 2000); }
+      } catch {}
+    }, 1000);
+    return () => { if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current); };
+  }, [text]);
 
   /* session tracking */
   const prevWords = useRef(0);
@@ -592,25 +632,102 @@ return (
               <span><strong style={{ color: theme.text }}>{stats.words.toLocaleString()}</strong> words</span>
               <span><strong style={{ color: theme.text }}>{stats.chars.toLocaleString()}</strong> chars</span>
             </div>
-            <div style={{ display: "flex", gap: 2 }}>
+            <div style={{ display: "flex", gap: 2, alignItems: "center" }}>
+              {autoSaved && (
+                <span style={{ fontSize: 11, color: theme.success, fontWeight: 500, padding: "3px 6px" }}>Auto-saved</span>
+              )}
               {[
-                { label: copied ? "✓ Copied" : "Copy", action: copyText, show: text.length > 0 },
-                { label: "Download", action: downloadTxt, show: text.length > 0 },
-                { label: "Export Stats", action: exportStats, show: stats.words > 0 },
-                { label: "Clear", action: () => { setText(""); prevWords.current = 0; }, show: text.length > 0 },
+                { label: copied ? "✓ Copied" : "Copy", action: copyText, show: text.length > 0, danger: false },
+                { label: "Download .txt", action: downloadTxt, show: text.length > 0, danger: false },
+                { label: "Export Stats", action: exportStats, show: stats.words > 0, danger: false },
+                { label: fullScreen ? "Exit Full Screen" : "Full Screen", action: () => setFullScreen(!fullScreen), show: true, danger: false },
+                { label: "Clear All", action: () => setShowClearConfirm(true), show: text.length > 0, danger: true },
               ].filter((b) => b.show).map((btn) => (
                 <button key={btn.label} onClick={btn.action} style={{
-                  background: "none", border: "none", color: btn.label === "Clear" ? theme.danger : theme.textMuted,
+                  background: "none", border: "none", color: btn.danger ? theme.danger : theme.textMuted,
                   fontSize: 12, cursor: "pointer", padding: "3px 8px", borderRadius: 5,
                   fontWeight: 500, transition: "color 0.15s ease",
                 }}
                   onMouseOver={(e) => e.target.style.color = theme.primary}
-                  onMouseOut={(e) => e.target.style.color = btn.label === "Clear" ? theme.danger : theme.textMuted}
+                  onMouseOut={(e) => e.target.style.color = btn.danger ? theme.danger : theme.textMuted}
                 >{btn.label}</button>
               ))}
             </div>
           </div>
         </div>
+
+        {/* ─── CLEAR CONFIRMATION MODAL ─── */}
+        {showClearConfirm && (
+          <div style={{
+            position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+            background: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center",
+            justifyContent: "center", zIndex: 9999,
+          }} onClick={() => setShowClearConfirm(false)}>
+            <div style={{
+              background: theme.surface, borderRadius: 12, padding: "24px 28px",
+              maxWidth: 380, width: "90%", boxShadow: "0 8px 30px rgba(0,0,0,0.2)",
+              border: `1px solid ${theme.border}`,
+            }} onClick={(e) => e.stopPropagation()}>
+              <div style={{ fontSize: 16, fontWeight: 700, color: theme.text, marginBottom: 8 }}>Clear all text?</div>
+              <div style={{ fontSize: 13, color: theme.textMuted, marginBottom: 20, lineHeight: 1.5 }}>
+                This will remove all text and cannot be undone. The auto-saved draft will also be cleared.
+              </div>
+              <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
+                <button onClick={() => setShowClearConfirm(false)} style={{
+                  padding: "8px 18px", fontSize: 13, fontWeight: 600,
+                  border: `1px solid ${theme.border}`, borderRadius: 7,
+                  background: theme.surface, color: theme.text, cursor: "pointer",
+                }}>Cancel</button>
+                <button onClick={() => {
+                  setText(""); prevWords.current = 0; setShowClearConfirm(false);
+                  try { localStorage.removeItem("tck-word-counter-text"); } catch {}
+                }} style={{
+                  padding: "8px 18px", fontSize: 13, fontWeight: 600,
+                  border: "none", borderRadius: 7,
+                  background: theme.danger, color: "#fff", cursor: "pointer",
+                }}>Clear All</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ─── FULL SCREEN OVERLAY ─── */}
+        {fullScreen && (
+          <div style={{
+            position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+            background: theme.bg, zIndex: 9998, display: "flex",
+            flexDirection: "column", padding: 16,
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+              <div style={{ fontSize: 14, color: theme.textMuted }}>
+                <strong style={{ color: theme.text }}>{stats.words.toLocaleString()}</strong> words
+                {" · "}
+                <strong style={{ color: theme.text }}>{stats.chars.toLocaleString()}</strong> chars
+              </div>
+              <button onClick={() => setFullScreen(false)} style={{
+                background: theme.primary, color: "#fff", border: "none",
+                borderRadius: 7, padding: "7px 16px", fontSize: 13,
+                fontWeight: 600, cursor: "pointer",
+              }}>Exit Full Screen</button>
+            </div>
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              autoFocus
+              placeholder="Start typing or paste your text here..."
+              style={{
+                flex: 1, width: "100%", padding: "18px 20px",
+                fontSize: 16, lineHeight: 1.8, color: theme.text,
+                fontFamily: "'Inter', system-ui, sans-serif",
+                border: `1.5px solid ${theme.border}`, borderRadius: 12,
+                outline: "none", resize: "none", background: theme.surface,
+                boxSizing: "border-box",
+              }}
+              onFocus={(e) => e.target.style.borderColor = theme.primary}
+              onBlur={(e) => e.target.style.borderColor = theme.border}
+            />
+          </div>
+        )}
 
         {/* ─── TABS ─── */}
         <div style={{
@@ -647,6 +764,36 @@ return (
                 <StatCard label="Reading Time" value={stats.readingTime} sub="at 250 wpm" theme={theme} />
                 <StatCard label="Speaking Time" value={stats.speakingTime} sub="at 130 wpm" theme={theme} />
               </div>
+              {/* Enhanced text statistics */}
+              {stats.words > 0 && (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 12 }}>
+                  <StatCard label="Longest Word" value={stats.longestWord || "—"} sub={stats.longestWord ? `${stats.longestWord.length} chars` : undefined} theme={theme} />
+                  <StatCard label="Shortest Word" value={stats.shortestWord || "—"} sub={stats.shortestWord ? `${stats.shortestWord.length} char${stats.shortestWord.length > 1 ? "s" : ""}` : undefined} theme={theme} />
+                  <StatCard label="Avg Sentence Length" value={stats.avgSentenceLength} sub="words/sentence" theme={theme} />
+                </div>
+              )}
+
+              {/* Top 5 frequent words as chips */}
+              {stats.topFrequentWords.length > 0 && (
+                <div style={{ marginTop: 12 }}>
+                  <div style={{ fontSize: 12, color: theme.textMuted, fontWeight: 500, marginBottom: 8 }}>Top Frequent Words</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {stats.topFrequentWords.map((w) => (
+                      <span key={w.word} style={{
+                        display: "inline-flex", alignItems: "center", gap: 4,
+                        padding: "4px 10px", borderRadius: 20,
+                        background: dark ? "rgba(45,212,191,0.12)" : "rgba(13,148,136,0.08)",
+                        color: theme.primary, fontSize: 12, fontWeight: 600,
+                        border: `1px solid ${dark ? "rgba(45,212,191,0.2)" : "rgba(13,148,136,0.15)"}`,
+                      }}>
+                        {w.word}
+                        <span style={{ fontSize: 10, color: theme.textMuted, fontWeight: 500 }}>{w.count}x</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div style={{ marginTop: 12 }}>
                 <WordGoal current={stats.words} theme={theme} />
               </div>
