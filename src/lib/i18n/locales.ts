@@ -19,6 +19,11 @@ export const LOCALES = [
   { code: "cs", name: "Čeština", flag: "🇨🇿" },
   { code: "vi", name: "Tiếng Việt", flag: "🇻🇳" },
   { code: "is", name: "Íslenska", flag: "🇮🇸" },
+  { code: "ar", name: "العربية", flag: "🇸🇦" },
+  { code: "ko", name: "한국어", flag: "🇰🇷" },
+  { code: "tr", name: "Türkçe", flag: "🇹🇷" },
+  { code: "th", name: "ไทย", flag: "🇹🇭" },
+  { code: "ru", name: "Русский", flag: "🇷🇺" },
 ] as const;
 
 export type LocaleCode = typeof LOCALES[number]["code"];
