@@ -189,6 +189,50 @@ const tools: { category: string; color: string; items: { name: string; desc: str
 
 const allTools = tools.flatMap((g) => g.items.map((t) => ({ ...t, category: g.category, color: g.color })));
 
+/* Top 8 popular tools for the featured section */
+const popularTools = [
+  { name: "Word Counter", desc: "Count words, characters, sentences", href: "/tools/word-counter", icon: "Aa" },
+  { name: "Image Compressor", desc: "Compress without losing quality", href: "/tools/image-compressor", icon: "IMG" },
+  { name: "PDF Merge", desc: "Combine multiple PDFs into one", href: "/tools/pdf-merge", icon: "PDF" },
+  { name: "QR Code Generator", desc: "Generate QR codes instantly", href: "/tools/qr-code-generator", icon: "QR" },
+  { name: "Password Generator", desc: "Strong, random passwords", href: "/tools/password-generator", icon: "***" },
+  { name: "Invoice Generator", desc: "Create invoices, save as PDF", href: "/tools/invoice-generator", icon: "$" },
+  { name: "Resume Builder", desc: "Build & download as PDF", href: "/tools/resume-builder", icon: "CV" },
+  { name: "Color Palette", desc: "Generate harmonious palettes", href: "/tools/color-palette", icon: "CLR" },
+];
+
+function ToolCard({ tool, showCategory }: { tool: typeof allTools[number]; showCategory?: boolean }) {
+  return (
+    <Link href={tool.href} className="tool-card" style={{
+      display: "block", padding: "16px 18px 16px 21px", background: "#fff",
+      border: "1px solid #E7E5E4", borderRadius: 10, textDecoration: "none",
+      borderLeft: `3px solid ${tool.color}20`,
+      transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s",
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+        <span style={{ fontWeight: 600, fontSize: 15, color: "#1C1917" }}>{tool.name}</span>
+        {tool.hot && (
+          <span style={{
+            width: 6, height: 6, borderRadius: "50%", background: "#0D9488", display: "inline-block", flexShrink: 0,
+          }} title="Popular" />
+        )}
+        {tool.premium && (
+          <span style={{
+            fontSize: 10, fontWeight: 600, color: "#D97706", background: "#FEF3C7",
+            borderRadius: 4, padding: "2px 6px", letterSpacing: 0.3, display: "inline-flex", alignItems: "center", gap: 3,
+          }}>&#x1F512; PRO</span>
+        )}
+      </div>
+      {showCategory && (
+        <div style={{ marginBottom: 2 }}>
+          <span style={{ fontSize: 11, color: tool.color, fontWeight: 600 }}>{tool.category}</span>
+        </div>
+      )}
+      <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>{tool.desc}</p>
+    </Link>
+  );
+}
+
 export default function HomeContent() {
   const [query, setQuery] = useState("");
 
@@ -202,97 +246,127 @@ export default function HomeContent() {
 
   return (
     <>
-      <section style={{ textAlign: "center", padding: "48px 0 36px" }}>
-        <h1 style={{ fontSize: 32, fontWeight: 800, color: "#1C1917", lineHeight: 1.2, marginBottom: 6 }}>
-          Free Online Tools for{" "}
-          <span style={{ color: "#0D9488" }}>Creators & Entrepreneurs</span>
-        </h1>
-        <p style={{ fontSize: 15, color: "#78716C", maxWidth: 480, margin: "0 auto" }}>
-          No signup. No tracking. No limits. Just fast, free tools that run in your browser.
-        </p>
-      </section>
+      <style>{`
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .tool-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+          border-left-width: 3px !important;
+        }
+        .popular-scroll::-webkit-scrollbar { height: 6px; }
+        .popular-scroll::-webkit-scrollbar-track { background: transparent; }
+        .popular-scroll::-webkit-scrollbar-thumb { background: #D6D3D1; border-radius: 3px; }
+        .hero-search:focus { border-color: #0D9488 !important; box-shadow: 0 0 0 3px rgba(13,148,136,0.1) !important; }
+      `}</style>
 
-      {/* Search Bar */}
-      <div style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 50,
-        background: "#FAFAF9",
-        padding: "12px 0",
-        marginBottom: 24,
+      {/* ===== HERO SECTION ===== */}
+      <section style={{
+        textAlign: "center", padding: "64px 20px 48px", position: "relative", overflow: "hidden",
       }}>
+        {/* Background pattern */}
         <div style={{
-          position: "relative",
-          maxWidth: 540,
-          margin: "0 auto",
-        }}>
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#A8A29E"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{
-              position: "absolute",
-              left: 14,
-              top: "50%",
-              transform: "translateY(-50%)",
-              pointerEvents: "none",
-            }}
-          >
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-          <input
-            type="text"
-            placeholder="Search tools... (e.g. PDF, calculator, color)"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "12px 40px 12px 44px",
-              fontSize: 15,
-              border: "1px solid #E7E5E4",
-              borderRadius: 10,
-              outline: "none",
-              background: "#fff",
-              color: "#1C1917",
-              boxSizing: "border-box",
-            }}
-          />
-          {query && (
-            <button
-              onClick={() => setQuery("")}
-              style={{
-                position: "absolute",
-                right: 12,
-                top: "50%",
-                transform: "translateY(-50%)",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                color: "#A8A29E",
-                fontSize: 18,
-                lineHeight: 1,
-                padding: 4,
-              }}
-              aria-label="Clear search"
+          position: "absolute", inset: 0, zIndex: 0,
+          background: "radial-gradient(circle at 20% 50%, rgba(13,148,136,0.04) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(99,102,241,0.03) 0%, transparent 50%)",
+        }} />
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 0, opacity: 0.3,
+          backgroundImage: "radial-gradient(circle, #D6D3D1 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }} />
+
+        <div style={{ position: "relative", zIndex: 1 }}>
+          {/* Tool counter badge */}
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 6,
+            padding: "6px 16px", borderRadius: 20, background: "rgba(13,148,136,0.08)",
+            border: "1px solid rgba(13,148,136,0.15)", marginBottom: 20,
+          }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: "#0D9488" }}>106+ Free Tools</span>
+          </div>
+
+          <h1 style={{ fontSize: 44, fontWeight: 800, color: "#1C1917", lineHeight: 1.15, marginBottom: 12, letterSpacing: "-0.02em" }}>
+            The Toolkit for{" "}
+            <span style={{
+              background: "linear-gradient(135deg, #0D9488, #14B8A6, #0D9488)",
+              backgroundSize: "200% 200%",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "gradientShift 4s ease infinite",
+            }}>
+              Creators &amp; Builders
+            </span>
+          </h1>
+          <p style={{ fontSize: 17, color: "#78716C", maxWidth: 520, margin: "0 auto 28px", lineHeight: 1.6 }}>
+            Free, fast, browser-based tools. No signup, no tracking, no limits. Just open and use.
+          </p>
+
+          {/* Trust badges */}
+          <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 36, flexWrap: "wrap" }}>
+            {[
+              { icon: "🔒", label: "100% Private" },
+              { icon: "⚡", label: "Instant Results" },
+              { icon: "💰", label: "No Hidden Fees" },
+            ].map((b) => (
+              <span key={b.label} style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, color: "#57534E", fontWeight: 500 }}>
+                <span style={{ fontSize: 15 }}>{b.icon}</span> {b.label}
+              </span>
+            ))}
+          </div>
+
+          {/* Command-palette style search */}
+          <div style={{ maxWidth: 560, margin: "0 auto", position: "relative" }}>
+            <svg
+              width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="#A8A29E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+              style={{ position: "absolute", left: 18, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}
             >
-              &#x2715;
-            </button>
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search 106+ tools... (e.g. PDF, calculator, color)"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="hero-search"
+              style={{
+                width: "100%", padding: "16px 48px 16px 50px", fontSize: 16,
+                border: "1px solid #D6D3D1", borderRadius: 14, outline: "none",
+                background: "#fff", color: "#1C1917", boxSizing: "border-box",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+              }}
+            />
+            {query && (
+              <button
+                onClick={() => setQuery("")}
+                style={{
+                  position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)",
+                  background: "none", border: "none", cursor: "pointer", color: "#A8A29E",
+                  fontSize: 18, lineHeight: 1, padding: 4,
+                }}
+                aria-label="Clear search"
+              >&#x2715;</button>
+            )}
+            <span style={{
+              position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)",
+              fontSize: 11, color: "#A8A29E", background: "#F5F5F4", padding: "3px 7px",
+              borderRadius: 5, border: "1px solid #E7E5E4", pointerEvents: "none",
+              display: query ? "none" : "inline",
+            }}>Ctrl+K</span>
+          </div>
+          {filtered !== null && (
+            <div style={{ textAlign: "center", fontSize: 13, color: "#78716C", marginTop: 8 }}>
+              {filtered.length} {filtered.length === 1 ? "tool" : "tools"} found
+            </div>
           )}
         </div>
-        {filtered !== null && (
-          <div style={{ textAlign: "center", fontSize: 13, color: "#78716C", marginTop: 6 }}>
-            {filtered.length} {filtered.length === 1 ? "tool" : "tools"} found
-          </div>
-        )}
-      </div>
+      </section>
 
-      {/* Search results or category view */}
+      {/* ===== SEARCH RESULTS ===== */}
       {filtered !== null ? (
         <section style={{ marginBottom: 32 }}>
           {filtered.length === 0 ? (
@@ -302,37 +376,42 @@ export default function HomeContent() {
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10 }}>
               {filtered.map((tool) => (
-                <Link key={tool.href} href={tool.href} style={{
-                  display: "block", padding: "16px 18px", background: "#fff",
-                  border: "1px solid #E7E5E4", borderRadius: 10, textDecoration: "none",
-                  transition: "border-color 0.2s, box-shadow 0.2s",
-                }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                    <span style={{ fontWeight: 600, fontSize: 15, color: "#1C1917" }}>{tool.name}</span>
-                    {tool.hot && (
-                      <span style={{
-                        fontSize: 10, fontWeight: 700, color: "#fff", background: "#0D9488",
-                        borderRadius: 4, padding: "2px 6px", letterSpacing: 0.5, textTransform: "uppercase",
-                      }}>POPULAR</span>
-                    )}
-                    {tool.premium && (
-                      <span style={{
-                        fontSize: 10, fontWeight: 700, color: "#fff", background: "#D97706",
-                        borderRadius: 4, padding: "2px 6px", letterSpacing: 0.5, textTransform: "uppercase",
-                      }}>PREMIUM</span>
-                    )}
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
-                    <span style={{ fontSize: 11, color: tool.color, fontWeight: 600 }}>{tool.category}</span>
-                  </div>
-                  <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>{tool.desc}</p>
-                </Link>
+                <ToolCard key={tool.href} tool={tool} showCategory />
               ))}
             </div>
           )}
         </section>
       ) : (
         <>
+          {/* ===== POPULAR TOOLS ROW ===== */}
+          <section style={{ marginBottom: 40 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1C1917", margin: 0 }}>Popular Tools</h2>
+              <span style={{ fontSize: 12, color: "#A8A29E" }}>Most used by our visitors</span>
+            </div>
+            <div className="popular-scroll" style={{
+              display: "flex", gap: 12, overflowX: "auto", paddingBottom: 8,
+            }}>
+              {popularTools.map((pt) => (
+                <Link key={pt.href} href={pt.href} className="tool-card" style={{
+                  flex: "0 0 180px", padding: "20px 16px", background: "#fff",
+                  border: "1px solid #E7E5E4", borderRadius: 12, textDecoration: "none",
+                  textAlign: "center", transition: "transform 0.2s, box-shadow 0.2s",
+                }}>
+                  <div style={{
+                    width: 44, height: 44, borderRadius: 10, margin: "0 auto 10px",
+                    background: "linear-gradient(135deg, rgba(13,148,136,0.08), rgba(13,148,136,0.15))",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: 14, fontWeight: 800, color: "#0D9488", letterSpacing: "-0.02em",
+                  }}>{pt.icon}</div>
+                  <div style={{ fontWeight: 600, fontSize: 14, color: "#1C1917", marginBottom: 4 }}>{pt.name}</div>
+                  <div style={{ fontSize: 12, color: "#78716C", lineHeight: 1.4 }}>{pt.desc}</div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* ===== CATEGORY SECTIONS ===== */}
           {tools.map((group) => (
             <section key={group.category} id={group.category.toLowerCase().replace(/ /g, "-")} style={{ marginBottom: 32, scrollMarginTop: 70 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
@@ -342,28 +421,7 @@ export default function HomeContent() {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10 }}>
                 {group.items.map((tool) => (
-                  <Link key={tool.href} href={tool.href} style={{
-                    display: "block", padding: "16px 18px", background: "#fff",
-                    border: "1px solid #E7E5E4", borderRadius: 10, textDecoration: "none",
-                    transition: "border-color 0.2s, box-shadow 0.2s",
-                  }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontWeight: 600, fontSize: 15, color: "#1C1917" }}>{tool.name}</span>
-                      {tool.hot && (
-                        <span style={{
-                          fontSize: 10, fontWeight: 700, color: "#fff", background: "#0D9488",
-                          borderRadius: 4, padding: "2px 6px", letterSpacing: 0.5, textTransform: "uppercase",
-                        }}>POPULAR</span>
-                      )}
-                      {tool.premium && (
-                        <span style={{
-                          fontSize: 10, fontWeight: 700, color: "#fff", background: "#D97706",
-                          borderRadius: 4, padding: "2px 6px", letterSpacing: 0.5, textTransform: "uppercase",
-                        }}>PREMIUM</span>
-                      )}
-                    </div>
-                    <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>{tool.desc}</p>
-                  </Link>
+                  <ToolCard key={tool.href} tool={{ ...tool, category: group.category, color: group.color }} />
                 ))}
               </div>
             </section>
@@ -371,6 +429,32 @@ export default function HomeContent() {
         </>
       )}
 
+      {/* ===== STATS SECTION ===== */}
+      <section style={{
+        margin: "48px 0", padding: "40px 20px", background: "#fff",
+        border: "1px solid #E7E5E4", borderRadius: 16,
+      }}>
+        <div style={{
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+          gap: 24, textAlign: "center",
+        }}>
+          {[
+            { value: "106+", label: "Tools" },
+            { value: "197+", label: "Articles" },
+            { value: "100%", label: "Free" },
+            { value: "0", label: "Signup Required" },
+          ].map((stat) => (
+            <div key={stat.label}>
+              <div style={{ fontSize: 36, fontWeight: 800, color: "#0D9488", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
+                {stat.value}
+              </div>
+              <div style={{ fontSize: 14, color: "#78716C", fontWeight: 500, marginTop: 4 }}>{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== ABOUT SECTION ===== */}
       <section style={{ marginTop: 48 }}>
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#1C1917", marginBottom: 10 }}>About ToolCraftKit</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>
