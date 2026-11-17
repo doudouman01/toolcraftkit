@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const PRESETS = {
   essay: { fontSize: 12, spacing: "double", font: "Times New Roman", margin: 1 },
@@ -17,6 +19,8 @@ const WORDS_PER_PAGE: Record<string, Record<string, number>> = {
 };
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [words, setWords] = useState("");
   const [fontSize, setFontSize] = useState(12);
   const [spacing, setSpacing] = useState("double");
@@ -79,8 +83,8 @@ export default function ClientPage() {
           { name: "Words to Pages Calculator", url: "https://toolcraftkit.com/tools/words-to-pages" },
         ]}
       />
-      <h1 style={s.h1}>Words to Pages Converter</h1>
-      <p style={s.sub}>Estimate how many pages your word count fills, or how many words fit on a number of pages.</p>
+      <h1 style={s.h1}>{t(`tools./tools/words-to-pages.name`) !== `tools./tools/words-to-pages.name` ? t(`tools./tools/words-to-pages.name`) : "Words to Pages Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/words-to-pages.desc`) !== `tools./tools/words-to-pages.desc` ? t(`tools./tools/words-to-pages.desc`) : "Estimate how many pages your word count fills, or how many words fit on a number of pages."}</p>
 
       <div style={s.card}>
         <div style={s.row}>
@@ -143,13 +147,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Quickly estimate how many pages a given word count will fill based on font size and line spacing. Perfect for students writing essays, authors planning manuscripts, or professionals preparing reports and presentations.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>The estimates are based on standard US Letter size pages (8.5 × 11 inches) with 1-inch margins. Actual page count may vary depending on font, paragraph formatting, images, and headings.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "How many words fit on one page?", a: "With 12pt font, double-spaced, approximately 250 words fit on one page. Single-spaced, it is about 400-500 words depending on the font." },
           { q: "How many pages is a 1000-word essay?", a: "A 1000-word essay is approximately 4 pages double-spaced or 2 pages single-spaced with standard 12pt font and 1-inch margins." },

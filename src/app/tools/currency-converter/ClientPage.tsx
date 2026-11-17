@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const RATES: Record<string, { name: string; symbol: string; rate: number }> = {
   USD: { name: "US Dollar", symbol: "$", rate: 1 },
@@ -49,6 +51,8 @@ function convert(amount: number, from: string, to: string): number {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [amount, setAmount] = useState("1");
   const [from, setFrom] = useState("USD");
   const [to, setTo] = useState("EUR");
@@ -75,8 +79,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Currency Converter" description="Convert between 30+ major world currencies with approximate exchange rates." slug="currency-converter" category="Converter Tools" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "Currency Converter", url: "https://toolcraftkit.com/tools/currency-converter" }]} />
-      <h1 style={s.h1}>Currency Converter</h1>
-      <p style={s.sub}>Convert between 30+ major world currencies instantly.</p>
+      <h1 style={s.h1}>{t(`tools./tools/currency-converter.name`) !== `tools./tools/currency-converter.name` ? t(`tools./tools/currency-converter.name`) : "Currency Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/currency-converter.desc`) !== `tools./tools/currency-converter.desc` ? t(`tools./tools/currency-converter.desc`) : "Convert between 30+ major world currencies instantly."}</p>
 
       <div style={s.card}>
         <div style={{ marginBottom: 14 }}>

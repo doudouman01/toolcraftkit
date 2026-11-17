@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const CATEGORIES_MALE = [
   { label: "Essential Fat", min: 2, max: 5, color: "#3B82F6" },
@@ -32,6 +34,8 @@ function calcBodyFat(gender: "male" | "female", heightCm: number, neckCm: number
 function inToCm(inches: number) { return inches * 2.54; }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [gender, setGender] = useState<"male" | "female">("male");
   const [unit, setUnit] = useState<"metric" | "imperial">("imperial");
   const [height, setHeight] = useState("");
@@ -75,8 +79,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Body Fat Calculator" description="Calculate body fat percentage using the US Navy method with visual gauge and lean mass breakdown." slug="body-fat-calculator" category="Health & Fitness Tools" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "Body Fat Calculator", url: "https://toolcraftkit.com/tools/body-fat-calculator" }]} />
-      <h1 style={s.h1}>Body Fat Calculator</h1>
-      <p style={s.sub}>US Navy method. Enter your measurements and get your body fat percentage.</p>
+      <h1 style={s.h1}>{t(`tools./tools/body-fat-calculator.name`) !== `tools./tools/body-fat-calculator.name` ? t(`tools./tools/body-fat-calculator.name`) : "Body Fat Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/body-fat-calculator.desc`) !== `tools./tools/body-fat-calculator.desc` ? t(`tools./tools/body-fat-calculator.desc`) : "US Navy method. Enter your measurements and get your body fat percentage."}</p>
 
       <div style={s.card}>
         <div style={s.row}>

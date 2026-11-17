@@ -1,5 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -253,6 +255,8 @@ function AdSlot({ position, theme }: { position: string; theme: Theme }) {
    MAIN COMPONENT
    ═══════════════════════════════════════════════ */
 export default function ReadabilityChecker() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [text, setText] = useState("");
   const [dark, setDark] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -285,7 +289,7 @@ export default function ReadabilityChecker() {
             <h1 style={{
               fontSize: 26, fontWeight: 800, margin: 0,
               letterSpacing: "-0.03em", lineHeight: 1.2,
-            }}>Readability Score Checker</h1>
+            }}>{t(`tools./tools/readability-score.name`) !== `tools./tools/readability-score.name` ? t(`tools./tools/readability-score.name`) : "Readability Score Checker"}</h1>
             <button onClick={() => setDark(!dark)} aria-label="Toggle theme" style={{
               marginLeft: "auto", background: theme.surfaceAlt, border: `1px solid ${theme.border}`,
               borderRadius: 8, padding: "6px 12px", cursor: "pointer",
@@ -338,7 +342,7 @@ export default function ReadabilityChecker() {
                 background: "none", border: "none", color: theme.danger,
                 fontSize: 12, cursor: "pointer", padding: "3px 8px", borderRadius: 5,
                 fontWeight: 500,
-              }}>Clear</button>
+              }}>{toolUI.clear}</button>
             )}
           </div>
         </div>
@@ -457,7 +461,7 @@ export default function ReadabilityChecker() {
         <section style={{ marginBottom: 24 }}>
           <h2 style={{
             fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em",
-          }}>Frequently Asked Questions</h2>
+          }}>{toolUI.faq}</h2>
           <FAQItem theme={theme}
             q="What is a good readability score?"
             a="For general web content, aim for a Flesch Reading Ease score of 60-70 (standard difficulty) and a grade level of 6-8. Marketing copy and blog posts perform best at a 6th-8th grade reading level — clear and accessible to the widest audience."

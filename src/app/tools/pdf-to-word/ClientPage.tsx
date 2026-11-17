@@ -4,6 +4,8 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "pdf-to-word";
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
@@ -15,6 +17,8 @@ function formatFileSize(bytes: number): string {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(3);
@@ -177,8 +181,8 @@ export default function ClientPage() {
           { name: "PDF to Word Converter", url: "https://toolcraftkit.com/tools/pdf-to-word" },
         ]}
       />
-      <h1 style={s.h1}>PDF to Word Converter</h1>
-      <p style={s.sub}>Convert PDF files to editable Word documents (.docx) instantly.</p>
+      <h1 style={s.h1}>{t(`tools./tools/pdf-to-word.name`) !== `tools./tools/pdf-to-word.name` ? t(`tools./tools/pdf-to-word.name`) : "PDF to Word Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/pdf-to-word.desc`) !== `tools./tools/pdf-to-word.desc` ? t(`tools./tools/pdf-to-word.desc`) : "Convert PDF files to editable Word documents (.docx) instantly."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
@@ -317,7 +321,7 @@ export default function ClientPage() {
 
       {/* About Section */}
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>
           Convert PDF files to editable Word documents (.docx) in seconds. The converter extracts text, headings, paragraphs, and lists from your PDF and rebuilds them as a properly formatted Word document that you can edit in Microsoft Word, Google Docs, or any compatible word processor.
         </p>
@@ -328,7 +332,7 @@ export default function ClientPage() {
 
       {/* FAQ Section */}
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           {
             q: "Does the converter preserve my PDF formatting?",

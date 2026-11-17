@@ -3,6 +3,8 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { ToolUIProvider } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 // ============================================================
 // CATEGORY DEFINITIONS
@@ -163,15 +165,23 @@ function slugToName(slug: string): string {
 // ============================================================
 export default function ToolsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  
+  const { t } = useTranslation();
+
   // Extract tool slug from pathname: /tools/word-counter → word-counter
   const slug = pathname?.replace("/tools/", "").replace("/", "") || "";
   const toolInfo = TOOL_MAP[slug];
   const currentCategory = toolInfo?.category || "";
   const currentAnchor = toolInfo?.anchor || "";
-  const toolName = toolInfo?.displayName || slugToName(slug);
+  const toolName = (() => {
+    const translated = t(`tools./tools/${slug}.name`);
+    if (translated !== `tools./tools/${slug}.name`) return translated;
+    return toolInfo?.displayName || slugToName(slug);
+  })();
+
+  const homeLabel = t("toolUI.home") !== "toolUI.home" ? t("toolUI.home") : "Home";
 
   return (
+    <ToolUIProvider>
     <div>
       {/* ─── TOP NAV BAR ─── */}
       <nav style={{
@@ -244,7 +254,7 @@ export default function ToolsLayout({ children }: { children: React.ReactNode })
             alignItems: "center",
           }}>
             <Link href="/" style={{ color: "#0D9488", textDecoration: "none" }}>
-              Home
+              {homeLabel}
             </Link>
             <span style={{ color: "#ccc" }}>›</span>
             {currentAnchor && (
@@ -263,5 +273,6 @@ export default function ToolsLayout({ children }: { children: React.ReactNode })
       {/* ─── TOOL CONTENT ─── */}
       {children}
     </div>
+    </ToolUIProvider>
   );
 }

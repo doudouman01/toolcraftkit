@@ -2,8 +2,12 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [mode, setMode] = useState<"encode" | "decode">("encode");
@@ -56,8 +60,8 @@ export default function ClientPage() {
           { name: "URL Encoder/Decoder", url: "https://toolcraftkit.com/tools/url-encoder" },
         ]}
       />
-      <h1 style={s.h1}>URL Encoder / Decoder</h1>
-      <p style={s.sub}>Encode or decode URLs and query strings instantly. Runs in your browser.</p>
+      <h1 style={s.h1}>{t(`tools./tools/url-encoder.name`) !== `tools./tools/url-encoder.name` ? t(`tools./tools/url-encoder.name`) : "URL Encoder / Decoder"}</h1>
+      <p style={s.sub}>{t(`tools./tools/url-encoder.desc`) !== `tools./tools/url-encoder.desc` ? t(`tools./tools/url-encoder.desc`) : "Encode or decode URLs and query strings instantly. Runs in your browser."}</p>
 
       <div style={s.card}>
         <div style={s.row}>
@@ -82,19 +86,19 @@ export default function ClientPage() {
 
         <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
           <button onClick={copy} style={s.btn}>{copied ? "Copied!" : "Copy Output"}</button>
-          <button onClick={() => { setInput(""); setOutput(""); }} style={s.btnSm}>Clear</button>
+          <button onClick={() => { setInput(""); setOutput(""); }} style={s.btnSm}>{toolUI.clear}</button>
         </div>
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>URL encoding converts special characters into percent-encoded format so they can be safely included in URLs. For example, spaces become %20, ampersands become %26, and non-ASCII characters are converted to UTF-8 byte sequences.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}><strong>Component mode</strong> encodes/decodes individual values (query parameters, path segments). <strong>Full URI mode</strong> preserves URL structure characters like :, /, ?, and #.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Everything runs locally in your browser. Nothing is sent to any server.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "What is URL encoding?", a: "URL encoding (percent-encoding) replaces unsafe characters with a % followed by two hexadecimal digits. This ensures URLs are transmitted correctly across the internet." },
           { q: "When should I use Component vs Full URI?", a: "Use Component mode for individual values like search terms or form data. Use Full URI mode when you want to encode a complete URL while preserving its structure (protocol, slashes, colons)." },

@@ -1,5 +1,7 @@
 "use client";
 import { useState, useMemo, useCallback } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -159,6 +161,8 @@ function AdSlot({ position, theme }) {
    MAIN
    ═══════════════════════════════════════════ */
 export default function HexToRgbConverter() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const [hexInput, setHexInput] = useState("0D9488");
   const [pickerColor, setPickerColor] = useState("#0D9488");
@@ -206,7 +210,7 @@ const valid = rgb !== null;
         <AdSlot position="header" theme={theme} />
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Hex to RGB Converter</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/hex-to-rgb.name`) !== `tools./tools/hex-to-rgb.name` ? t(`tools./tools/hex-to-rgb.name`) : "Hex to RGB Converter"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Convert colors between HEX, RGB, HSL, and CMYK. Pick a color or type a hex code. Copy any format instantly.
           </p>
@@ -364,7 +368,7 @@ const valid = rgb !== null;
 
         {/* FAQ */}
         <section style={{ marginBottom: 20 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em" }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em" }}>{toolUI.faq}</h2>
           <FAQItem theme={theme} q="What is a hex color code?" a="A hex color code is a 6-character string that represents a color using hexadecimal values. Each pair of characters represents the red, green, and blue components. For example, #FF0000 is pure red (FF=255 red, 00=0 green, 00=0 blue)." />
           <FAQItem theme={theme} q="What is the difference between HEX and RGB?" a="They represent the same colors in different formats. HEX uses base-16 (0-9, A-F) in a compact string like #0D9488. RGB uses decimal numbers 0-255 for each channel like rgb(13, 148, 136). Both are widely used in web development and design." />
           <FAQItem theme={theme} q="What is HSL?" a="HSL stands for Hue, Saturation, and Lightness. Hue is the color angle (0-360°), Saturation is the color intensity (0-100%), and Lightness is how bright or dark (0-100%). HSL is often more intuitive for adjusting colors than RGB or HEX." />

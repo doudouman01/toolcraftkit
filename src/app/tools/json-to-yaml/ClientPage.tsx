@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 // Simple JSON to YAML serializer
 function jsonToYaml(obj: unknown, indent: number = 0): string {
@@ -166,6 +168,8 @@ function syntaxHighlight(text: string, type: "json" | "yaml"): React.ReactNode[]
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<"json-to-yaml" | "yaml-to-json">("json-to-yaml");
   const [input, setInput] = useState('{\n  "name": "John",\n  "age": 30,\n  "hobbies": ["reading", "coding"],\n  "active": true\n}');
   const [output, setOutput] = useState("");
@@ -202,7 +206,7 @@ export default function ClientPage() {
       <ToolSchema name="JSON to YAML Converter" description="Convert between JSON and YAML formats instantly. Client-side." slug="json-to-yaml" category="DeveloperApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Converter Tools", url: "https://toolcraftkit.com/#converter-tools" }, { name: "JSON to YAML", url: "https://toolcraftkit.com/tools/json-to-yaml" }]} />
 
-      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>JSON to YAML Converter</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>{t(`tools./tools/json-to-yaml.name`) !== `tools./tools/json-to-yaml.name` ? t(`tools./tools/json-to-yaml.name`) : "JSON to YAML Converter"}</h1>
       <p style={{ fontSize: 15, color: "#78716C", marginBottom: 24 }}>Convert between JSON and YAML formats. 100% client-side.</p>
 
       {/* Mode toggle */}
@@ -241,7 +245,7 @@ export default function ClientPage() {
                 padding: "4px 10px", fontSize: 12, fontWeight: 600, background: "#0D9488",
                 color: "#fff", border: "none", borderRadius: 4, cursor: "pointer",
               }}>
-                {copied ? "Copied!" : "Copy"}
+                {copied ? toolUI.copied : toolUI.copy}
               </button>
             )}
           </div>

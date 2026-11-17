@@ -2,6 +2,8 @@
 import { useState, useRef } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function formatSize(bytes: number) {
   if (bytes < 1024) return bytes + " B";
@@ -16,6 +18,8 @@ function formatDuration(sec: number) {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [file, setFile] = useState<File | null>(null);
   const [fileInfo, setFileInfo] = useState<{ duration: number; size: number; type: string } | null>(null);
   const [outputFormat, setOutputFormat] = useState("wav");
@@ -130,8 +134,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Audio Converter" description="Convert audio files between WAV, OGG, WEBM, M4A formats in your browser." slug="audio-converter" category="Converter Tools" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "Audio Converter", url: "https://toolcraftkit.com/tools/audio-converter" }]} />
-      <h1 style={s.h1}>Audio Converter</h1>
-      <p style={s.sub}>Convert audio files between formats. 100% client-side, no server upload.</p>
+      <h1 style={s.h1}>{t(`tools./tools/audio-converter.name`) !== `tools./tools/audio-converter.name` ? t(`tools./tools/audio-converter.name`) : "Audio Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/audio-converter.desc`) !== `tools./tools/audio-converter.desc` ? t(`tools./tools/audio-converter.desc`) : "Convert audio files between formats. 100% client-side, no server upload."}</p>
 
       <div style={s.card}>
         <div
@@ -165,7 +169,7 @@ export default function ClientPage() {
 
         {file && (
           <div style={{ marginTop: 16, display: "flex", gap: 8 }}>
-            <button onClick={convert} style={s.btn(true)} disabled={converting}>{converting ? "Converting..." : "Convert"}</button>
+            <button onClick={convert} style={s.btn(true)} disabled={converting}>{converting ? toolUI.converting : toolUI.convert}</button>
           </div>
         )}
 

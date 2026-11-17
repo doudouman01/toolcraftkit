@@ -4,10 +4,14 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "pdf-split";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [fileName, setFileName] = useState("");
   const [pageCount, setPageCount] = useState(0);
   const [selectedPages, setSelectedPages] = useState<Set<number>>(new Set());
@@ -190,8 +194,8 @@ export default function ClientPage() {
       <ToolSchema name="PDF Split" description="Split PDF files into individual pages or extract page ranges. Free, no upload to server." slug="pdf-split" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "PDF Tools", url: "https://toolcraftkit.com/#pdf-tools" }, { name: "PDF Split", url: "https://toolcraftkit.com/tools/pdf-split" }]} />
 
-      <h1 style={s.h1}>PDF Split</h1>
-      <p style={s.sub}>Extract pages from a PDF. Select individual pages or ranges. Everything runs in your browser.</p>
+      <h1 style={s.h1}>{t(`tools./tools/pdf-split.name`) !== `tools./tools/pdf-split.name` ? t(`tools./tools/pdf-split.name`) : "PDF Split"}</h1>
+      <p style={s.sub}>{t(`tools./tools/pdf-split.desc`) !== `tools./tools/pdf-split.desc` ? t(`tools./tools/pdf-split.desc`) : "Extract pages from a PDF. Select individual pages or ranges. Everything runs in your browser."}</p>
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <input ref={inputRef} type="file" accept=".pdf" style={{ display: "none" }} onChange={(e) => e.target.files?.[0] && loadPdf(e.target.files[0])} />

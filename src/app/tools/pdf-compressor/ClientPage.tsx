@@ -1,8 +1,12 @@
 "use client";
 import { useState, useRef } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [file, setFile] = useState<File | null>(null);
   const [origSize, setOrigSize] = useState(0);
   const [compSize, setCompSize] = useState(0);
@@ -59,8 +63,8 @@ export default function ClientPage() {
     <div style={s.wrap}>
       <ToolSchema name="PDF Compressor" description="Compress PDF files online for free. Reduce PDF file size without losing quality. No upload to server." slug="pdf-compressor" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "PDF Tools", url: "https://toolcraftkit.com/#pdf-tools" }, { name: "PDF Compressor", url: "https://toolcraftkit.com/tools/pdf-compressor" }]} />
-      <h1 style={s.h1}>PDF Compressor</h1>
-      <p style={s.sub}>Reduce PDF file size without losing quality. Everything runs in your browser — no upload to any server.</p>
+      <h1 style={s.h1}>{t(`tools./tools/pdf-compressor.name`) !== `tools./tools/pdf-compressor.name` ? t(`tools./tools/pdf-compressor.name`) : "PDF Compressor"}</h1>
+      <p style={s.sub}>{t(`tools./tools/pdf-compressor.desc`) !== `tools./tools/pdf-compressor.desc` ? t(`tools./tools/pdf-compressor.desc`) : "Reduce PDF file size without losing quality. Everything runs in your browser — no upload to any server."}</p>
 
       <input ref={inputRef} type="file" accept=".pdf" style={{ display: "none" }} onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])} />
 
@@ -97,7 +101,7 @@ export default function ClientPage() {
       )}
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Reduce the size of your PDF files for easier sharing via email, messaging, or upload. The compression uses object stream optimization to minimize file size while keeping all content, fonts, and images intact. Everything runs locally in your browser — your files never leave your device.</p>
       </div>
     </div>

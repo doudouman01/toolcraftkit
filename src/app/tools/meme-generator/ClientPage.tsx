@@ -4,10 +4,14 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "meme-generator";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [topText, setTopText] = useState("");
   const [bottomText, setBottomText] = useState("");
@@ -166,8 +170,8 @@ export default function ClientPage() {
       <ToolSchema name="Meme Generator" description="Create memes with custom text on any image. Download as PNG." slug="meme-generator" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Image Tools", url: "https://toolcraftkit.com/#image-tools" }, { name: "Meme Generator", url: "https://toolcraftkit.com/tools/meme-generator" }]} />
 
-      <h1 style={s.h1}>Meme Generator</h1>
-      <p style={s.sub}>Upload an image, add top and bottom text, and download your meme as PNG.</p>
+      <h1 style={s.h1}>{t(`tools./tools/meme-generator.name`) !== `tools./tools/meme-generator.name` ? t(`tools./tools/meme-generator.name`) : "Meme Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/meme-generator.desc`) !== `tools./tools/meme-generator.desc` ? t(`tools./tools/meme-generator.desc`) : "Upload an image, add top and bottom text, and download your meme as PNG."}</p>
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
       {error && <div style={{ color: "#dc2626", fontSize: "14px", marginBottom: "16px", padding: "8px 12px", background: "#FEF2F2", borderRadius: "6px" }}>{error}</div>}
 

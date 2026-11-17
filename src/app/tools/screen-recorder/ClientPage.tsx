@@ -2,8 +2,12 @@
 import { useState, useRef, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [recording, setRecording] = useState(false);
   const [paused, setPaused] = useState(false);
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
@@ -97,7 +101,7 @@ export default function ClientPage() {
       <ToolSchema name="Screen Recorder" description="Record your screen with optional audio. Download as WebM. Free, no install." slug="screen-recorder" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "Productivity Tools", url: "/#productivity-tools" }, { name: "Screen Recorder", url: "/tools/screen-recorder" }]} />
       <div style={{ maxWidth: "700px", margin: "0 auto", padding: "32px 20px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Screen Recorder</h1>
+        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>{t(`tools./tools/screen-recorder.name`) !== `tools./tools/screen-recorder.name` ? t(`tools./tools/screen-recorder.name`) : "Screen Recorder"}</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "28px" }}>Record your screen directly in the browser. Download as WebM.</p>
 
         <div style={cardStyle}>

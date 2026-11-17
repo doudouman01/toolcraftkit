@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const BRACKETS_2026 = [
   { min: 0, max: 11600, rate: 0.10 },
@@ -31,6 +33,8 @@ const FREQ: Record<string, { label: string; periods: number }> = {
 };
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<"salary" | "hourly">("salary");
   const [salary, setSalary] = useState("60000");
   const [hourly, setHourly] = useState("30");
@@ -81,8 +85,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Paycheck Calculator" description="Estimate take-home pay after federal tax, state tax, Social Security, and Medicare deductions." slug="paycheck-calculator" category="Business Tools" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "Paycheck Calculator", url: "https://toolcraftkit.com/tools/paycheck-calculator" }]} />
-      <h1 style={s.h1}>Paycheck Calculator</h1>
-      <p style={s.sub}>Estimate your take-home pay after taxes and deductions.</p>
+      <h1 style={s.h1}>{t(`tools./tools/paycheck-calculator.name`) !== `tools./tools/paycheck-calculator.name` ? t(`tools./tools/paycheck-calculator.name`) : "Paycheck Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/paycheck-calculator.desc`) !== `tools./tools/paycheck-calculator.desc` ? t(`tools./tools/paycheck-calculator.desc`) : "Estimate your take-home pay after taxes and deductions."}</p>
 
       <div style={s.card}>
         <div style={s.row}>

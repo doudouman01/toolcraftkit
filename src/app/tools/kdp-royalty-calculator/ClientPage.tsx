@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 // ============================================================
 // KDP ROYALTY CALCULATOR
@@ -24,6 +26,8 @@ const MARKETPLACES = [
 ];
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [marketplace, setMarketplace] = useState(MARKETPLACES[0]);
   const [price, setPrice] = useState("");
   const [fileSize, setFileSize] = useState("1");
@@ -59,9 +63,7 @@ export default function ClientPage() {
     <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem", fontFamily: "'Inter', -apple-system, sans-serif" }}>
 
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "#1a1a2e", marginBottom: "0.5rem" }}>
-          KDP Royalty Calculator
-        </h1>
+        <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "#1a1a2e", marginBottom: "0.5rem" }}>{t(`tools./tools/kdp-royalty-calculator.name`) !== `tools./tools/kdp-royalty-calculator.name` ? t(`tools./tools/kdp-royalty-calculator.name`) : "KDP Royalty Calculator"}</h1>
         <p style={{ fontSize: "1.05rem", color: "#555", maxWidth: 600, margin: "0 auto" }}>
           Calculate your Amazon KDP ebook royalties instantly. Compare 35% vs 70% options across all marketplaces.
         </p>

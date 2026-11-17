@@ -1,8 +1,12 @@
 "use client";
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [textA, setTextA] = useState("");
   const [textB, setTextB] = useState("");
   const [diff, setDiff] = useState<{ type: string; line: string }[]>([]);
@@ -45,8 +49,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Text Compare" description="Compare two texts side by side. Find differences instantly. Free online diff tool." slug="text-compare" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Text Tools", url: "https://toolcraftkit.com/#text-tools" }, { name: "Text Compare", url: "https://toolcraftkit.com/tools/text-compare" }]} />
-      <h1 style={s.h1}>Text Compare / Diff</h1>
-      <p style={s.sub}>Paste two texts and find the differences instantly. Line-by-line comparison.</p>
+      <h1 style={s.h1}>{t(`tools./tools/text-compare.name`) !== `tools./tools/text-compare.name` ? t(`tools./tools/text-compare.name`) : "Text Compare / Diff"}</h1>
+      <p style={s.sub}>{t(`tools./tools/text-compare.desc`) !== `tools./tools/text-compare.desc` ? t(`tools./tools/text-compare.desc`) : "Paste two texts and find the differences instantly. Line-by-line comparison."}</p>
 
       <div style={s.grid}>
         <div>
@@ -77,7 +81,7 @@ export default function ClientPage() {
       )}
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Compare two texts and see exactly what changed. Added lines are highlighted in green, removed lines in red. Perfect for comparing code, documents, emails, or any text. Everything runs in your browser.</p>
       </div>
     </div>

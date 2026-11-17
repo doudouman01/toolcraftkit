@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function formatDate(d: Date) {
   return {
@@ -28,6 +30,8 @@ function getRelative(d: Date) {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<"unix" | "date">("unix");
   const [unixInput, setUnixInput] = useState("");
   const [dateInput, setDateInput] = useState("");
@@ -88,8 +92,8 @@ export default function ClientPage() {
           { name: "Timestamp Converter", url: "https://toolcraftkit.com/tools/timestamp-converter" },
         ]}
       />
-      <h1 style={s.h1}>Timestamp Converter</h1>
-      <p style={s.sub}>Convert between Unix timestamps and human-readable dates.</p>
+      <h1 style={s.h1}>{t(`tools./tools/timestamp-converter.name`) !== `tools./tools/timestamp-converter.name` ? t(`tools./tools/timestamp-converter.name`) : "Timestamp Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/timestamp-converter.desc`) !== `tools./tools/timestamp-converter.desc` ? t(`tools./tools/timestamp-converter.desc`) : "Convert between Unix timestamps and human-readable dates."}</p>
 
       <div style={{ ...s.card, background: "#F0FDFA", border: "1px solid #99F6E4" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
@@ -157,13 +161,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>A Unix timestamp is the number of seconds since January 1, 1970 (UTC). This tool converts between Unix timestamps and human-readable dates in multiple formats including ISO 8601, UTC, and your local timezone.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>The tool auto-detects whether your input is in seconds or milliseconds. Everything runs in your browser — nothing is stored or sent anywhere.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "What is a Unix timestamp?", a: "A Unix timestamp (also called Epoch time or POSIX time) counts the number of seconds since January 1, 1970 at 00:00:00 UTC. It is widely used in programming, databases, and APIs." },
           { q: "Seconds vs milliseconds — what is the difference?", a: "Some systems (like JavaScript's Date.now()) use milliseconds (13 digits), while others (like PHP's time()) use seconds (10 digits). This tool handles both automatically." },

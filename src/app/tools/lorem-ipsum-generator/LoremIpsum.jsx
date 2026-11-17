@@ -1,5 +1,7 @@
 "use client";
 import { useState, useMemo, useCallback } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -139,6 +141,8 @@ function AdSlot({ position, theme }) {
    MAIN
    ═══════════════════════════════════════════ */
 export default function LoremIpsumGenerator() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const [mode, setMode] = useState("paragraphs");
   const [count, setCount] = useState(3);
@@ -189,7 +193,7 @@ return (
         <AdSlot position="header" theme={theme} />
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Lorem Ipsum Generator</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/lorem-ipsum-generator.name`) !== `tools./tools/lorem-ipsum-generator.name` ? t(`tools./tools/lorem-ipsum-generator.name`) : "Lorem Ipsum Generator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Generate placeholder text for designs, mockups, and prototypes. Choose paragraphs, sentences, words, or lists.
           </p>
@@ -301,7 +305,7 @@ return (
               <button onClick={download} style={{
                 background: "none", border: "none", color: theme.textMuted,
                 fontSize: 12, cursor: "pointer", padding: "3px 8px", borderRadius: 5, fontWeight: 500,
-              }}>Download</button>
+              }}>{toolUI.download}</button>
             </div>
           </div>
         </div>

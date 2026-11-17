@@ -4,6 +4,8 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "image-format-converter";
 
@@ -76,6 +78,8 @@ function getMimeType(format: OutputFormat): string {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(5);
@@ -331,8 +335,8 @@ export default function ClientPage() {
           { name: "Image Format Converter", url: "https://toolcraftkit.com/tools/image-format-converter" },
         ]}
       />
-      <h1 style={s.h1}>Image Format Converter</h1>
-      <p style={s.sub}>Convert images between PNG, JPG, WebP, BMP, and GIF. Fast, private, browser-based.</p>
+      <h1 style={s.h1}>{t(`tools./tools/image-format-converter.name`) !== `tools./tools/image-format-converter.name` ? t(`tools./tools/image-format-converter.name`) : "Image Format Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/image-format-converter.desc`) !== `tools./tools/image-format-converter.desc` ? t(`tools./tools/image-format-converter.desc`) : "Convert images between PNG, JPG, WebP, BMP, and GIF. Fast, private, browser-based."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
@@ -590,7 +594,7 @@ export default function ClientPage() {
 
       {/* About */}
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>
           Convert images between PNG, JPEG, WebP, BMP, and GIF formats directly in your browser. Upload any image — including SVG, AVIF, and TIFF — and convert it to your chosen format with adjustable quality settings for JPEG and WebP.
         </p>
@@ -601,7 +605,7 @@ export default function ClientPage() {
 
       {/* FAQ */}
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           {
             q: "Are my images uploaded to a server?",

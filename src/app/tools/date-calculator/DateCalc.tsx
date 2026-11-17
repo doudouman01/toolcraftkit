@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -116,6 +118,8 @@ function SeoContent({ theme }: { theme: typeof LIGHT }) {
 
 /* ─── MAIN COMPONENT ─── */
 export default function DateCalc() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark] = useState(false);
   const theme = dark ? DARK : LIGHT;
   const [tab, setTab] = useState<Tab>("between");
@@ -194,7 +198,7 @@ export default function DateCalc() {
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Date Calculator</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/date-calculator.name`) !== `tools./tools/date-calculator.name` ? t(`tools./tools/date-calculator.name`) : "Date Calculator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Calculate days between dates, add or subtract days, and find the day of the week for any date.
           </p>
@@ -348,7 +352,7 @@ export default function DateCalc() {
           background: theme.surface, borderRadius: 12, padding: 24,
           border: `1px solid ${theme.border}`, boxShadow: theme.shadow, marginBottom: 20,
         }}>
-          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>{toolUI.faq}</h2>
           <FAQItem theme={theme} q="How are business days calculated?" a="Business days count only weekdays (Monday through Friday), excluding Saturdays and Sundays. This is useful for contracts, shipping estimates, and work deadlines. Public holidays are not excluded since they vary by country and region." />
           <FAQItem theme={theme} q="Does the calculator handle leap years?" a="Yes. The calculator correctly accounts for leap years (every 4 years, except centuries not divisible by 400). February 29 is included in all calculations when applicable, ensuring accurate day counts across any date range." />
           <FAQItem theme={theme} q="Can I calculate dates in the past?" a="Absolutely. You can enter any valid date, past or future. This is useful for finding out what day of the week a historical event fell on, or how many days have passed since a specific date." />

@@ -2,8 +2,12 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [celsius, setCelsius] = useState("");
   const [fahrenheit, setFahrenheit] = useState("");
   const [kelvin, setKelvin] = useState("");
@@ -47,7 +51,7 @@ export default function ClientPage() {
       <ToolSchema name="Temperature Converter" description="Convert between Celsius, Fahrenheit, and Kelvin instantly." slug="temperature-converter" category="ConverterApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Converter Tools", url: "https://toolcraftkit.com/#converter-tools" }, { name: "Temperature Converter", url: "https://toolcraftkit.com/tools/temperature-converter" }]} />
 
-      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>Temperature Converter</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>{t(`tools./tools/temperature-converter.name`) !== `tools./tools/temperature-converter.name` ? t(`tools./tools/temperature-converter.name`) : "Temperature Converter"}</h1>
       <p style={{ fontSize: 15, color: "#78716C", marginBottom: 28 }}>Convert between Celsius, Fahrenheit, and Kelvin in real time.</p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>

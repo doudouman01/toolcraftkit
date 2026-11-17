@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 interface ThumbnailInfo {
   label: string;
@@ -53,6 +55,8 @@ function getThumbnails(videoId: string): ThumbnailInfo[] {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [inputUrl, setInputUrl] = useState("");
   const [videoId, setVideoId] = useState<string | null>(null);
   const [thumbnails, setThumbnails] = useState<ThumbnailInfo[]>([]);
@@ -179,8 +183,8 @@ export default function ClientPage() {
         ]}
       />
 
-      <h1 style={s.h1}>YouTube Thumbnail Downloader</h1>
-      <p style={s.sub}>Download any YouTube video thumbnail in all available resolutions. Just paste a YouTube URL.</p>
+      <h1 style={s.h1}>{t(`tools./tools/youtube-thumbnail-downloader.name`) !== `tools./tools/youtube-thumbnail-downloader.name` ? t(`tools./tools/youtube-thumbnail-downloader.name`) : "YouTube Thumbnail Downloader"}</h1>
+      <p style={s.sub}>{t(`tools./tools/youtube-thumbnail-downloader.desc`) !== `tools./tools/youtube-thumbnail-downloader.desc` ? t(`tools./tools/youtube-thumbnail-downloader.desc`) : "Download any YouTube video thumbnail in all available resolutions. Just paste a YouTube URL."}</p>
 
       <div style={s.card}>
         <label style={s.label}>YouTube Video URL</label>
@@ -249,7 +253,7 @@ export default function ClientPage() {
       )}
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>
           Grab any YouTube video thumbnail in all available sizes, from maximum resolution (1280x720) down to the default
           (120x90). Simply paste a YouTube URL, and the tool extracts the video ID and shows every available thumbnail.

@@ -2,6 +2,8 @@
 import { useState, useMemo } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── STYLES ─── */
 const s = {
@@ -67,6 +69,8 @@ function highlightHtml(html: string) {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   /* ─── STATE ─── */
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -163,8 +167,8 @@ export default function ClientPage() {
         ]}
       />
 
-      <h1 style={s.h1}>Meta Tag Generator</h1>
-      <p style={s.sub}>Generate SEO-optimized meta tags for your HTML pages. Live preview included.</p>
+      <h1 style={s.h1}>{t(`tools./tools/meta-tag-generator.name`) !== `tools./tools/meta-tag-generator.name` ? t(`tools./tools/meta-tag-generator.name`) : "Meta Tag Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/meta-tag-generator.desc`) !== `tools./tools/meta-tag-generator.desc` ? t(`tools./tools/meta-tag-generator.desc`) : "Generate SEO-optimized meta tags for your HTML pages. Live preview included."}</p>
 
       {/* ═══════ BASIC META TAGS ═══════ */}
       <div style={s.card}>
@@ -426,7 +430,7 @@ export default function ClientPage() {
 
       {/* ═══════ FAQ ═══════ */}
       <div style={s.card}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#1C1917", marginBottom: 16 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#1C1917", marginBottom: 16 }}>{toolUI.faq}</h2>
 
         {[
           {

@@ -1,5 +1,7 @@
 "use client";
 import { useState, useMemo, useCallback, useRef } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -190,6 +192,8 @@ const toolbarButtons = [
 
 /* ─── MAIN COMPONENT ─── */
 export default function MarkdownEditor() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark] = useState(false);
   const theme = dark ? DARK : LIGHT;
   const [markdown, setMarkdown] = useState(defaultMarkdown);
@@ -284,8 +288,8 @@ export default function MarkdownEditor() {
           <span style={{ color: theme.text }}>Markdown Editor</span>
         </nav>
 
-        <h1 style={s.h1}>Markdown Editor &amp; Previewer</h1>
-        <p style={s.sub}>Write Markdown on the left, see the live formatted preview on the right. No signup, no limits.</p>
+        <h1 style={s.h1}>{t(`tools./tools/markdown-editor.name`) !== `tools./tools/markdown-editor.name` ? t(`tools./tools/markdown-editor.name`) : "Markdown Editor & Previewer"}</h1>
+        <p style={s.sub}>{t(`tools./tools/markdown-editor.desc`) !== `tools./tools/markdown-editor.desc` ? t(`tools./tools/markdown-editor.desc`) : "Write Markdown on the left, see the live formatted preview on the right. No signup, no limits."}</p>
 
         <div style={s.card}>
           {/* Toolbar */}
@@ -342,7 +346,7 @@ export default function MarkdownEditor() {
 
         {/* FAQ */}
         <div style={s.faqSection}>
-          <h2 style={s.faqTitle}>Frequently Asked Questions</h2>
+          <h2 style={s.faqTitle}>{toolUI.faq}</h2>
           <FAQItem
             q="What is Markdown?"
             a="Markdown is a lightweight markup language created by John Gruber in 2004. It lets you format text using simple symbols like # for headings, ** for bold, and * for italic. It is widely used for README files, documentation, blogs, and note-taking apps like Obsidian and Notion."

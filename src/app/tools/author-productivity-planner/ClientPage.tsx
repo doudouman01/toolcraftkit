@@ -2,8 +2,12 @@
 
 import PremiumGate from "@/components/PremiumGate";
 import AuthorProductivityPlannerTool from "./AuthorProductivityPlanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   return (
     <PremiumGate
       toolName="Author Productivity Planner"

@@ -4,6 +4,8 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "image-cropper";
 
@@ -28,6 +30,8 @@ interface CropRect {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(5);
@@ -455,8 +459,8 @@ export default function ClientPage() {
           { name: "Image Cropper", url: "https://toolcraftkit.com/tools/image-cropper" },
         ]}
       />
-      <h1 style={s.h1}>Image Cropper</h1>
-      <p style={s.sub}>Crop images with preset ratios or custom dimensions. Fast, free, and private.</p>
+      <h1 style={s.h1}>{t(`tools./tools/image-cropper.name`) !== `tools./tools/image-cropper.name` ? t(`tools./tools/image-cropper.name`) : "Image Cropper"}</h1>
+      <p style={s.sub}>{t(`tools./tools/image-cropper.desc`) !== `tools./tools/image-cropper.desc` ? t(`tools./tools/image-cropper.desc`) : "Crop images with preset ratios or custom dimensions. Fast, free, and private."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
@@ -615,14 +619,14 @@ export default function ClientPage() {
 
       {/* About section */}
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Crop images instantly with an interactive selection tool. Choose preset aspect ratios for social media, presentations, or prints, or drag to select any custom area. Supports PNG and JPEG output.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Everything runs in your browser using the Canvas API. No images are uploaded to any server. Your files stay completely private on your device.</p>
       </div>
 
       {/* FAQ */}
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "What image formats can I upload?", a: "You can upload JPG, PNG, WebP, GIF, and BMP images. The cropped result can be downloaded as PNG (lossless) or JPEG (smaller file size)." },
           { q: "Is there a file size limit?", a: "There is no strict limit. Since everything is processed in your browser, very large images (50MP+) may be slower depending on your device." },

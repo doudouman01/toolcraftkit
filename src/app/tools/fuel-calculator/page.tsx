@@ -2,12 +2,16 @@
 
 import React, { useState, useCallback } from "react";
 import type { Metadata } from "next";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 // ============================================================
 // FUEL COST CALCULATOR — ToolCraftKit.com/fuel-calculator
 // Cross-promotion tool for "Drive Smarter, Spend Less" ebook
 // ============================================================
 
 export default function FuelCalculatorPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   // Inputs
   const [currentMpg, setCurrentMpg] = useState<string>("");
   const [epaMpg, setEpaMpg] = useState<string>("");
@@ -87,10 +91,10 @@ export default function FuelCalculatorPage() {
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
         <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "#1a1a2e", marginBottom: "0.5rem" }}>
-          ⛽ Fuel Cost Calculator
+          {t(`tools./tools/fuel-calculator.name`) !== `tools./tools/fuel-calculator.name` ? t(`tools./tools/fuel-calculator.name`) : "Fuel Cost Calculator"}
         </h1>
         <p style={{ fontSize: "1.1rem", color: "#555", maxWidth: 600, margin: "0 auto" }}>
-          Calculate your annual fuel costs, find your efficiency gap, and discover how much you could save with smarter driving habits.
+          {t(`tools./tools/fuel-calculator.desc`) !== `tools./tools/fuel-calculator.desc` ? t(`tools./tools/fuel-calculator.desc`) : "Calculate your annual fuel costs, find your efficiency gap, and discover how much you could save with smarter driving habits."}
         </p>
       </div>
 

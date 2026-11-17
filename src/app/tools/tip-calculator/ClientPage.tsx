@@ -2,8 +2,12 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [bill, setBill] = useState("");
   const [tipPct, setTipPct] = useState(18);
   const [customTip, setCustomTip] = useState("");
@@ -49,8 +53,8 @@ export default function ClientPage() {
           { name: "Tip Calculator", url: "https://toolcraftkit.com/tools/tip-calculator" },
         ]}
       />
-      <h1 style={s.h1}>Tip Calculator</h1>
-      <p style={s.sub}>Calculate the tip and split the bill between friends.</p>
+      <h1 style={s.h1}>{t(`tools./tools/tip-calculator.name`) !== `tools./tools/tip-calculator.name` ? t(`tools./tools/tip-calculator.name`) : "Tip Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/tip-calculator.desc`) !== `tools./tools/tip-calculator.desc` ? t(`tools./tools/tip-calculator.desc`) : "Calculate the tip and split the bill between friends."}</p>
 
       <div style={s.card}>
         <div style={{ marginBottom: 14 }}>
@@ -122,13 +126,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Quickly calculate the tip amount and total bill. Compare different tip percentages side by side, enter a custom percentage, and split the bill evenly between any number of people. The quick comparison table shows how different tip levels affect your total.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Everything runs locally in your browser. Nothing is stored or sent anywhere.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "How much should I tip?", a: "In the US and Canada, 15-20% is standard for sit-down restaurants. 18-20% is considered good service. For exceptional service, 25%+ is appropriate. For takeout, 10-15% is common but not required." },
           { q: "Do I tip before or after tax?", a: "Traditionally, tips are calculated on the pre-tax amount. However, many people simply tip on the total bill for convenience. The difference is usually small." },

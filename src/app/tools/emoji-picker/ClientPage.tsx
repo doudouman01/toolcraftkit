@@ -1,6 +1,8 @@
 "use client";
 import { useState, useMemo } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const CATEGORIES: Record<string, string[]> = {
   "Smileys": ["😀","😃","😄","😁","😆","😅","🤣","😂","🙂","🙃","😉","😊","😇","🥰","😍","🤩","😘","😗","😚","😙","🥲","😋","😛","😜","🤪","😝","🤑","🤗","🤭","🤫","🤔","🫡","🤐","🤨","😐","😑","😶","🫥","😏","😒","🙄","😬","🤥","😌","😔","😪","🤤","😴","😷","🤒","🤕","🤢","🤮","🥵","🥶","🥴","😵","🤯","🤠","🥳","🥸","😎","🤓","🧐","😕","🫤","😟","🙁","😮","😯","😲","😳","🥺","🥹","😦","😧","😨","😰","😥","😢","😭","😱","😖","😣","😞","😓","😩","😫","🥱","😤","😡","😠","🤬","😈","👿","💀","☠️","💩","🤡","👹","👺","👻","👽","👾","🤖"],
@@ -15,6 +17,8 @@ const CATEGORIES: Record<string, string[]> = {
 };
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("Smileys");
   const [copied, setCopied] = useState("");
@@ -53,8 +57,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Emoji Picker" description="Copy and paste emojis. Browse by category or search. Click to copy to clipboard instantly." slug="emoji-picker" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Text Tools", url: "https://toolcraftkit.com/#text-tools" }, { name: "Emoji Picker", url: "https://toolcraftkit.com/tools/emoji-picker" }]} />
-      <h1 style={s.h1}>Emoji Picker</h1>
-      <p style={s.sub}>Click any emoji to copy it to your clipboard. Browse by category or search.</p>
+      <h1 style={s.h1}>{t(`tools./tools/emoji-picker.name`) !== `tools./tools/emoji-picker.name` ? t(`tools./tools/emoji-picker.name`) : "Emoji Picker"}</h1>
+      <p style={s.sub}>{t(`tools./tools/emoji-picker.desc`) !== `tools./tools/emoji-picker.desc` ? t(`tools./tools/emoji-picker.desc`) : "Click any emoji to copy it to your clipboard. Browse by category or search."}</p>
 
       <div style={s.card}>
         <input type="text" placeholder="Search emojis..." value={search} onChange={(e) => setSearch(e.target.value)} style={s.input} />
@@ -84,7 +88,7 @@ export default function ClientPage() {
       {copied && <div style={s.toast}>Copied {copied}</div>}
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Browse and copy emojis instantly. Click any emoji to copy it to your clipboard — then paste it anywhere: social media, emails, documents, or chat. No app needed, works on any device.</p>
       </div>
     </div>

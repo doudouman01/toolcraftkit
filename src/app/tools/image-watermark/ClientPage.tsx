@@ -4,12 +4,16 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "image-watermark";
 
 type Position = "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right" | "tiled";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [text, setText] = useState("Sample Watermark");
   const [fontSize, setFontSize] = useState(48);
@@ -152,7 +156,7 @@ export default function ClientPage() {
       <ToolSchema name="Image Watermark" description="Add text watermarks to images with customizable font, size, color, opacity, and position." slug="image-watermark" category="DesignApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "Image Tools", url: "/#image-tools" }, { name: "Image Watermark", url: "/tools/image-watermark" }]} />
       <div style={{ maxWidth: "900px", margin: "0 auto", padding: "32px 20px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Image Watermark</h1>
+        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>{t(`tools./tools/image-watermark.name`) !== `tools./tools/image-watermark.name` ? t(`tools./tools/image-watermark.name`) : "Image Watermark"}</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "28px" }}>Upload an image and add a text watermark. Customize and download.</p>
         <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
         {error && <div style={{ color: "#dc2626", fontSize: "14px", marginBottom: "16px", padding: "8px 12px", background: "#FEF2F2", borderRadius: "6px" }}>{error}</div>}
@@ -203,8 +207,8 @@ export default function ClientPage() {
                   </select>
                 </div>
                 <div style={{ display: "flex", gap: "8px" }}>
-                  <button onClick={download} style={{ flex: 1, padding: "10px", background: "#0D9488", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 600, cursor: "pointer", fontSize: "14px" }}>Download</button>
-                  <button onClick={() => { setImageSrc(null); imgRef.current = null; }} style={{ padding: "10px 14px", background: "#F5F5F4", color: "#1C1917", border: "1px solid #E7E5E4", borderRadius: "8px", cursor: "pointer", fontSize: "14px" }}>Reset</button>
+                  <button onClick={download} style={{ flex: 1, padding: "10px", background: "#0D9488", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 600, cursor: "pointer", fontSize: "14px" }}>{toolUI.download}</button>
+                  <button onClick={() => { setImageSrc(null); imgRef.current = null; }} style={{ padding: "10px 14px", background: "#F5F5F4", color: "#1C1917", border: "1px solid #E7E5E4", borderRadius: "8px", cursor: "pointer", fontSize: "14px" }}>{toolUI.reset}</button>
                 </div>
               </div>
               {/* Preview */}

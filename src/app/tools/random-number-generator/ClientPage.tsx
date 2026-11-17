@@ -2,8 +2,12 @@
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<"range" | "dice" | "list" | "coin">("range");
   const [min, setMin] = useState("1");
   const [max, setMax] = useState("100");
@@ -97,8 +101,8 @@ export default function ClientPage() {
           { name: "Random Number Generator", url: "https://toolcraftkit.com/tools/random-number-generator" },
         ]}
       />
-      <h1 style={s.h1}>Random Number Generator</h1>
-      <p style={s.sub}>Generate random numbers, roll dice, pick from a list, or flip a coin.</p>
+      <h1 style={s.h1}>{t(`tools./tools/random-number-generator.name`) !== `tools./tools/random-number-generator.name` ? t(`tools./tools/random-number-generator.name`) : "Random Number Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/random-number-generator.desc`) !== `tools./tools/random-number-generator.desc` ? t(`tools./tools/random-number-generator.desc`) : "Generate random numbers, roll dice, pick from a list, or flip a coin."}</p>
 
       <div style={s.card}>
         <div style={s.row}>
@@ -115,7 +119,7 @@ export default function ClientPage() {
               <div style={{ flex: 1 }}><label style={s.label}>Count</label><input type="number" value={count} onChange={(e) => setCount(e.target.value)} min="1" max="1000" style={{ ...s.input, width: "100%" }} /></div>
             </div>
             <label style={s.check}><input type="checkbox" checked={allowDupes} onChange={() => setAllowDupes(!allowDupes)} style={{ accentColor: "#0D9488" }} />Allow duplicates</label>
-            <button onClick={generateRange} style={{ ...s.btn, marginTop: 12 }}>Generate</button>
+            <button onClick={generateRange} style={{ ...s.btn, marginTop: 12 }}>{toolUI.generate}</button>
           </>
         )}
 
@@ -182,13 +186,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Generate random numbers within any range, roll polyhedral dice (d4, d6, d8, d10, d12, d20), randomly pick names or items from a list, or flip a virtual coin. Perfect for games, classroom activities, decision-making, raffles, and more.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Uses your browser&apos;s built-in random number generator. Everything runs locally — no data is stored or sent anywhere.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "Are the numbers truly random?", a: "The tool uses Math.random(), which provides pseudo-random numbers suitable for games, sampling, and everyday use. For cryptographic purposes, use a dedicated secure random generator." },
           { q: "Can I generate numbers without duplicates?", a: "Yes. Uncheck 'Allow duplicates' in Number Range mode. The tool will generate unique numbers from your range (up to the range size)." },

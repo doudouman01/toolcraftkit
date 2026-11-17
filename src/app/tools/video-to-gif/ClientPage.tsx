@@ -2,8 +2,12 @@
 import { useState, useRef, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [file, setFile] = useState<File | null>(null);
   const [videoUrl, setVideoUrl] = useState("");
   const [duration, setDuration] = useState(0);
@@ -120,8 +124,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Video to GIF" description="Extract frames from video. Upload MP4 or WEBM, set frame rate, preview animation, download frames." slug="video-to-gif" category="Image Tools" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "Video to GIF", url: "https://toolcraftkit.com/tools/video-to-gif" }]} />
-      <h1 style={s.h1}>Video to GIF</h1>
-      <p style={s.sub}>Upload a video, extract frames, and preview as animation. Download individual frames as PNG.</p>
+      <h1 style={s.h1}>{t(`tools./tools/video-to-gif.name`) !== `tools./tools/video-to-gif.name` ? t(`tools./tools/video-to-gif.name`) : "Video to GIF"}</h1>
+      <p style={s.sub}>{t(`tools./tools/video-to-gif.desc`) !== `tools./tools/video-to-gif.desc` ? t(`tools./tools/video-to-gif.desc`) : "Upload a video, extract frames, and preview as animation. Download individual frames as PNG."}</p>
 
       <div style={s.card}>
         <div

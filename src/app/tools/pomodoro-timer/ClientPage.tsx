@@ -1,8 +1,12 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [workMin, setWorkMin] = useState(25);
   const [breakMin, setBreakMin] = useState(5);
   const [seconds, setSeconds] = useState(25 * 60);
@@ -56,8 +60,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Pomodoro Timer" description="Free online Pomodoro timer. Stay focused with timed work sessions and breaks. No signup required." slug="pomodoro-timer" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Productivity Tools", url: "https://toolcraftkit.com/#productivity-tools" }, { name: "Pomodoro Timer", url: "https://toolcraftkit.com/tools/pomodoro-timer" }]} />
-      <h1 style={s.h1}>Pomodoro Timer</h1>
-      <p style={s.sub}>Stay focused with timed work sessions and breaks.</p>
+      <h1 style={s.h1}>{t(`tools./tools/pomodoro-timer.name`) !== `tools./tools/pomodoro-timer.name` ? t(`tools./tools/pomodoro-timer.name`) : "Pomodoro Timer"}</h1>
+      <p style={s.sub}>{t(`tools./tools/pomodoro-timer.desc`) !== `tools./tools/pomodoro-timer.desc` ? t(`tools./tools/pomodoro-timer.desc`) : "Stay focused with timed work sessions and breaks."}</p>
 
       <div style={s.card}>
         <div style={s.status}>{isBreak ? "☕ Break Time" : "🎯 Focus Time"}</div>
@@ -92,7 +96,7 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32, textAlign: "left" as const }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>The Pomodoro Technique helps you focus by breaking work into intervals — typically 25 minutes of focused work followed by a 5-minute break. After 4 sessions, take a longer break. This method reduces mental fatigue and improves concentration.</p>
       </div>
     </div>

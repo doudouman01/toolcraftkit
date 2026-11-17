@@ -1,8 +1,12 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [input, setInput] = useState("1234567890");
   const [format, setFormat] = useState("CODE128");
   const [dataUrl, setDataUrl] = useState("");
@@ -46,8 +50,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Barcode Generator" description="Generate barcodes online for free. CODE128, EAN-13, UPC, CODE39, ITF-14. Download as PNG." slug="barcode-generator" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Business Tools", url: "https://toolcraftkit.com/#business-tools" }, { name: "Barcode Generator", url: "https://toolcraftkit.com/tools/barcode-generator" }]} />
-      <h1 style={s.h1}>Barcode Generator</h1>
-      <p style={s.sub}>Generate barcodes for products, inventory, and more. Download as PNG.</p>
+      <h1 style={s.h1}>{t(`tools./tools/barcode-generator.name`) !== `tools./tools/barcode-generator.name` ? t(`tools./tools/barcode-generator.name`) : "Barcode Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/barcode-generator.desc`) !== `tools./tools/barcode-generator.desc` ? t(`tools./tools/barcode-generator.desc`) : "Generate barcodes for products, inventory, and more. Download as PNG."}</p>
 
       <div style={s.card}>
         <label style={s.label}>Barcode Content</label>
@@ -76,7 +80,7 @@ export default function ClientPage() {
       )}
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Generate barcodes in standard formats used worldwide. CODE 128 works for any text, EAN-13 and UPC are for retail products, CODE 39 for alphanumeric labels, and ITF-14 for shipping containers. All barcodes are generated locally in your browser.</p>
       </div>
     </div>

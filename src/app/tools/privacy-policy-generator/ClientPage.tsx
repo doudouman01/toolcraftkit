@@ -2,6 +2,8 @@
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── TYPES ─── */
 interface FormData {
@@ -257,6 +259,8 @@ const s = {
 
 /* ─── MAIN COMPONENT ─── */
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const today = new Date().toISOString().split("T")[0];
   const [form, setForm] = useState<FormData>({
     websiteName: "",
@@ -334,8 +338,8 @@ export default function ClientPage() {
         { name: "Privacy Policy Generator", url: "https://toolcraftkit.com/tools/privacy-policy-generator" },
       ]} />
 
-      <h1 style={s.h1}>Privacy Policy Generator</h1>
-      <p style={s.sub}>Generate a professional privacy policy for your website. Free, no signup required.</p>
+      <h1 style={s.h1}>{t(`tools./tools/privacy-policy-generator.name`) !== `tools./tools/privacy-policy-generator.name` ? t(`tools./tools/privacy-policy-generator.name`) : "Privacy Policy Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/privacy-policy-generator.desc`) !== `tools./tools/privacy-policy-generator.desc` ? t(`tools./tools/privacy-policy-generator.desc`) : "Generate a professional privacy policy for your website. Free, no signup required."}</p>
 
       {/* ─── Website Details ─── */}
       <div style={s.card}>
@@ -451,7 +455,7 @@ export default function ClientPage() {
             <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", margin: 0 }}>Your Privacy Policy</h2>
             <div style={{ display: "flex", gap: 8 }}>
               <button onClick={handleCopy} style={s.btnSecondary}>
-                {copied ? "Copied!" : "Copy to Clipboard"}
+                {copied ? toolUI.copied : toolUI.copy}
               </button>
               <button onClick={handleDownload} style={s.btnSecondary}>
                 Download .txt

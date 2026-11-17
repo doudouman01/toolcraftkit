@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function calcLoan(principal: number, annualRate: number, years: number) {
   const months = years * 12;
@@ -25,6 +27,8 @@ function calcLoan(principal: number, annualRate: number, years: number) {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [amount, setAmount] = useState("250000");
   const [rate, setRate] = useState("6.5");
   const [years, setYears] = useState("30");
@@ -67,8 +71,8 @@ export default function ClientPage() {
           { name: "Loan Calculator", url: "https://toolcraftkit.com/tools/loan-calculator" },
         ]}
       />
-      <h1 style={s.h1}>Loan Calculator</h1>
-      <p style={s.sub}>Calculate monthly payments, total interest, and view the full amortization schedule.</p>
+      <h1 style={s.h1}>{t(`tools./tools/loan-calculator.name`) !== `tools./tools/loan-calculator.name` ? t(`tools./tools/loan-calculator.name`) : "Loan Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/loan-calculator.desc`) !== `tools./tools/loan-calculator.desc` ? t(`tools./tools/loan-calculator.desc`) : "Calculate monthly payments, total interest, and view the full amortization schedule."}</p>
 
       <div style={s.card}>
         <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
@@ -162,13 +166,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>This loan calculator computes your monthly payment, total interest, and total amount paid over the life of a fixed-rate loan. Use it for mortgages, car loans, personal loans, or student loans. The amortization schedule shows exactly how each payment is split between principal and interest.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Results are for estimation purposes. Actual loan terms may vary. Always consult a financial advisor for major borrowing decisions.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "How is the monthly payment calculated?", a: "The standard amortization formula is used: M = P × [r(1+r)^n] / [(1+r)^n – 1], where P is the loan amount, r is the monthly interest rate, and n is the total number of payments." },
           { q: "What is an amortization schedule?", a: "An amortization schedule breaks down each payment into principal and interest portions. Early in the loan, most of your payment goes to interest. Over time, more goes toward principal." },

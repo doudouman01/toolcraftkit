@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function gcd(a: number, b: number): number { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a; }
 function lcm(a: number, b: number) { return Math.abs(a * b) / gcd(a, b); }
@@ -84,6 +86,8 @@ function parseMixed(whole: string, num: string, den: string): [number, number] {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [w1, setW1] = useState("");
   const [n1, setN1] = useState("1");
   const [d1, setD1] = useState("2");
@@ -131,8 +135,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Fraction Calculator" description="Add, subtract, multiply, divide fractions with step-by-step solutions." slug="fraction-calculator" category="Education Tools" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "Fraction Calculator", url: "https://toolcraftkit.com/tools/fraction-calculator" }]} />
-      <h1 style={s.h1}>Fraction Calculator</h1>
-      <p style={s.sub}>Add, subtract, multiply, or divide fractions with step-by-step solutions.</p>
+      <h1 style={s.h1}>{t(`tools./tools/fraction-calculator.name`) !== `tools./tools/fraction-calculator.name` ? t(`tools./tools/fraction-calculator.name`) : "Fraction Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/fraction-calculator.desc`) !== `tools./tools/fraction-calculator.desc` ? t(`tools./tools/fraction-calculator.desc`) : "Add, subtract, multiply, or divide fractions with step-by-step solutions."}</p>
 
       <div style={s.card}>
         <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap", justifyContent: "center", marginBottom: 20 }}>

@@ -2,8 +2,12 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t: tr } = useTranslation();
   const [mode, setMode] = useState<"pct" | "final" | "saved">("pct");
   const [original, setOriginal] = useState("");
   const [discount, setDiscount] = useState("");
@@ -71,8 +75,8 @@ export default function ClientPage() {
           { name: "Discount Calculator", url: "https://toolcraftkit.com/tools/discount-calculator" },
         ]}
       />
-      <h1 style={s.h1}>Discount Calculator</h1>
-      <p style={s.sub}>Calculate discounts, sale prices, and savings instantly.</p>
+      <h1 style={s.h1}>{tr(`tools./tools/discount-calculator.name`) !== `tools./tools/discount-calculator.name` ? tr(`tools./tools/discount-calculator.name`) : "Discount Calculator"}</h1>
+      <p style={s.sub}>{tr(`tools./tools/discount-calculator.desc`) !== `tools./tools/discount-calculator.desc` ? tr(`tools./tools/discount-calculator.desc`) : "Calculate discounts, sale prices, and savings instantly."}</p>
 
       <div style={s.card}>
         <div style={s.row}>
@@ -146,13 +150,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Use this discount calculator to quickly figure out the sale price and how much money you save. Three modes cover every scenario: enter a percentage to find the final price, enter the final price to find the discount percentage, or enter the dollar amount saved to reverse-calculate the percentage.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Optional tax rate lets you see the total cost after tax. Everything runs in your browser — no data is stored or sent anywhere.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "How do I calculate a percentage discount?", a: "Multiply the original price by the discount percentage divided by 100. Subtract that from the original price. For example, 20% off $50: $50 × 0.20 = $10 discount, so you pay $40." },
           { q: "Can I calculate double discounts?", a: "Apply the first discount, then use the result as the new original price for the second discount. A 20% + 10% discount is not the same as 30% off." },

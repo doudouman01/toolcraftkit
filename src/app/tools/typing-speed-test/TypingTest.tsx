@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -81,6 +83,8 @@ function SeoContent({ theme }: { theme: typeof LIGHT }) {
 }
 
 export default function TypingTest() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const theme = dark ? DARK : LIGHT;
 
@@ -254,7 +258,7 @@ export default function TypingTest() {
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Typing Speed Test</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/typing-speed-test.name`) !== `tools./tools/typing-speed-test.name` ? t(`tools./tools/typing-speed-test.name`) : "Typing Speed Test"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Test your typing speed and accuracy. Start typing to begin the timer.
           </p>
@@ -429,7 +433,7 @@ export default function TypingTest() {
           background: theme.surface, borderRadius: 12, padding: 24,
           border: `1px solid ${theme.border}`, boxShadow: theme.shadow, marginBottom: 20,
         }}>
-          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>{toolUI.faq}</h2>
           <FAQItem theme={theme} q="What is a good typing speed?" a="The average typing speed is around 40 words per minute. A speed of 60 to 70 WPM is considered above average and sufficient for most office jobs. Professional typists and programmers often type between 80 and 120 WPM. Speed above 100 WPM is considered excellent." />
           <FAQItem theme={theme} q="How is WPM calculated?" a="WPM is calculated using the standard formula: one word equals five characters. The number of correctly typed characters is divided by five, then divided by the elapsed time in minutes. This standardized method ensures consistent results regardless of word length in the test passage." />
           <FAQItem theme={theme} q="How can I improve my typing speed?" a="Practice daily for at least 10 to 15 minutes using proper touch typing technique. Keep your fingers on the home row, avoid looking at the keyboard, and focus on accuracy over speed. Muscle memory builds naturally with consistent practice, and speed follows once your accuracy is consistently above 95 percent." />

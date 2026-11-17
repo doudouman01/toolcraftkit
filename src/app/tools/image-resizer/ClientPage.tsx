@@ -4,10 +4,14 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "image-resizer";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(5);
@@ -131,8 +135,8 @@ export default function ClientPage() {
       <div style={s.breadcrumb}>
         <a href="/" style={s.bLink}>Home</a> › <a href="/#image-tools" style={s.bLink}>Image Tools</a> › <span style={{ color: "#0D9488" }}>Image Resizer</span>
       </div>
-      <h1 style={s.h1}>Image Resizer</h1>
-      <p style={s.sub}>Resize images to exact dimensions. Social media presets included. No upload — runs in your browser.</p>
+      <h1 style={s.h1}>{t(`tools./tools/image-resizer.name`) !== `tools./tools/image-resizer.name` ? t(`tools./tools/image-resizer.name`) : "Image Resizer"}</h1>
+      <p style={s.sub}>{t(`tools./tools/image-resizer.desc`) !== `tools./tools/image-resizer.desc` ? t(`tools./tools/image-resizer.desc`) : "Resize images to exact dimensions. Social media presets included. No upload — runs in your browser."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 

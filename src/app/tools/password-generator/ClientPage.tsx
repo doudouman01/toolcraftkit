@@ -2,6 +2,8 @@
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const CHARSETS = {
   uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -39,6 +41,8 @@ function getStrength(pw: string) {
 const initOpts: Record<string, boolean> = { uppercase: true, lowercase: true, numbers: true, symbols: true };
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [length, setLength] = useState(16);
   const [options, setOptions] = useState<Record<string, boolean>>(initOpts);
   const [passwords, setPasswords] = useState(() => Array.from({ length: 5 }, () => generatePassword(16, initOpts)));
@@ -84,8 +88,8 @@ export default function ClientPage() {
           { name: "Password Generator", url: "https://toolcraftkit.com/tools/password-generator" },
         ]}
       />
-      <h1 style={s.h1}>Password Generator</h1>
-      <p style={s.sub}>Generate secure, random passwords. Everything runs in your browser.</p>
+      <h1 style={s.h1}>{t(`tools./tools/password-generator.name`) !== `tools./tools/password-generator.name` ? t(`tools./tools/password-generator.name`) : "Password Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/password-generator.desc`) !== `tools./tools/password-generator.desc` ? t(`tools./tools/password-generator.desc`) : "Generate secure, random passwords. Everything runs in your browser."}</p>
       <div style={s.card}>
         <div style={s.row}>
           <label style={{ ...s.label, marginBottom: 0, flex: "0 0 auto" }}>Length</label>
@@ -130,7 +134,7 @@ export default function ClientPage() {
         })}
       </div>
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>This password generator uses your browser&apos;s built-in cryptographic random number generator to create truly random passwords. No passwords are ever stored, transmitted, or logged.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>For maximum security, use passwords of at least 16 characters with all character types enabled. Use a unique password for every account and enable two-factor authentication whenever possible.</p>
       </div>

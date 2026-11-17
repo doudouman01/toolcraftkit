@@ -4,10 +4,14 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "svg-to-png";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [svgCode, setSvgCode] = useState("");
   const [svgWidth, setSvgWidth] = useState(512);
   const [svgHeight, setSvgHeight] = useState(512);
@@ -156,8 +160,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="SVG to PNG Converter" description="Convert SVG files to high-quality PNG images with custom size and scale." slug="svg-to-png" category="Image Tools" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "SVG to PNG", url: "https://toolcraftkit.com/tools/svg-to-png" }]} />
-      <h1 style={s.h1}>SVG to PNG Converter</h1>
-      <p style={s.sub}>Upload SVG or paste code, set size and scale, download as high-quality PNG.</p>
+      <h1 style={s.h1}>{t(`tools./tools/svg-to-png.name`) !== `tools./tools/svg-to-png.name` ? t(`tools./tools/svg-to-png.name`) : "SVG to PNG Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/svg-to-png.desc`) !== `tools./tools/svg-to-png.desc` ? t(`tools./tools/svg-to-png.desc`) : "Upload SVG or paste code, set size and scale, download as high-quality PNG."}</p>
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <div style={s.card}>

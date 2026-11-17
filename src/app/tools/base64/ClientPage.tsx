@@ -1,7 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [mode, setMode] = useState("encode");
@@ -41,8 +45,8 @@ export default function ClientPage() {
 
   return (
     <div style={s.page}>
-      <h1 style={s.h1}>Base64 Encoder / Decoder</h1>
-      <p style={s.sub}>Encode text to Base64 or decode Base64 back to text. Runs entirely in your browser.</p>
+      <h1 style={s.h1}>{t(`tools./tools/base64.name`) !== `tools./tools/base64.name` ? t(`tools./tools/base64.name`) : "Base64 Encoder / Decoder"}</h1>
+      <p style={s.sub}>{t(`tools./tools/base64.desc`) !== `tools./tools/base64.desc` ? t(`tools./tools/base64.desc`) : "Encode text to Base64 or decode Base64 back to text. Runs entirely in your browser."}</p>
       <div style={s.card}>
         <div style={s.tabs}>
           <button style={s.tab(mode === "encode")} onClick={() => switchMode("encode")}>Encode</button>
@@ -53,7 +57,7 @@ export default function ClientPage() {
         {error && <div style={s.error}>{error}</div>}
         <div style={s.row}>
           <button onClick={swap} style={s.btnSm}>Swap</button>
-          <button onClick={clear} style={s.btnSm}>Clear</button>
+          <button onClick={clear} style={s.btnSm}>{toolUI.clear}</button>
         </div>
       </div>
       {output && (

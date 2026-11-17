@@ -2,6 +2,8 @@
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── TYPES ─── */
 interface OgData {
@@ -183,6 +185,8 @@ function DiscordPreview({ og }: { og: OgData }) {
 
 /* ─── MAIN COMPONENT ─── */
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [tab, setTab] = useState<TabMode>("editor");
   const [og, setOg] = useState<OgData>({
     title: "",
@@ -226,8 +230,8 @@ export default function ClientPage() {
         { name: "Open Graph Preview", url: "https://toolcraftkit.com/tools/open-graph-preview" },
       ]} />
 
-      <h1 style={s.h1}>Open Graph Preview</h1>
-      <p style={s.sub}>See exactly how your link will look when shared on social media. Edit your tags and preview in real time.</p>
+      <h1 style={s.h1}>{t(`tools./tools/open-graph-preview.name`) !== `tools./tools/open-graph-preview.name` ? t(`tools./tools/open-graph-preview.name`) : "Open Graph Preview"}</h1>
+      <p style={s.sub}>{t(`tools./tools/open-graph-preview.desc`) !== `tools./tools/open-graph-preview.desc` ? t(`tools./tools/open-graph-preview.desc`) : "See exactly how your link will look when shared on social media. Edit your tags and preview in real time."}</p>
 
       {/* ─── Tabs ─── */}
       <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
@@ -298,7 +302,7 @@ export default function ClientPage() {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
                 <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", margin: 0 }}>Your Meta Tags</h2>
                 <button onClick={handleCopy} style={s.btnSecondary}>
-                  {copied ? "Copied!" : "Copy to Clipboard"}
+                  {copied ? toolUI.copied : toolUI.copy}
                 </button>
               </div>
               <textarea value={metaTags} readOnly style={s.textarea} />

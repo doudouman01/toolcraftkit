@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const LIGHT = {
   primary: "#0D9488", primaryLight: "#14B8A6",
@@ -67,6 +69,8 @@ function FAQItem({ q, a, theme }: { q: string; a: string; theme: typeof LIGHT })
 }
 
 export default function GpaCalculator() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark] = useState(false);
   const theme = dark ? DARK : LIGHT;
   const [courses, setCourses] = useState<Course[]>([
@@ -120,7 +124,7 @@ export default function GpaCalculator() {
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>GPA Calculator</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/gpa-calculator.name`) !== `tools./tools/gpa-calculator.name` ? t(`tools./tools/gpa-calculator.name`) : "GPA Calculator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Enter your courses, grades, and credit hours to calculate your semester GPA on a 4.0 scale.
           </p>
@@ -232,7 +236,7 @@ export default function GpaCalculator() {
           background: theme.surface, borderRadius: 12, padding: 24,
           border: `1px solid ${theme.border}`, boxShadow: theme.shadow, marginBottom: 20,
         }}>
-          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>{toolUI.faq}</h2>
           <FAQItem theme={theme} q="What GPA do I need for Dean's List?" a="Most universities require a 3.0 or higher GPA for Dean's List recognition. Some set the bar at 3.5. Check your institution's specific requirements." />
           <FAQItem theme={theme} q="How is cumulative GPA different from semester GPA?" a="Semester GPA covers only the courses in one semester. Cumulative GPA includes all courses across all semesters, weighted by credit hours. This calculator computes a single-semester GPA." />
           <FAQItem theme={theme} q="Do pass/fail courses count toward GPA?" a="In most universities, pass/fail courses do not affect your GPA. Only letter-graded courses are included in the GPA calculation." />

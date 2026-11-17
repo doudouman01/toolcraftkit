@@ -2,8 +2,12 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [homePrice, setHomePrice] = useState("400000");
   const [downPct, setDownPct] = useState("20");
   const [rate, setRate] = useState("6.5");
@@ -77,8 +81,8 @@ export default function ClientPage() {
           { name: "Mortgage Calculator", url: "https://toolcraftkit.com/tools/mortgage-calculator" },
         ]}
       />
-      <h1 style={s.h1}>Mortgage Calculator</h1>
-      <p style={s.sub}>Estimate your monthly mortgage payment including taxes and insurance.</p>
+      <h1 style={s.h1}>{t(`tools./tools/mortgage-calculator.name`) !== `tools./tools/mortgage-calculator.name` ? t(`tools./tools/mortgage-calculator.name`) : "Mortgage Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/mortgage-calculator.desc`) !== `tools./tools/mortgage-calculator.desc` ? t(`tools./tools/mortgage-calculator.desc`) : "Estimate your monthly mortgage payment including taxes and insurance."}</p>
 
       <div style={s.card}>
         <div style={{ marginBottom: 14 }}>
@@ -173,13 +177,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>This mortgage calculator estimates your monthly home payment including principal, interest, property taxes, and home insurance. It shows the true cost of homeownership beyond just the loan payment, helping you budget accurately before buying.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>The yearly breakdown reveals how your payments shift from mostly interest to mostly principal over time. Results are estimates — actual rates and costs vary by lender and location.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "How much house can I afford?", a: "A common guideline is the 28/36 rule: spend no more than 28% of gross monthly income on housing costs and no more than 36% on total debt. If you earn $6,000/month, aim for a total housing payment under $1,680." },
           { q: "What is a good down payment?", a: "20% is ideal because it avoids private mortgage insurance (PMI). However, many programs allow 3-5% down. A larger down payment means lower monthly payments and less interest paid overall." },

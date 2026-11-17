@@ -4,6 +4,8 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const MODES = [
   { key: "url", label: "URL", placeholder: "https://example.com" },
@@ -16,6 +18,8 @@ const MODES = [
 const TOOL_SLUG = "qr-code-generator";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(5);
@@ -148,8 +152,8 @@ export default function ClientPage() {
           { name: "QR Code Generator", url: "https://toolcraftkit.com/tools/qr-code-generator" },
         ]}
       />
-      <h1 style={s.h1}>QR Code Generator</h1>
-      <p style={s.sub}>Generate free QR codes for URLs, text, WiFi, email, and phone numbers.</p>
+      <h1 style={s.h1}>{t(`tools./tools/qr-code-generator.name`) !== `tools./tools/qr-code-generator.name` ? t(`tools./tools/qr-code-generator.name`) : "QR Code Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/qr-code-generator.desc`) !== `tools./tools/qr-code-generator.desc` ? t(`tools./tools/qr-code-generator.desc`) : "Generate free QR codes for URLs, text, WiFi, email, and phone numbers."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
       <div style={s.card}>
@@ -214,19 +218,19 @@ export default function ClientPage() {
           <canvas ref={canvasRef} style={{ display: "none" }} />
           <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
             <button onClick={() => download("png")} style={s.btn} disabled={!canUse}>Download PNG</button>
-            <button onClick={copyImage} style={s.btnSm} disabled={!canUse}>{copied ? "Copied!" : "Copy to Clipboard"}</button>
+            <button onClick={copyImage} style={s.btnSm} disabled={!canUse}>{copied ? toolUI.copied : toolUI.copy}</button>
           </div>
         </div>
       )}
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Generate QR codes instantly for any purpose — share a website URL, connect to WiFi without typing passwords, send a pre-filled email, or share your phone number. Customize colors and size to match your brand or design.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Everything runs in your browser. No data is sent to any server. Your QR codes are generated locally and never stored anywhere.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "Are these QR codes free to use?", a: "Yes. All QR codes generated here are completely free for personal and commercial use. There are no watermarks, no limits, and no signup required." },
           { q: "Do the QR codes expire?", a: "No. QR codes are static — they encode data directly. As long as the URL or content they point to exists, the QR code will work forever." },

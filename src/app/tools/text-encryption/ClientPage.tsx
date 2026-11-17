@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 async function deriveKey(password: string, salt: Uint8Array): Promise<CryptoKey> {
   const enc = new TextEncoder();
@@ -30,6 +32,8 @@ function fromBase64(b64: string): ArrayBuffer {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<"encrypt" | "decrypt">("encrypt");
   const [input, setInput] = useState("");
   const [password, setPassword] = useState("");
@@ -87,7 +91,7 @@ export default function ClientPage() {
       <ToolSchema name="Text Encryption" description="Encrypt and decrypt text with a password using AES-GCM. 100% client-side." slug="text-encryption" category="UtilityApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Text Tools", url: "https://toolcraftkit.com/#text-tools" }, { name: "Text Encryption", url: "https://toolcraftkit.com/tools/text-encryption" }]} />
 
-      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>Text Encryption</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>{t(`tools./tools/text-encryption.name`) !== `tools./tools/text-encryption.name` ? t(`tools./tools/text-encryption.name`) : "Text Encryption"}</h1>
       <p style={{ fontSize: 15, color: "#78716C", marginBottom: 24 }}>Encrypt or decrypt text with a password. Uses AES-GCM, runs entirely in your browser.</p>
 
       {/* Mode toggle */}

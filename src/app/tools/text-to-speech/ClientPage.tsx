@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -85,6 +87,8 @@ function getLanguageDisplayName(langCode: string): string {
    MAIN COMPONENT
    ═══════════════════════════════════════════════ */
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [text, setText] = useState("");
   const [dark, setDark] = useState(false);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -293,7 +297,7 @@ export default function ClientPage() {
             <h1 style={{
               fontSize: 26, fontWeight: 800, margin: 0,
               letterSpacing: "-0.03em", lineHeight: 1.2,
-            }}>Text to Speech</h1>
+            }}>{t(`tools./tools/text-to-speech.name`) !== `tools./tools/text-to-speech.name` ? t(`tools./tools/text-to-speech.name`) : "Text to Speech"}</h1>
             <span style={{
               fontSize: 11, fontWeight: 600, padding: "3px 8px",
               borderRadius: 5, background: dark ? "rgba(45,212,191,0.15)" : "rgba(13,148,136,0.1)",
@@ -370,7 +374,7 @@ export default function ClientPage() {
                   background: "none", border: "none", color: theme.danger,
                   fontSize: 12, cursor: "pointer", padding: "3px 8px", borderRadius: 5,
                   fontWeight: 500,
-                }}>Clear</button>
+                }}>{toolUI.clear}</button>
               )}
             </div>
           </div>
@@ -607,7 +611,7 @@ export default function ClientPage() {
           <h2 style={{
             fontSize: 20, fontWeight: 700, margin: "0 0 12px", letterSpacing: "-0.02em",
             color: theme.text,
-          }}>About This Tool</h2>
+          }}>{toolUI.aboutThisTool}</h2>
           <p style={{ fontSize: 13, color: theme.textMuted, lineHeight: 1.7, margin: "0 0 10px" }}>
             This text-to-speech tool uses your browser's built-in speech synthesis engine (Web Speech API) to read text aloud. No data is ever sent to a server — everything happens locally in your browser.
           </p>
@@ -659,7 +663,7 @@ export default function ClientPage() {
         <section style={{ marginBottom: 20 }}>
           <h2 style={{
             fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em",
-          }}>Frequently Asked Questions</h2>
+          }}>{toolUI.faq}</h2>
           <FAQItem theme={theme}
             q="Is my text sent to a server?"
             a="No. This tool uses the Web Speech API built into your browser. Your text stays on your device and is never uploaded or stored anywhere. It's completely private."

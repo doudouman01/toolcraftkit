@@ -2,8 +2,12 @@
 import { useState, useRef, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
   const [scanning, setScanning] = useState(false);
@@ -99,7 +103,7 @@ export default function ClientPage() {
       <ToolSchema name="QR Code Scanner" description="Upload an image with a QR code and decode it instantly." slug="qr-code-scanner" category="UtilityApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Developer Tools", url: "https://toolcraftkit.com/#developer-tools" }, { name: "QR Code Scanner", url: "https://toolcraftkit.com/tools/qr-code-scanner" }]} />
 
-      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>QR Code Scanner</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>{t(`tools./tools/qr-code-scanner.name`) !== `tools./tools/qr-code-scanner.name` ? t(`tools./tools/qr-code-scanner.name`) : "QR Code Scanner"}</h1>
       <p style={{ fontSize: 15, color: "#78716C", marginBottom: 28 }}>Upload an image containing a QR code to decode it.</p>
 
       {/* Upload area */}
@@ -160,7 +164,7 @@ export default function ClientPage() {
               padding: "8px 16px", fontSize: 13, fontWeight: 600, background: "#0D9488", color: "#fff",
               border: "none", borderRadius: 6, cursor: "pointer",
             }}>
-              {copied ? "Copied!" : "Copy"}
+              {copied ? toolUI.copied : toolUI.copy}
             </button>
             {isUrl && (
               <a href={result} target="_blank" rel="noopener noreferrer" style={{

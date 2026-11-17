@@ -4,10 +4,14 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "image-compressor";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(5);
@@ -151,8 +155,8 @@ export default function ClientPage() {
         <a href="/" style={s.bLink}>Home</a> › <a href="/#image-tools" style={s.bLink}>Image Tools</a> › <span style={{ color: "#0D9488" }}>Image Compressor</span>
       </div>
 
-      <h1 style={s.h1}>Image Compressor</h1>
-      <p style={s.sub}>Compress images online for free. Reduce file size while maintaining quality. No upload to server — everything runs in your browser.</p>
+      <h1 style={s.h1}>{t(`tools./tools/image-compressor.name`) !== `tools./tools/image-compressor.name` ? t(`tools./tools/image-compressor.name`) : "Image Compressor"}</h1>
+      <p style={s.sub}>{t(`tools./tools/image-compressor.desc`) !== `tools./tools/image-compressor.desc` ? t(`tools./tools/image-compressor.desc`) : "Compress images online for free. Reduce file size while maintaining quality. No upload to server — everything runs in your browser."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 

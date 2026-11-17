@@ -4,12 +4,16 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 interface ImgFile { id: string; name: string; url: string; data: Uint8Array; type: string; w: number; h: number; }
 
 const TOOL_SLUG = "image-to-pdf";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(3);
@@ -145,8 +149,8 @@ export default function ClientPage() {
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Converter Tools", url: "https://toolcraftkit.com/#converter-tools" }, { name: "Image to PDF", url: "https://toolcraftkit.com/tools/image-to-pdf" }]} />
 
       <div style={s.breadcrumb}><a href="/" style={s.bLink}>Home</a> › <span style={{ color: "#0D9488" }}>Image to PDF</span></div>
-      <h1 style={s.h1}>Image to PDF Converter</h1>
-      <p style={s.sub}>Convert images to a PDF document. Upload multiple images, arrange them, and download as a single PDF. No upload to server.</p>
+      <h1 style={s.h1}>{t(`tools./tools/image-to-pdf.name`) !== `tools./tools/image-to-pdf.name` ? t(`tools./tools/image-to-pdf.name`) : "Image to PDF Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/image-to-pdf.desc`) !== `tools./tools/image-to-pdf.desc` ? t(`tools./tools/image-to-pdf.desc`) : "Convert images to a PDF document. Upload multiple images, arrange them, and download as a single PDF. No upload to server."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 

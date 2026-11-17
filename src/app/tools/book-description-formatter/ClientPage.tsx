@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 // ============================================================
 // BOOK DESCRIPTION FORMATTER
@@ -8,6 +10,8 @@ import React, { useState, useRef } from "react";
 // ============================================================
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [text, setText] = useState("");
   const [copied, setCopied] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -101,9 +105,7 @@ When [inciting incident], [hero] must [challenge] before [stakes/deadline]. But 
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "2rem 1rem", fontFamily: "'Inter', -apple-system, sans-serif" }}>
 
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "#1a1a2e", marginBottom: "0.5rem" }}>
-          Book Description Formatter
-        </h1>
+        <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "#1a1a2e", marginBottom: "0.5rem" }}>{t(`tools./tools/book-description-formatter.name`) !== `tools./tools/book-description-formatter.name` ? t(`tools./tools/book-description-formatter.name`) : "Book Description Formatter"}</h1>
         <p style={{ fontSize: "1.05rem", color: "#555", maxWidth: 600, margin: "0 auto" }}>
           Write your Amazon book description in plain text. Get perfectly formatted HTML ready to paste into KDP.
         </p>
@@ -196,7 +198,7 @@ When [inciting incident], [hero] must [challenge] before [stakes/deadline]. But 
                 background: copied ? "#0D9488" : "rgba(255,255,255,0.1)", color: "#fff",
                 border: "1px solid rgba(255,255,255,0.2)", borderRadius: 6, cursor: "pointer",
               }}
-            >{copied ? "Copied!" : "Copy"}</button>
+            >{copied ? toolUI.copied : toolUI.copy}</button>
           </div>
           <pre style={{
             color: "#e2e8f0", fontSize: "0.8rem", lineHeight: 1.5,

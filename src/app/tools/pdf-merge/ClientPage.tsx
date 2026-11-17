@@ -4,12 +4,16 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 interface PdfFile { id: string; name: string; size: number; data: ArrayBuffer; }
 
 const TOOL_SLUG = "pdf-merge";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(3);
@@ -132,8 +136,8 @@ export default function ClientPage() {
       <div style={s.breadcrumb}>
         <a href="/" style={s.bLink}>Home</a> › <span style={{ color: "#0D9488" }}>PDF Merge</span>
       </div>
-      <h1 style={s.h1}>Merge PDF Files</h1>
-      <p style={s.sub}>Combine multiple PDF files into one document. Drag to reorder. No upload to server — everything runs in your browser.</p>
+      <h1 style={s.h1}>{t(`tools./tools/pdf-merge.name`) !== `tools./tools/pdf-merge.name` ? t(`tools./tools/pdf-merge.name`) : "Merge PDF Files"}</h1>
+      <p style={s.sub}>{t(`tools./tools/pdf-merge.desc`) !== `tools./tools/pdf-merge.desc` ? t(`tools./tools/pdf-merge.desc`) : "Combine multiple PDF files into one document. Drag to reorder. No upload to server — everything runs in your browser."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 

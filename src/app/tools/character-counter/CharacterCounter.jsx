@@ -1,5 +1,7 @@
 "use client";
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -327,6 +329,8 @@ function LimitsTable({ theme }) {
    MAIN COMPONENT
    ═══════════════════════════════════════════ */
 export default function CharacterCounter() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [text, setText] = useState("");
   const [dark, setDark] = useState(false);
   const [tab, setTab] = useState("counts");
@@ -382,7 +386,7 @@ return (
           <h1 style={{
             fontSize: 26, fontWeight: 800, margin: 0,
             letterSpacing: "-0.03em", lineHeight: 1.2,
-          }}>Character Counter</h1>
+          }}>{t(`tools./tools/character-counter.name`) !== `tools./tools/character-counter.name` ? t(`tools./tools/character-counter.name`) : "Character Counter"}</h1>
           <p style={{
             fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5,
           }}>
@@ -533,7 +537,7 @@ return (
         <section style={{ marginBottom: 20 }}>
           <h2 style={{
             fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em",
-          }}>Frequently Asked Questions</h2>
+          }}>{toolUI.faq}</h2>
           <FAQItem theme={theme}
             q="Do spaces count as characters?"
             a="It depends on the platform. Twitter/X counts spaces as characters. Google's meta description counts spaces too. This tool shows both counts — with and without spaces — so you can check against any platform's rules."

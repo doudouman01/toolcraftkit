@@ -4,12 +4,16 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "word-to-pdf";
 
 type FormatTag = "bold" | "italic" | "h1" | "h2";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [generating, setGenerating] = useState(false);
@@ -228,8 +232,8 @@ export default function ClientPage() {
       <ToolSchema name="Word to PDF" description="Convert text content to PDF documents. Support for bold, italic, and headings." slug="word-to-pdf" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "PDF Tools", url: "https://toolcraftkit.com/#pdf-tools" }, { name: "Word to PDF", url: "https://toolcraftkit.com/tools/word-to-pdf" }]} />
 
-      <h1 style={s.h1}>Word to PDF</h1>
-      <p style={s.sub}>Type or paste your content, add formatting, and generate a PDF document. Runs in your browser.</p>
+      <h1 style={s.h1}>{t(`tools./tools/word-to-pdf.name`) !== `tools./tools/word-to-pdf.name` ? t(`tools./tools/word-to-pdf.name`) : "Word to PDF"}</h1>
+      <p style={s.sub}>{t(`tools./tools/word-to-pdf.desc`) !== `tools./tools/word-to-pdf.desc` ? t(`tools./tools/word-to-pdf.desc`) : "Type or paste your content, add formatting, and generate a PDF document. Runs in your browser."}</p>
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <div style={s.card}>

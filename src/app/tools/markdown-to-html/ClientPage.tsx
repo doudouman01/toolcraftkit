@@ -2,6 +2,8 @@
 import { useState, useMemo } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function parseMarkdown(md: string) {
   let html = md
@@ -37,6 +39,8 @@ function parseMarkdown(md: string) {
 const defaultMd = "# Hello World\n\nThis is a **Markdown to HTML** converter.\n\n## Features\n\n- Real-time preview\n- Supports **bold**, *italic*, and ~~strikethrough~~\n- Code blocks and `inline code`\n\n> This is a blockquote.\n\n---\n\n*Built with ToolCraftKit*";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [markdown, setMarkdown] = useState(defaultMd);
   const [view, setView] = useState("split");
   const [copied, setCopied] = useState(false);
@@ -82,8 +86,8 @@ export default function ClientPage() {
           { name: "Markdown to HTML Converter", url: "https://toolcraftkit.com/tools/markdown-to-html" },
         ]}
       />
-      <h1 style={s.h1}>Markdown to HTML Converter</h1>
-      <p style={s.sub}>Convert Markdown to clean HTML in real time. Copy the code or download as a complete HTML file.</p>
+      <h1 style={s.h1}>{t(`tools./tools/markdown-to-html.name`) !== `tools./tools/markdown-to-html.name` ? t(`tools./tools/markdown-to-html.name`) : "Markdown to HTML Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/markdown-to-html.desc`) !== `tools./tools/markdown-to-html.desc` ? t(`tools./tools/markdown-to-html.desc`) : "Convert Markdown to clean HTML in real time. Copy the code or download as a complete HTML file."}</p>
       <div style={s.card}>
         <div style={s.toolbar}>
           <div style={s.tabs}>

@@ -4,6 +4,8 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "font-generator";
 
@@ -154,6 +156,8 @@ const STYLES: FontStyle[] = [
 ];
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [text, setText] = useState("");
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
   const { user, isPro } = useAuth();
@@ -220,8 +224,8 @@ export default function ClientPage() {
       <ToolSchema name="Fancy Font Generator" description="Generate fancy text in 17 Unicode styles. Copy and paste anywhere." slug="font-generator" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Text Tools", url: "https://toolcraftkit.com/#text-tools" }, { name: "Font Generator", url: "https://toolcraftkit.com/tools/font-generator" }]} />
 
-      <h1 style={s.h1}>Fancy Font Generator</h1>
-      <p style={s.sub}>Type your text and see it in 17 Unicode font styles. Copy and paste anywhere.</p>
+      <h1 style={s.h1}>{t(`tools./tools/font-generator.name`) !== `tools./tools/font-generator.name` ? t(`tools./tools/font-generator.name`) : "Fancy Font Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/font-generator.desc`) !== `tools./tools/font-generator.desc` ? t(`tools./tools/font-generator.desc`) : "Type your text and see it in 17 Unicode font styles. Copy and paste anywhere."}</p>
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
       {error && <div style={{ color: "#dc2626", fontSize: "14px", marginBottom: "16px", padding: "8px 12px", background: "#FEF2F2", borderRadius: "6px" }}>{error}</div>}
 
@@ -248,7 +252,7 @@ export default function ClientPage() {
                   style={{ ...s.btnSm, background: copiedIdx === idx ? "#0D9488" : "#F5F5F4", color: copiedIdx === idx ? "#fff" : "#1C1917" }}
                   onClick={() => copy(result, idx)}
                 >
-                  {copiedIdx === idx ? "Copied!" : "Copy"}
+                  {copiedIdx === idx ? toolUI.copied : toolUI.copy}
                 </button>
               </div>
             );

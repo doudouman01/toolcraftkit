@@ -1,8 +1,12 @@
 "use client";
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [color1, setColor1] = useState("#0D9488");
   const [color2, setColor2] = useState("#6366F1");
   const [angle, setAngle] = useState(135);
@@ -37,8 +41,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="CSS Gradient Generator" description="Create beautiful CSS gradients. Copy the CSS code instantly. Linear and radial gradients with presets." slug="css-gradient-generator" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Developer Tools", url: "https://toolcraftkit.com/#developer-tools" }, { name: "CSS Gradient Generator", url: "https://toolcraftkit.com/tools/css-gradient-generator" }]} />
-      <h1 style={s.h1}>CSS Gradient Generator</h1>
-      <p style={s.sub}>Create beautiful gradients and copy the CSS code. Linear and radial with live preview.</p>
+      <h1 style={s.h1}>{t(`tools./tools/css-gradient-generator.name`) !== `tools./tools/css-gradient-generator.name` ? t(`tools./tools/css-gradient-generator.name`) : "CSS Gradient Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/css-gradient-generator.desc`) !== `tools./tools/css-gradient-generator.desc` ? t(`tools./tools/css-gradient-generator.desc`) : "Create beautiful gradients and copy the CSS code. Linear and radial with live preview."}</p>
 
       <div style={{ ...s.preview, background: gradient }} />
 
@@ -79,7 +83,7 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Create beautiful CSS gradients for your website or app. Choose colors, set the angle, preview in real-time, and copy the CSS code with one click. Includes popular gradient presets to get you started.</p>
       </div>
     </div>

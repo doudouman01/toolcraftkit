@@ -2,8 +2,12 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<"basic" | "annualized">("basic");
   const [investment, setInvestment] = useState("");
   const [returned, setReturned] = useState("");
@@ -57,8 +61,8 @@ export default function ClientPage() {
           { name: "ROI Calculator", url: "https://toolcraftkit.com/tools/roi-calculator" },
         ]}
       />
-      <h1 style={s.h1}>ROI Calculator</h1>
-      <p style={s.sub}>Calculate return on investment, net profit, and annualized returns.</p>
+      <h1 style={s.h1}>{t(`tools./tools/roi-calculator.name`) !== `tools./tools/roi-calculator.name` ? t(`tools./tools/roi-calculator.name`) : "ROI Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/roi-calculator.desc`) !== `tools./tools/roi-calculator.desc` ? t(`tools./tools/roi-calculator.desc`) : "Calculate return on investment, net profit, and annualized returns."}</p>
 
       <div style={s.card}>
         <div style={s.row}>
@@ -139,13 +143,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>ROI (Return on Investment) measures how profitable an investment is relative to its cost. A positive ROI means the investment made money; a negative ROI means it lost money. This tool calculates both simple ROI and annualized ROI for multi-year investments.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Annualized ROI uses compound annual growth rate (CAGR) to normalize returns over different time periods, making it easier to compare investments of different durations.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "What is a good ROI?", a: "It depends on the context. The S&P 500 historically returns about 10% per year. Real estate averages 8-12%. A good ROI should at minimum beat inflation (2-4%) and ideally exceed what you could earn with a low-risk alternative." },
           { q: "What is the difference between ROI and annualized ROI?", a: "Simple ROI shows total return regardless of time. Annualized ROI normalizes it to a yearly rate using CAGR, so you can compare a 2-year investment with a 5-year one on equal footing." },

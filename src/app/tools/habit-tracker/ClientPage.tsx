@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 interface Habit {
   id: string;
@@ -48,6 +50,8 @@ function getStreak(completedDates: string[]): number {
 const STORAGE_KEY = "tck-habit-tracker";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [habits, setHabits] = useState<Habit[]>([]);
   const [newName, setNewName] = useState("");
   const [loaded, setLoaded] = useState(false);
@@ -91,7 +95,7 @@ export default function ClientPage() {
       <ToolSchema name="Habit Tracker" description="Track daily habits with a weekly grid. Build streaks. Stored locally." slug="habit-tracker" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "Productivity Tools", url: "/#productivity-tools" }, { name: "Habit Tracker", url: "/tools/habit-tracker" }]} />
       <div style={{ maxWidth: "700px", margin: "0 auto", padding: "32px 20px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Habit Tracker</h1>
+        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>{t(`tools./tools/habit-tracker.name`) !== `tools./tools/habit-tracker.name` ? t(`tools./tools/habit-tracker.name`) : "Habit Tracker"}</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "28px" }}>Add habits, check off days, build streaks. Saved in your browser.</p>
 
         {/* Add Habit */}

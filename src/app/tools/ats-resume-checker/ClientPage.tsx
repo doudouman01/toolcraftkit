@@ -1,8 +1,12 @@
 "use client";
 import PremiumGate from "@/components/PremiumGate";
 import AtsChecker from "./AtsChecker";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   return (
     <PremiumGate
       toolName="ATS Resume Score Checker"

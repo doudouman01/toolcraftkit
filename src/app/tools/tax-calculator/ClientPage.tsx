@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 const US_BRACKETS_2026 = [
   { min: 0, max: 11600, rate: 10 },
   { min: 11600, max: 47150, rate: 12 },
@@ -39,6 +41,8 @@ function calcTax(income: number, brackets: typeof US_BRACKETS_2026) {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [income, setIncome] = useState("75000");
   const [country, setCountry] = useState("us");
   const [filing, setFiling] = useState("single");
@@ -72,8 +76,8 @@ export default function ClientPage() {
 
   return (
     <div style={s.page}>
-      <h1 style={s.h1}>Income Tax Calculator</h1>
-      <p style={s.sub}>Estimate your federal income tax based on your annual income. US, Canada, and UK brackets.</p>
+      <h1 style={s.h1}>{t(`tools./tools/tax-calculator.name`) !== `tools./tools/tax-calculator.name` ? t(`tools./tools/tax-calculator.name`) : "Income Tax Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/tax-calculator.desc`) !== `tools./tools/tax-calculator.desc` ? t(`tools./tools/tax-calculator.desc`) : "Estimate your federal income tax based on your annual income. US, Canada, and UK brackets."}</p>
 
       <div style={s.card}>
         <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
@@ -140,13 +144,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>This calculator estimates your federal income tax based on progressive tax brackets for the US, Canada, and UK. Progressive taxation means only the income within each bracket is taxed at that rate — not your entire income at the highest rate.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>This is a simplified estimate for federal tax only. It does not include state/provincial taxes, Social Security, Medicare, CPP/EI, deductions, or credits. Consult a tax professional for your actual tax liability.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "What is the difference between marginal and effective tax rate?", a: "Your marginal rate is the rate on your last dollar of income (the highest bracket you reach). Your effective rate is the average rate across all your income. For example, earning $100,000 in the US puts you in the 22% bracket, but your effective rate is about 17%." },
           { q: "Does this include state or provincial taxes?", a: "No. This calculator shows federal income tax only. Your actual tax bill includes state/provincial taxes, which vary widely. Some US states (Texas, Florida) have no income tax; others (California) add up to 13.3%." },

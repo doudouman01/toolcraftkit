@@ -4,6 +4,8 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "resume-builder";
 
@@ -11,6 +13,8 @@ interface WorkExp { title: string; company: string; dates: string; description: 
 interface Education { degree: string; school: string; dates: string; }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -186,7 +190,7 @@ export default function ClientPage() {
       <ToolSchema name="Resume Builder" description="Build a professional resume with live preview and download as PDF." slug="resume-builder" category="BusinessApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "Business Tools", url: "/#business-tools" }, { name: "Resume Builder", url: "/tools/resume-builder" }]} />
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "32px 20px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Resume Builder</h1>
+        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>{t(`tools./tools/resume-builder.name`) !== `tools./tools/resume-builder.name` ? t(`tools./tools/resume-builder.name`) : "Resume Builder"}</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "28px" }}>Fill in your details and download a professional PDF resume.</p>
         <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
         {error && <div style={{ color: "#dc2626", fontSize: "14px", marginBottom: "16px", padding: "8px 12px", background: "#FEF2F2", borderRadius: "6px" }}>{error}</div>}

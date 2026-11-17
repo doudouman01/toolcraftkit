@@ -1,5 +1,7 @@
 "use client";
 import { useState, useMemo, useCallback } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -132,6 +134,8 @@ function StatCard({ label, value, theme }) {
    MAIN
    ═══════════════════════════════════════════ */
 export default function JsonFormatter() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const [input, setInput] = useState("");
   const [indent, setIndent] = useState(2);
@@ -185,7 +189,7 @@ return (
         <AdSlot position="header" theme={theme} />
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>JSON Formatter & Validator</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/json-formatter.name`) !== `tools./tools/json-formatter.name` ? t(`tools./tools/json-formatter.name`) : "JSON Formatter & Validator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Paste JSON to format, validate, and minify. Syntax highlighting, error detection, and structure stats.
           </p>
@@ -232,7 +236,7 @@ return (
                 <button onClick={() => setInput("")} style={{
                   background: "none", border: "none", color: theme.danger,
                   fontSize: 12, cursor: "pointer", padding: "3px 8px", borderRadius: 5, fontWeight: 500,
-                }}>Clear</button>
+                }}>{toolUI.clear}</button>
               )}
             </div>
           </div>
@@ -344,7 +348,7 @@ return (
 
         {/* FAQ */}
         <section style={{ marginBottom: 20 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em" }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em" }}>{toolUI.faq}</h2>
           <FAQItem theme={theme} q="What is JSON?" a="JSON (JavaScript Object Notation) is a lightweight data format used to exchange data between servers and web applications. It uses key-value pairs and arrays to structure data. Nearly every programming language can read and write JSON, making it the most common API response format." />
           <FAQItem theme={theme} q="What does 'minified' JSON mean?" a="Minified JSON has all unnecessary whitespace, line breaks, and indentation removed. It reduces file size for faster network transmission. The data is identical — only the formatting changes. Use minified JSON in production and formatted JSON for debugging." />
           <FAQItem theme={theme} q="Why is my JSON invalid?" a="Common JSON errors include: missing or extra commas, unquoted keys (keys must be in double quotes), single quotes instead of double quotes, trailing commas after the last item, and unescaped special characters in strings. This tool shows the exact error position to help you fix it." />

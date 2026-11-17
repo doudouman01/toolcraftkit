@@ -2,6 +2,8 @@
 import { useState, useMemo } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const CATEGORIES: Record<string, { units: string[]; toBase?: Record<string, number>; custom?: boolean }> = {
   Length: { units: ["Meters","Kilometers","Centimeters","Millimeters","Miles","Yards","Feet","Inches"], toBase: { Meters:1,Kilometers:1000,Centimeters:0.01,Millimeters:0.001,Miles:1609.344,Yards:0.9144,Feet:0.3048,Inches:0.0254 } },
@@ -33,6 +35,8 @@ function fmt(n: number) {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [category, setCategory] = useState("Length");
   const [fromUnit, setFromUnit] = useState("Meters");
   const [toUnit, setToUnit] = useState("Feet");
@@ -79,8 +83,8 @@ export default function ClientPage() {
           { name: "Unit Converter", url: "https://toolcraftkit.com/tools/unit-converter" },
         ]}
       />
-      <h1 style={s.h1}>Unit Converter</h1>
-      <p style={s.sub}>Convert between units of length, weight, temperature, area, volume, speed, time, and data.</p>
+      <h1 style={s.h1}>{t(`tools./tools/unit-converter.name`) !== `tools./tools/unit-converter.name` ? t(`tools./tools/unit-converter.name`) : "Unit Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/unit-converter.desc`) !== `tools./tools/unit-converter.desc` ? t(`tools./tools/unit-converter.desc`) : "Convert between units of length, weight, temperature, area, volume, speed, time, and data."}</p>
       <div style={s.card}>
         <div style={s.cats}>{Object.keys(CATEGORIES).map(c => <button key={c} style={s.catBtn(category === c)} onClick={() => changeCat(c)}>{c}</button>)}</div>
         <div style={s.grid}>
@@ -102,7 +106,7 @@ export default function ClientPage() {
         {allResults.map(r => <div key={r.unit} style={s.allRow}><span style={{ color: "#78716C" }}>{r.unit}</span><span style={{ fontWeight: 600, fontFamily: "'Courier New', monospace", color: "#1C1917" }}>{r.value}</span></div>)}
       </div>
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>This unit converter supports 8 categories with over 60 units. All conversions happen instantly in your browser.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Temperature conversions use standard formulas. Data storage units use binary prefixes where 1 Kilobyte equals 1024 Bytes.</p>
       </div>

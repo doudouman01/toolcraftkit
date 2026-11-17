@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const HASHTAG_DB: Record<string, string[]> = {
   business: ["#entrepreneur","#startup","#business","#marketing","#branding","#smallbusiness","#hustle","#motivation","#success","#leadership","#ceo","#money","#invest","#growthmindset","#networking","#sales","#ecommerce","#sidehustle","#freelancer","#digitalnomad","#workfromhome","#passive income","#businessowner","#founder","#innovation","#strategy","#productivity","#goals","#mindset","#wealth"],
@@ -14,6 +16,8 @@ const HASHTAG_DB: Record<string, string[]> = {
 };
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [input, setInput] = useState("");
   const [platform, setPlatform] = useState("instagram");
   const [results, setResults] = useState<string[]>([]);
@@ -55,8 +59,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Hashtag Generator" description="Generate trending hashtags for Instagram, TikTok, Twitter, and YouTube. Free hashtag research tool." slug="hashtag-generator" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Social Media Tools", url: "https://toolcraftkit.com/#social-tools" }, { name: "Hashtag Generator", url: "https://toolcraftkit.com/tools/hashtag-generator" }]} />
-      <h1 style={s.h1}>Hashtag Generator</h1>
-      <p style={s.sub}>Generate relevant hashtags for your posts. Enter a topic and get hashtags optimized for your platform.</p>
+      <h1 style={s.h1}>{t(`tools./tools/hashtag-generator.name`) !== `tools./tools/hashtag-generator.name` ? t(`tools./tools/hashtag-generator.name`) : "Hashtag Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/hashtag-generator.desc`) !== `tools./tools/hashtag-generator.desc` ? t(`tools./tools/hashtag-generator.desc`) : "Generate relevant hashtags for your posts. Enter a topic and get hashtags optimized for your platform."}</p>
 
       <div style={s.card}>
         <label style={s.label}>Your Topic or Keywords</label>
@@ -81,7 +85,7 @@ export default function ClientPage() {
       )}
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Get the best hashtags for your social media posts. Enter your topic, choose your platform, and get relevant hashtags tailored to Instagram, TikTok, Twitter, or YouTube. Click any hashtag to copy it individually, or copy them all at once.</p>
       </div>
     </div>

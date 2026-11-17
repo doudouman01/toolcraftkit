@@ -1,5 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -61,6 +63,8 @@ function StatCard({ label, value, sub, color, theme }) {
    MAIN
    ═══════════════════════════════════════════ */
 export default function ProfitMarginCalculator() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const [mode, setMode] = useState("revenue_cost");
   const theme = dark ? DARK : LIGHT;
@@ -134,7 +138,7 @@ return (
         <AdSlot position="header" theme={theme} />
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Profit Margin Calculator</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/profit-margin-calculator.name`) !== `tools./tools/profit-margin-calculator.name` ? t(`tools./tools/profit-margin-calculator.name`) : "Profit Margin Calculator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Calculate profit margin, markup, revenue, and profit from your costs. Three calculation modes for any business scenario.
           </p>
@@ -328,7 +332,7 @@ return (
 
         {/* FAQ */}
         <section style={{ marginBottom: 20 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em" }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em" }}>{toolUI.faq}</h2>
           <FAQItem theme={theme} q="What is profit margin?" a="Profit margin is the percentage of revenue that remains as profit after subtracting costs. A 30% margin means you keep $0.30 of every $1 in revenue. It's calculated as (Revenue − Cost) ÷ Revenue × 100." />
           <FAQItem theme={theme} q="What is the difference between margin and markup?" a="Margin is profit divided by revenue (selling price). Markup is profit divided by cost. A 50% markup on a $100 cost means selling at $150 (profit of $50). But the margin on that sale is only 33.3% ($50 ÷ $150). They describe the same profit from different perspectives." />
           <FAQItem theme={theme} q="What is a good profit margin?" a="It varies by industry. Retail typically runs 2-5%, SaaS and software 70-90%, restaurants 3-9%, and professional services 15-40%. A 'good' margin is one that sustains your business and competes in your market." />

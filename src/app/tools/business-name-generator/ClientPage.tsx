@@ -2,6 +2,8 @@
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const PREFIXES: Record<string, string[]> = {
   modern: ["Nova", "Apex", "Prime", "Flux", "Vex", "Lux", "Orb", "Arc", "Zen", "Neo", "Aura", "Halo"],
@@ -69,6 +71,8 @@ function generateNames(keywords: string[], style: string): string[] {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [keywords, setKeywords] = useState("");
   const [style, setStyle] = useState("modern");
   const [results, setResults] = useState<string[]>([]);
@@ -104,8 +108,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Business Name Generator" description="Generate creative business name ideas from keywords and industry." slug="business-name-generator" category="Business Tools" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "Business Name Generator", url: "https://toolcraftkit.com/tools/business-name-generator" }]} />
-      <h1 style={s.h1}>Business Name Generator</h1>
-      <p style={s.sub}>Enter keywords, choose a style, and get 20+ creative name ideas.</p>
+      <h1 style={s.h1}>{t(`tools./tools/business-name-generator.name`) !== `tools./tools/business-name-generator.name` ? t(`tools./tools/business-name-generator.name`) : "Business Name Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/business-name-generator.desc`) !== `tools./tools/business-name-generator.desc` ? t(`tools./tools/business-name-generator.desc`) : "Enter keywords, choose a style, and get 20+ creative name ideas."}</p>
 
       <div style={s.card}>
         <div style={{ marginBottom: 14 }}>
@@ -135,7 +139,7 @@ export default function ClientPage() {
             {results.map(name => (
               <div key={name} onClick={() => copyName(name)} style={s.nameCard}>
                 <span style={{ fontSize: 14, fontWeight: 500, color: "#1C1917" }}>{name}</span>
-                <span style={{ fontSize: 11, color: copied === name ? "#0D9488" : "#A8A29E" }}>{copied === name ? "Copied!" : "Copy"}</span>
+                <span style={{ fontSize: 11, color: copied === name ? "#0D9488" : "#A8A29E" }}>{copied === name ? toolUI.copied : toolUI.copy}</span>
               </div>
             ))}
           </div>

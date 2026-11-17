@@ -4,12 +4,16 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 interface Item { desc: string; qty: number; price: number; }
 
 const TOOL_SLUG = "invoice-generator";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(3);
@@ -139,8 +143,8 @@ export default function ClientPage() {
           { name: "Invoice Generator", url: "https://toolcraftkit.com/tools/invoice-generator" },
         ]}
       />
-      <h1 style={s.h1}>Invoice Generator</h1>
-      <p style={s.sub}>Create professional invoices in seconds. Print or save as PDF.</p>
+      <h1 style={s.h1}>{t(`tools./tools/invoice-generator.name`) !== `tools./tools/invoice-generator.name` ? t(`tools./tools/invoice-generator.name`) : "Invoice Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/invoice-generator.desc`) !== `tools./tools/invoice-generator.desc` ? t(`tools./tools/invoice-generator.desc`) : "Create professional invoices in seconds. Print or save as PDF."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
@@ -224,13 +228,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Create clean, professional invoices without any software. Fill in your details, add line items, set tax rates, and print or save as PDF using your browser&apos;s built-in print function. Supports multiple currencies.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Everything runs in your browser. No data is sent to any server, stored, or tracked. Your invoice details stay completely private.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "Can I save the invoice as a PDF?", a: "Yes. Click 'Print / Save as PDF' and choose 'Save as PDF' in your browser's print dialog. This works in Chrome, Firefox, Edge, and Safari." },
           { q: "Is this invoice legally valid?", a: "This tool generates a standard invoice format. Legal requirements vary by country. Check your local regulations for required fields like tax IDs or registration numbers." },

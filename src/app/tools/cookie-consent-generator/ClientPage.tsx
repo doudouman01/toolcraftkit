@@ -2,6 +2,8 @@
 import { useState, useCallback, useMemo } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── TYPES ─── */
 type Position = "bottom" | "top" | "center" | "bottom-left";
@@ -197,6 +199,8 @@ const s = {
 
 /* ─── MAIN COMPONENT ─── */
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [form, setForm] = useState<FormData>({ websiteName: "", privacyUrl: "", cookieUrl: "" });
   const [style, setStyle] = useState<StyleOptions>({ position: "bottom", theme: "light", primaryColor: "#0D9488", textColor: "#333333" });
   const [btns, setBtns] = useState<ButtonOptions>({ acceptText: "Accept All", rejectText: "Reject", manageText: "Manage Preferences", showReject: true, showManage: false, showClose: true, autoHide: true });
@@ -259,8 +263,8 @@ export default function ClientPage() {
         { name: "Cookie Consent Banner Generator", url: "https://toolcraftkit.com/tools/cookie-consent-generator" },
       ]} />
 
-      <h1 style={s.h1}>Cookie Consent Banner Generator</h1>
-      <p style={s.sub}>Generate a GDPR-compliant cookie consent banner with ready-to-use HTML, CSS &amp; JavaScript. Free, no signup.</p>
+      <h1 style={s.h1}>{t(`tools./tools/cookie-consent-generator.name`) !== `tools./tools/cookie-consent-generator.name` ? t(`tools./tools/cookie-consent-generator.name`) : "Cookie Consent Banner Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/cookie-consent-generator.desc`) !== `tools./tools/cookie-consent-generator.desc` ? t(`tools./tools/cookie-consent-generator.desc`) : "Generate a GDPR-compliant cookie consent banner with ready-to-use HTML, CSS &amp; JavaScript. Free, no signup."}</p>
 
       {/* ─── Website Details ─── */}
       <div style={s.card}>

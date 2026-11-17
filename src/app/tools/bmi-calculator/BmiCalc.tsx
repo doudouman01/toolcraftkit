@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -80,6 +82,8 @@ function SeoContent({ theme }: { theme: typeof LIGHT }) {
 }
 
 export default function BmiCalculator() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const theme = dark ? DARK : LIGHT;
   const [unit, setUnit] = useState<"metric" | "imperial">("metric");
@@ -133,7 +137,7 @@ export default function BmiCalculator() {
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>BMI Calculator</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/bmi-calculator.name`) !== `tools./tools/bmi-calculator.name` ? t(`tools./tools/bmi-calculator.name`) : "BMI Calculator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Calculate your Body Mass Index instantly. See your BMI category, healthy weight range, and visual breakdown.
           </p>
@@ -261,7 +265,7 @@ export default function BmiCalculator() {
           background: theme.surface, borderRadius: 12, padding: 24,
           border: `1px solid ${theme.border}`, boxShadow: theme.shadow, marginBottom: 20,
         }}>
-          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>{toolUI.faq}</h2>
           <FAQItem theme={theme} q="What is a healthy BMI?" a="A BMI between 18.5 and 24.9 is considered normal weight. Below 18.5 is underweight, and 25 or above is overweight. These ranges are based on WHO guidelines and apply to adults 20 years and older." />
           <FAQItem theme={theme} q="Is BMI accurate for athletes?" a="BMI can overestimate body fat in athletes and muscular people because it does not distinguish between muscle and fat mass. If you are very muscular, your BMI may classify you as overweight even if your body fat percentage is low." />
           <FAQItem theme={theme} q="How often should I check my BMI?" a="Monthly tracking is sufficient for most people. If you are actively working on weight management, weekly check-ins can help you stay on track without becoming obsessive about small fluctuations." />

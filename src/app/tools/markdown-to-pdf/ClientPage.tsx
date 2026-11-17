@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const SAMPLE = `# Project Report
 
@@ -66,6 +68,8 @@ function parseMarkdownToHtml(md: string): string {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [markdown, setMarkdown] = useState(SAMPLE);
   const [generating, setGenerating] = useState(false);
 
@@ -192,7 +196,7 @@ export default function ClientPage() {
       <ToolSchema name="Markdown to PDF" description="Convert Markdown to PDF with live preview. Supports headers, lists, code blocks." slug="markdown-to-pdf" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "PDF Tools", url: "/#pdf-tools" }, { name: "Markdown to PDF", url: "/tools/markdown-to-pdf" }]} />
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "32px 20px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Markdown to PDF</h1>
+        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>{t(`tools./tools/markdown-to-pdf.name`) !== `tools./tools/markdown-to-pdf.name` ? t(`tools./tools/markdown-to-pdf.name`) : "Markdown to PDF"}</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "16px" }}>Write Markdown, preview it live, and download as a formatted PDF.</p>
 
         <div style={{ marginBottom: "14px" }}>

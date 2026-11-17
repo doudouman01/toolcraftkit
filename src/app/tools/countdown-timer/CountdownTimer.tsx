@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -96,6 +98,8 @@ function SeoContent({ theme }: { theme: typeof LIGHT }) {
 }
 
 export default function CountdownTimer() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const theme = dark ? DARK : LIGHT;
 
@@ -211,7 +215,7 @@ export default function CountdownTimer() {
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Countdown Timer</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/countdown-timer.name`) !== `tools./tools/countdown-timer.name` ? t(`tools./tools/countdown-timer.name`) : "Countdown Timer"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Set a custom countdown with audio alerts. Choose a preset or enter your own time.
           </p>
@@ -362,7 +366,7 @@ export default function CountdownTimer() {
           background: theme.surface, borderRadius: 12, padding: 24,
           border: `1px solid ${theme.border}`, boxShadow: theme.shadow, marginBottom: 20,
         }}>
-          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>{toolUI.faq}</h2>
           <FAQItem theme={theme} q="Does the timer work if I switch tabs?" a="Yes. The countdown runs in the background and will sound an audio alert when it reaches zero, even if you are in another browser tab. However, some browsers may throttle background tabs after a few minutes, which can cause slight delays in the alert." />
           <FAQItem theme={theme} q="What is the 25-minute preset for?" a="The 25-minute preset follows the Pomodoro Technique, a time management method where you work in focused 25-minute blocks followed by short breaks. For a full Pomodoro experience with automatic break cycles, try our dedicated Pomodoro Timer." />
           <FAQItem theme={theme} q="Can I set a timer for more than one hour?" a="Yes. Use the custom time inputs to set up to 23 hours, 59 minutes, and 59 seconds. Simply enter your desired hours, minutes, and seconds and press Start." />

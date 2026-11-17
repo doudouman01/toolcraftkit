@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -112,6 +114,8 @@ function AdSlot({ position, theme }) {
    MAIN
    ═══════════════════════════════════════════ */
 export default function PercentageCalculator() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const theme = dark ? DARK : LIGHT;
 
@@ -163,7 +167,7 @@ return (
         <AdSlot position="header" theme={theme} />
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Percentage Calculator</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/percentage-calculator.name`) !== `tools./tools/percentage-calculator.name` ? t(`tools./tools/percentage-calculator.name`) : "Percentage Calculator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Six calculators for every percentage problem. Find percentages, calculate changes, add tips, increase or decrease values.
           </p>

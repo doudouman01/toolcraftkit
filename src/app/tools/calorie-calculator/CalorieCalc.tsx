@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -75,6 +77,8 @@ function SeoContent({ theme }: { theme: typeof LIGHT }) {
 }
 
 export default function CalorieCalculator() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const theme = dark ? DARK : LIGHT;
   const [unit, setUnit] = useState<"metric" | "imperial">("metric");
@@ -149,7 +153,7 @@ export default function CalorieCalculator() {
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Calorie Calculator</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/calorie-calculator.name`) !== `tools./tools/calorie-calculator.name` ? t(`tools./tools/calorie-calculator.name`) : "Calorie Calculator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Calculate your daily calorie needs using the Mifflin-St Jeor equation. Get your BMR and personalized targets for weight loss, maintenance, or gain.
           </p>
@@ -318,7 +322,7 @@ export default function CalorieCalculator() {
           background: theme.surface, borderRadius: 12, padding: 24,
           border: `1px solid ${theme.border}`, boxShadow: theme.shadow, marginBottom: 20,
         }}>
-          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>{toolUI.faq}</h2>
           <FAQItem theme={theme} q="What is BMR and how is it different from TDEE?" a="BMR (Basal Metabolic Rate) is the number of calories your body burns at complete rest just to maintain vital functions like breathing and circulation. TDEE (Total Daily Energy Expenditure) is your BMR multiplied by an activity factor that accounts for movement and exercise. TDEE is the total calories you actually burn in a day." />
           <FAQItem theme={theme} q="How accurate is the Mifflin-St Jeor equation?" a="The Mifflin-St Jeor equation is considered the most reliable formula for estimating BMR in healthy adults. Studies show it predicts BMR within 10% for most people. However, individual metabolism varies based on genetics, body composition, hormones, and other factors. Use your calculated TDEE as a starting point and adjust based on real-world results over 2-3 weeks." />
           <FAQItem theme={theme} q="Is eating 1,200 calories a day safe?" a="For most adults, eating fewer than 1,200 calories per day (1,500 for men) is not recommended without medical supervision. Very low calorie diets can lead to muscle loss, nutrient deficiencies, metabolic slowdown, and other health issues. A moderate deficit of 500 calories below your TDEE is a safer and more sustainable approach to weight loss." />

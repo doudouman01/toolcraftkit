@@ -2,6 +2,8 @@
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function hslToRgb(h: number, s: number, l: number): [number, number, number] {
   s /= 100; l /= 100;
@@ -27,6 +29,8 @@ function rgbToCmyk(r: number, g: number, b: number): [number, number, number, nu
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [h, setH] = useState(180);
   const [s, setS] = useState(70);
   const [l, setL] = useState(50);
@@ -76,7 +80,7 @@ export default function ClientPage() {
     >
       <span style={{ fontWeight: 600, color: "#57534E" }}>{label}</span>
       <span style={{ color: "#1C1917", fontFamily: "monospace" }}>
-        {value} {copied === label ? <span style={{ color: "#0D9488", marginLeft: 6 }}>Copied!</span> : null}
+        {value} {copied === label ? <span style={{ color: "#0D9488", marginLeft: 6 }}>{toolUI.copied}</span> : null}
       </span>
     </div>
   );
@@ -86,7 +90,7 @@ export default function ClientPage() {
       <ToolSchema name="Color Picker Advanced" description="Advanced color picker with HSL sliders, HEX/RGB/HSL/CMYK values, gradient generator." slug="color-picker-advanced" category="DesignApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Image Tools", url: "https://toolcraftkit.com/#image-tools" }, { name: "Color Picker Advanced", url: "https://toolcraftkit.com/tools/color-picker-advanced" }]} />
 
-      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>Color Picker Advanced</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1C1917", marginBottom: 6 }}>{t(`tools./tools/color-picker-advanced.name`) !== `tools./tools/color-picker-advanced.name` ? t(`tools./tools/color-picker-advanced.name`) : "Color Picker Advanced"}</h1>
       <p style={{ fontSize: 15, color: "#78716C", marginBottom: 28 }}>Pick colors with HSL sliders. Get HEX, RGB, HSL, and CMYK values.</p>
 
       {/* Color preview */}
@@ -174,7 +178,7 @@ export default function ClientPage() {
           onClick={() => copyVal(`linear-gradient(to right, ${hex}, ${hex2})`, "gradient")}
           style={{ marginTop: 8, fontSize: 13, color: "#57534E", cursor: "pointer", fontFamily: "monospace" }}
         >
-          linear-gradient(to right, {hex}, {hex2}) {copied === "gradient" && <span style={{ color: "#0D9488" }}>Copied!</span>}
+          linear-gradient(to right, {hex}, {hex2}) {copied === "gradient" && <span style={{ color: "#0D9488" }}>{toolUI.copied}</span>}
         </div>
       </div>
 

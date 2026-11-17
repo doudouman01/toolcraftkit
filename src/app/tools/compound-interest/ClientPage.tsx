@@ -1,6 +1,10 @@
 "use client";
 import { useState } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t: tr } = useTranslation();
   const [principal, setPrincipal] = useState("10000");
   const [rate, setRate] = useState("7");
   const [years, setYears] = useState("10");
@@ -67,8 +71,8 @@ export default function ClientPage() {
 
   return (
     <div style={s.page}>
-      <h1 style={s.h1}>Compound Interest Calculator</h1>
-      <p style={s.sub}>See how your money grows over time with compound interest and regular contributions.</p>
+      <h1 style={s.h1}>{tr(`tools./tools/compound-interest.name`) !== `tools./tools/compound-interest.name` ? tr(`tools./tools/compound-interest.name`) : "Compound Interest Calculator"}</h1>
+      <p style={s.sub}>{tr(`tools./tools/compound-interest.desc`) !== `tools./tools/compound-interest.desc` ? tr(`tools./tools/compound-interest.desc`) : "See how your money grows over time with compound interest and regular contributions."}</p>
 
       <div style={s.card}>
         <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
@@ -192,13 +196,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Compound interest is interest calculated on both the initial principal and the accumulated interest from previous periods. Unlike simple interest, your money grows exponentially over time — this is what Albert Einstein reportedly called &quot;the eighth wonder of the world.&quot;</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>This calculator lets you model growth with different compounding frequencies (daily, monthly, quarterly, annually) and regular monthly contributions. The year-by-year breakdown shows exactly how your wealth accumulates over time.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "What is compound interest?", a: "Compound interest means you earn interest on your interest. If you invest $1,000 at 10%, you earn $100 the first year. The second year, you earn 10% on $1,100 ($110), not just on the original $1,000. Over time, this snowball effect dramatically accelerates your wealth growth." },
           { q: "How often should interest compound?", a: "More frequent compounding (daily vs annually) results in slightly more growth. Monthly compounding is the most common for savings accounts and investments. The difference between monthly and daily compounding is usually negligible." },

@@ -2,8 +2,12 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<"annual" | "hourly">("annual");
   const [salary, setSalary] = useState("75000");
   const [hourly, setHourly] = useState("35");
@@ -63,8 +67,8 @@ export default function ClientPage() {
           { name: "Salary Calculator", url: "https://toolcraftkit.com/tools/salary-calculator" },
         ]}
       />
-      <h1 style={s.h1}>Salary Calculator</h1>
-      <p style={s.sub}>Convert between annual salary and hourly rate. See your pay per month, week, and day.</p>
+      <h1 style={s.h1}>{t(`tools./tools/salary-calculator.name`) !== `tools./tools/salary-calculator.name` ? t(`tools./tools/salary-calculator.name`) : "Salary Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/salary-calculator.desc`) !== `tools./tools/salary-calculator.desc` ? t(`tools./tools/salary-calculator.desc`) : "Convert between annual salary and hourly rate. See your pay per month, week, and day."}</p>
 
       <div style={s.card}>
         <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
@@ -136,13 +140,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Convert between annual salary and hourly rate instantly. See your effective pay broken down into monthly, bi-weekly, weekly, daily, and hourly amounts. Adjust for vacation time, part-time hours, and different work schedules to see your true earning rate.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>This is a gross (before-tax) calculation. Your take-home pay will be lower after federal, state/provincial, and local taxes are deducted.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "How do I convert annual salary to hourly rate?", a: "Divide your annual salary by the number of working hours per year. For a standard 40-hour week with 50 working weeks (2 weeks vacation): $75,000 ÷ 2,000 = $37.50/hour." },
           { q: "What is a good salary?", a: "This varies enormously by location, industry, and experience. In the US, the median household income is roughly $75,000. In Canada, it is about $68,000 CAD. Cost of living in your area matters more than the raw number." },

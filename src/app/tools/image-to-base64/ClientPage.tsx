@@ -2,6 +2,8 @@
 import { useState, useRef } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return bytes + " B";
@@ -10,6 +12,8 @@ function formatBytes(bytes: number): string {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [result, setResult] = useState<{ dataUri: string; base64: string; mimeType: string; fileSize: number; base64Size: number; fileName: string; preview: string } | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
@@ -54,7 +58,7 @@ export default function ClientPage() {
       <ToolSchema name="Image to Base64" description="Convert images to Base64 strings. Copy data URI, see size comparison." slug="image-to-base64" category="DeveloperApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "Developer Tools", url: "/#developer-tools" }, { name: "Image to Base64", url: "/tools/image-to-base64" }]} />
       <div style={{ maxWidth: "760px", margin: "0 auto", padding: "32px 20px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Image to Base64</h1>
+        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>{t(`tools./tools/image-to-base64.name`) !== `tools./tools/image-to-base64.name` ? t(`tools./tools/image-to-base64.name`) : "Image to Base64"}</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "28px" }}>Upload an image to get its Base64 encoded string and data URI.</p>
 
         <div
@@ -102,7 +106,7 @@ export default function ClientPage() {
             <div style={cardStyle}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
                 <div style={{ fontSize: "13px", fontWeight: 600, color: "#1C1917" }}>Data URI (with MIME prefix)</div>
-                <button onClick={() => copy(result.dataUri, "uri")} style={btnCopy("uri", result.dataUri)}>{copied === "uri" ? "Copied!" : "Copy"}</button>
+                <button onClick={() => copy(result.dataUri, "uri")} style={btnCopy("uri", result.dataUri)}>{copied === "uri" ? toolUI.copied : toolUI.copy}</button>
               </div>
               <textarea readOnly value={result.dataUri} style={{ width: "100%", height: "100px", border: "1px solid #E7E5E4", borderRadius: "8px", padding: "10px", fontSize: "12px", fontFamily: "monospace", resize: "vertical", boxSizing: "border-box", background: "#FAFAF9", color: "#374151" }} />
             </div>
@@ -111,7 +115,7 @@ export default function ClientPage() {
             <div style={cardStyle}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
                 <div style={{ fontSize: "13px", fontWeight: 600, color: "#1C1917" }}>Raw Base64 String</div>
-                <button onClick={() => copy(result.base64, "raw")} style={btnCopy("raw", result.base64)}>{copied === "raw" ? "Copied!" : "Copy"}</button>
+                <button onClick={() => copy(result.base64, "raw")} style={btnCopy("raw", result.base64)}>{copied === "raw" ? toolUI.copied : toolUI.copy}</button>
               </div>
               <textarea readOnly value={result.base64} style={{ width: "100%", height: "100px", border: "1px solid #E7E5E4", borderRadius: "8px", padding: "10px", fontSize: "12px", fontFamily: "monospace", resize: "vertical", boxSizing: "border-box", background: "#FAFAF9", color: "#374151" }} />
             </div>
@@ -120,7 +124,7 @@ export default function ClientPage() {
             <div style={cardStyle}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
                 <div style={{ fontSize: "13px", fontWeight: 600, color: "#1C1917" }}>HTML Image Tag</div>
-                <button onClick={() => copy(`<img src="${result.dataUri}" alt="" />`, "html")} style={btnCopy("html", "")}>{copied === "html" ? "Copied!" : "Copy"}</button>
+                <button onClick={() => copy(`<img src="${result.dataUri}" alt="" />`, "html")} style={btnCopy("html", "")}>{copied === "html" ? toolUI.copied : toolUI.copy}</button>
               </div>
               <div style={{ background: "#FAFAF9", border: "1px solid #E7E5E4", borderRadius: "8px", padding: "10px", fontSize: "12px", fontFamily: "monospace", color: "#374151", wordBreak: "break-all" }}>
                 {`<img src="${result.dataUri.slice(0, 60)}..." alt="" />`}

@@ -2,6 +2,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function formatTime(ms: number): string {
   const h = Math.floor(ms / 3600000);
@@ -12,6 +14,8 @@ function formatTime(ms: number): string {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [elapsed, setElapsed] = useState(0);
   const [running, setRunning] = useState(false);
   const [laps, setLaps] = useState<{ lap: number; split: number; total: number }[]>([]);
@@ -64,7 +68,7 @@ export default function ClientPage() {
       <ToolSchema name="Stopwatch" description="Online stopwatch with lap timer. Millisecond precision, clean design." slug="stopwatch" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "Productivity Tools", url: "/#productivity-tools" }, { name: "Stopwatch", url: "/tools/stopwatch" }]} />
       <div style={{ maxWidth: "600px", margin: "0 auto", padding: "32px 20px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Stopwatch</h1>
+        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>{t(`tools./tools/stopwatch.name`) !== `tools./tools/stopwatch.name` ? t(`tools./tools/stopwatch.name`) : "Stopwatch"}</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "28px" }}>Precise stopwatch with lap timer. Start, stop, lap, reset.</p>
 
         <div style={cardStyle}>
@@ -78,7 +82,7 @@ export default function ClientPage() {
               <button onClick={stop} style={btnStyle("#EF4444")}>Stop</button>
             )}
             {running && <button onClick={lap} style={btnStyle("#3B82F6")}>Lap</button>}
-            <button onClick={reset} style={btnStyle("#78716C")}>Reset</button>
+            <button onClick={reset} style={btnStyle("#78716C")}>{toolUI.reset}</button>
           </div>
         </div>
 

@@ -2,6 +2,8 @@
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function hslToHex(h: number, s: number, l: number) {
   s /= 100; l /= 100;
@@ -50,6 +52,8 @@ function generatePalette(baseHex: string, type: PaletteType): string[] {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [baseColor, setBaseColor] = useState("#0D9488");
   const [paletteType, setPaletteType] = useState<PaletteType>("analogous");
   const [copied, setCopied] = useState("");
@@ -100,8 +104,8 @@ export default function ClientPage() {
           { name: "Color Palette Generator", url: "https://toolcraftkit.com/tools/color-palette" },
         ]}
       />
-      <h1 style={s.h1}>Color Palette Generator</h1>
-      <p style={s.sub}>Generate beautiful color palettes from a base color using color theory.</p>
+      <h1 style={s.h1}>{t(`tools./tools/color-palette.name`) !== `tools./tools/color-palette.name` ? t(`tools./tools/color-palette.name`) : "Color Palette Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/color-palette.desc`) !== `tools./tools/color-palette.desc` ? t(`tools./tools/color-palette.desc`) : "Generate beautiful color palettes from a base color using color theory."}</p>
 
       <div style={s.card}>
         <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 16 }}>
@@ -147,13 +151,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Generate harmonious color palettes based on color theory. Pick a base color and choose from six palette types: analogous (neighboring hues), complementary (opposite hues), triadic (three evenly spaced hues), split-complementary, monochromatic (shades of one hue), or random.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Click any swatch to copy its hex code. Export the full palette as hex values or CSS custom properties. Everything runs in your browser.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "What is an analogous color palette?", a: "Analogous colors sit next to each other on the color wheel. They create harmonious, low-contrast palettes that feel natural and cohesive — great for backgrounds and branding." },
           { q: "What is a complementary color palette?", a: "Complementary colors are opposite each other on the color wheel (e.g. blue and orange). They create high contrast and visual energy — ideal for call-to-action elements and accents." },

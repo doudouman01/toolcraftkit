@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function calcAge(birth: Date, ref: Date) {
   let years = ref.getFullYear() - birth.getFullYear();
@@ -30,6 +32,8 @@ function getZodiac(m: number, d: number) {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [birthStr, setBirthStr] = useState("");
   const [refStr, setRefStr] = useState("");
   const [mode, setMode] = useState<"age" | "diff">("age");
@@ -77,8 +81,8 @@ export default function ClientPage() {
           { name: "Age Calculator", url: "https://toolcraftkit.com/tools/age-calculator" },
         ]}
       />
-      <h1 style={s.h1}>Age Calculator</h1>
-      <p style={s.sub}>Calculate your exact age in years, months, days, hours, and minutes.</p>
+      <h1 style={s.h1}>{t(`tools./tools/age-calculator.name`) !== `tools./tools/age-calculator.name` ? t(`tools./tools/age-calculator.name`) : "Age Calculator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/age-calculator.desc`) !== `tools./tools/age-calculator.desc` ? t(`tools./tools/age-calculator.desc`) : "Calculate your exact age in years, months, days, hours, and minutes."}</p>
 
       <div style={s.card}>
         <div style={s.row}>
@@ -157,13 +161,13 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Calculate your exact age down to the minute. See your age broken down in years, months, days, weeks, hours, and minutes. Find out what day of the week you were born, your zodiac sign, and how many days until your next birthday.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>The age difference mode lets you compare two dates of birth. Everything runs in your browser — no data is stored.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "How is age calculated exactly?", a: "Age is calculated from your date of birth to the reference date (today by default). It accounts for varying month lengths and leap years to give you an exact breakdown in years, months, and days." },
           { q: "What is the age difference calculator?", a: "Switch to 'Age Difference' mode to enter two dates of birth. The tool calculates the exact gap between them in years, months, days, and total days." },

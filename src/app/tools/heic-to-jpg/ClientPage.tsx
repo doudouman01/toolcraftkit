@@ -4,6 +4,8 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "heic-to-jpg";
 
@@ -16,6 +18,8 @@ interface ConvertedFile {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [files, setFiles] = useState<File[]>([]);
   const [converted, setConverted] = useState<ConvertedFile[]>([]);
   const [quality, setQuality] = useState(90);
@@ -147,8 +151,8 @@ export default function ClientPage() {
       <ToolSchema name="HEIC to JPG Converter" description="Convert HEIC/HEIF images to JPG format. Free, no upload to server." slug="heic-to-jpg" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Converter Tools", url: "https://toolcraftkit.com/#converter-tools" }, { name: "HEIC to JPG", url: "https://toolcraftkit.com/tools/heic-to-jpg" }]} />
 
-      <h1 style={s.h1}>HEIC to JPG Converter</h1>
-      <p style={s.sub}>Convert HEIC/HEIF images to JPEG. Runs entirely in your browser — nothing is uploaded.</p>
+      <h1 style={s.h1}>{t(`tools./tools/heic-to-jpg.name`) !== `tools./tools/heic-to-jpg.name` ? t(`tools./tools/heic-to-jpg.name`) : "HEIC to JPG Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/heic-to-jpg.desc`) !== `tools./tools/heic-to-jpg.desc` ? t(`tools./tools/heic-to-jpg.desc`) : "Convert HEIC/HEIF images to JPEG. Runs entirely in your browser — nothing is uploaded."}</p>
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 
       <input ref={inputRef} type="file" accept=".heic,.heif,image/*" multiple style={{ display: "none" }} onChange={(e) => e.target.files && addFiles(e.target.files)} />
@@ -199,7 +203,7 @@ export default function ClientPage() {
                 <div style={{ fontSize: "14px", fontWeight: 500, color: "#111827" }}>{f.name}</div>
                 <div style={{ fontSize: "12px", color: "#6b7280" }}>{formatSize(f.origSize)} → {formatSize(f.newSize)} ({Math.round((1 - f.newSize / f.origSize) * 100)}% {f.newSize < f.origSize ? "smaller" : "larger"})</div>
               </div>
-              <button style={s.btnSm} onClick={() => downloadOne(f)}>Download</button>
+              <button style={s.btnSm} onClick={() => downloadOne(f)}>{toolUI.download}</button>
             </div>
           ))}
           <div style={{ display: "flex", gap: "12px", marginTop: "16px" }}>

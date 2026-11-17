@@ -2,6 +2,8 @@
 import { useState, useMemo } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const PRESETS = [
   { label: "Email", pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}", flags: "g" },
@@ -13,6 +15,8 @@ const PRESETS = [
 ];
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [pattern, setPattern] = useState("");
   const [flags, setFlags] = useState("g");
   const [testStr, setTestStr] = useState("");
@@ -96,8 +100,8 @@ export default function ClientPage() {
           { name: "Regex Tester", url: "https://toolcraftkit.com/tools/regex-tester" },
         ]}
       />
-      <h1 style={s.h1}>Regex Tester</h1>
-      <p style={s.sub}>Test regular expressions with live highlighting and match details.</p>
+      <h1 style={s.h1}>{t(`tools./tools/regex-tester.name`) !== `tools./tools/regex-tester.name` ? t(`tools./tools/regex-tester.name`) : "Regex Tester"}</h1>
+      <p style={s.sub}>{t(`tools./tools/regex-tester.desc`) !== `tools./tools/regex-tester.desc` ? t(`tools./tools/regex-tester.desc`) : "Test regular expressions with live highlighting and match details."}</p>
 
       <div style={s.card}>
         <div style={s.row}>
@@ -178,13 +182,13 @@ export default function ClientPage() {
       )}
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Test and debug regular expressions with live syntax highlighting. See every match with its position, use common presets for emails, URLs, and phone numbers, and test replacements with capture group references.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>This regex tester uses JavaScript regex syntax. All processing happens in your browser — nothing is sent to any server.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "Which regex flavor does this use?", a: "This tool uses JavaScript (ECMAScript) regular expressions, which are supported by all modern browsers, Node.js, and many other languages." },
           { q: "What do the flags mean?", a: "g = find all matches (not just the first), i = case-insensitive, m = treat ^ and $ as line boundaries, s = make . match newlines too." },

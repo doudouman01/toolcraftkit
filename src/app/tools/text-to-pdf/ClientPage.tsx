@@ -4,10 +4,14 @@ import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "text-to-pdf";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [usage, setUsage] = useState(0);
   const [limit, setLimit] = useState(5);
@@ -137,8 +141,8 @@ export default function ClientPage() {
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Converter Tools", url: "https://toolcraftkit.com/#converter-tools" }, { name: "Text to PDF", url: "https://toolcraftkit.com/tools/text-to-pdf" }]} />
 
       <div style={s.breadcrumb}><a href="/" style={s.bLink}>Home</a> › <span style={{ color: "#0D9488" }}>Text to PDF</span></div>
-      <h1 style={s.h1}>Text to PDF Converter</h1>
-      <p style={s.sub}>Convert plain text into a formatted PDF document. Add a title, choose your font size, and download instantly.</p>
+      <h1 style={s.h1}>{t(`tools./tools/text-to-pdf.name`) !== `tools./tools/text-to-pdf.name` ? t(`tools./tools/text-to-pdf.name`) : "Text to PDF Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/text-to-pdf.desc`) !== `tools./tools/text-to-pdf.desc` ? t(`tools./tools/text-to-pdf.desc`) : "Convert plain text into a formatted PDF document. Add a title, choose your font size, and download instantly."}</p>
 
       <UsageBanner toolSlug={TOOL_SLUG} usage={usage} limit={limit} period={period} />
 

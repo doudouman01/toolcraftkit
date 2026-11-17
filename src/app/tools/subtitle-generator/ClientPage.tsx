@@ -2,6 +2,8 @@
 import { useState, useCallback, useRef } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── TYPES ─── */
 interface SubtitleEntry {
@@ -136,6 +138,8 @@ function TimeInput({ h, m, sec, ms, onChange, label }: {
 
 /* ─── MAIN COMPONENT ─── */
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [entries, setEntries] = useState<SubtitleEntry[]>([]);
   const [defaultDuration, setDefaultDuration] = useState(3);
   const [shiftSeconds, setShiftSeconds] = useState(0);
@@ -235,8 +239,8 @@ export default function ClientPage() {
         { name: "Subtitle Generator", url: "https://toolcraftkit.com/tools/subtitle-generator" },
       ]} />
 
-      <h1 style={s.h1}>Subtitle Generator</h1>
-      <p style={s.sub}>Create and edit SRT subtitle files for your videos. Free, no signup required.</p>
+      <h1 style={s.h1}>{t(`tools./tools/subtitle-generator.name`) !== `tools./tools/subtitle-generator.name` ? t(`tools./tools/subtitle-generator.name`) : "Subtitle Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/subtitle-generator.desc`) !== `tools./tools/subtitle-generator.desc` ? t(`tools./tools/subtitle-generator.desc`) : "Create and edit SRT subtitle files for your videos. Free, no signup required."}</p>
 
       {/* ─── Quick Actions ─── */}
       <div style={s.card}>
@@ -338,7 +342,7 @@ export default function ClientPage() {
             <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", margin: 0 }}>SRT Preview</h2>
             <div style={{ display: "flex", gap: 8 }}>
               <button onClick={handleCopy} style={s.btnSecondary}>
-                {copied ? "Copied!" : "Copy to Clipboard"}
+                {copied ? toolUI.copied : toolUI.copy}
               </button>
               <button onClick={handleDownload} style={s.btnSecondary}>
                 Download .srt

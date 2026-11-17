@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -136,6 +138,8 @@ function SeoContent({ theme }: { theme: typeof LIGHT }) {
 
 /* ─── MAIN COMPONENT ─── */
 export default function AspectRatioCalc() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const theme = dark ? DARK : LIGHT;
 
@@ -261,7 +265,7 @@ export default function AspectRatioCalc() {
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Aspect Ratio Calculator</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/aspect-ratio-calculator.name`) !== `tools./tools/aspect-ratio-calculator.name` ? t(`tools./tools/aspect-ratio-calculator.name`) : "Aspect Ratio Calculator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Find aspect ratios from dimensions, lock a ratio to calculate missing values, and browse common resolutions.
           </p>
@@ -388,7 +392,7 @@ export default function AspectRatioCalc() {
 
         {/* FAQ */}
         <div style={cardStyle}>
-          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>{toolUI.faq}</h2>
           <FAQItem theme={theme}
             q="What is an aspect ratio?"
             a="An aspect ratio is the proportional relationship between the width and height of an image or screen, expressed as two numbers separated by a colon. For example, 16:9 means the width is 16 units for every 9 units of height. It defines the shape of the frame, not the actual pixel count." />

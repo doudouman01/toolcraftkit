@@ -1,8 +1,12 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [text, setText] = useState("A");
   const [bg, setBg] = useState("#0D9488");
   const [fg, setFg] = useState("#FFFFFF");
@@ -57,8 +61,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Favicon Generator" description="Create favicons from text or emoji. Download ICO, PNG 32px, 180px, 512px. Free online tool." slug="favicon-generator" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Developer Tools", url: "https://toolcraftkit.com/#developer-tools" }, { name: "Favicon Generator", url: "https://toolcraftkit.com/tools/favicon-generator" }]} />
-      <h1 style={s.h1}>Favicon Generator</h1>
-      <p style={s.sub}>Create a favicon from text, initials, or emoji. Download in all sizes.</p>
+      <h1 style={s.h1}>{t(`tools./tools/favicon-generator.name`) !== `tools./tools/favicon-generator.name` ? t(`tools./tools/favicon-generator.name`) : "Favicon Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/favicon-generator.desc`) !== `tools./tools/favicon-generator.desc` ? t(`tools./tools/favicon-generator.desc`) : "Create a favicon from text, initials, or emoji. Download in all sizes."}</p>
 
       <canvas ref={canvasRef} style={{ display: "none" }} />
 
@@ -102,7 +106,7 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Generate favicons from text, initials, or emoji. Choose your colors and shape, then download in all standard sizes: 16×16 for browser tabs, 32×32 for bookmarks, 180×180 for Apple touch icon, and 512×512 for PWA manifest. No signup, no watermark.</p>
       </div>
     </div>

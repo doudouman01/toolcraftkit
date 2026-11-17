@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 type Stroke = { points: { x: number; y: number }[]; color: string; width: number };
 
@@ -14,6 +16,8 @@ const FONTS = [
 ];
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<"draw" | "type">("draw");
   const [color, setColor] = useState("#000000");
   const [thickness, setThickness] = useState(3);
@@ -141,8 +145,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Signature Generator" description="Draw or type your signature and download as PNG or JPG." slug="signature-generator" category="Business Tools" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Tools", url: "https://toolcraftkit.com/tools" }, { name: "Signature Generator", url: "https://toolcraftkit.com/tools/signature-generator" }]} />
-      <h1 style={s.h1}>Signature Generator</h1>
-      <p style={s.sub}>Draw your signature or type your name in a cursive style. Download as PNG or JPG.</p>
+      <h1 style={s.h1}>{t(`tools./tools/signature-generator.name`) !== `tools./tools/signature-generator.name` ? t(`tools./tools/signature-generator.name`) : "Signature Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/signature-generator.desc`) !== `tools./tools/signature-generator.desc` ? t(`tools./tools/signature-generator.desc`) : "Draw your signature or type your name in a cursive style. Download as PNG or JPG."}</p>
 
       <div style={s.card}>
         <div style={{ ...s.row, marginBottom: 14 }}>
@@ -182,7 +186,7 @@ export default function ClientPage() {
             </div>
             <div style={{ ...s.row, marginBottom: 0 }}>
               <button onClick={undo} style={s.btn()}>Undo</button>
-              <button onClick={clear} style={s.btn()}>Clear</button>
+              <button onClick={clear} style={s.btn()}>{toolUI.clear}</button>
               <div style={{ flex: 1 }} />
               <button onClick={() => download("png")} style={s.btn(true)}>Download PNG</button>
               <button onClick={() => download("jpg")} style={s.btn()}>Download JPG</button>

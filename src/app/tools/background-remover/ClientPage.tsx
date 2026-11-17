@@ -3,6 +3,8 @@ import { useState, useRef, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "background-remover";
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -14,6 +16,8 @@ function formatFileSize(bytes: number): string {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
@@ -81,8 +85,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Background Remover" description="Remove image backgrounds instantly with AI. Transparent PNG output." slug="background-remover" category="WebApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Image Tools", url: "https://toolcraftkit.com/#image-tools" }, { name: "Background Remover", url: "https://toolcraftkit.com/tools/background-remover" }]} />
-      <h1 style={s.h1}>Background Remover</h1>
-      <p style={s.sub}>Remove image backgrounds instantly with AI. Get a transparent PNG.</p>
+      <h1 style={s.h1}>{t(`tools./tools/background-remover.name`) !== `tools./tools/background-remover.name` ? t(`tools./tools/background-remover.name`) : "Background Remover"}</h1>
+      <p style={s.sub}>{t(`tools./tools/background-remover.desc`) !== `tools./tools/background-remover.desc` ? t(`tools./tools/background-remover.desc`) : "Remove image backgrounds instantly with AI. Get a transparent PNG."}</p>
       <UsageBanner toolSlug={TOOL_SLUG} usage={0} limit={3} period="month" />
       <div style={s.card}>
         {!result ? (

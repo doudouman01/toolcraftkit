@@ -1,11 +1,15 @@
 "use client";
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 function hexToRgb(hex: string) { const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16); return { r, g, b }; }
 function rgbToHsl(r: number, g: number, b: number) { r /= 255; g /= 255; b /= 255; const max = Math.max(r, g, b), min = Math.min(r, g, b); let h = 0, s = 0; const l = (max + min) / 2; if (max !== min) { const d = max - min; s = l > 0.5 ? d / (2 - max - min) : d / (max + min); switch (max) { case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break; case g: h = ((b - r) / d + 2) / 6; break; case b: h = ((r - g) / d + 4) / 6; break; } } return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) }; }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [color, setColor] = useState("#0D9488");
   const [copied, setCopied] = useState("");
 
@@ -49,8 +53,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Color Picker" description="Pick any color, get HEX, RGB, HSL values. Generate shades and tints. Free online color tool." slug="color-picker" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Design Tools", url: "https://toolcraftkit.com/#design-tools" }, { name: "Color Picker", url: "https://toolcraftkit.com/tools/color-picker" }]} />
-      <h1 style={s.h1}>Color Picker</h1>
-      <p style={s.sub}>Pick a color and get it in every format. Generate shades and tints.</p>
+      <h1 style={s.h1}>{t(`tools./tools/color-picker.name`) !== `tools./tools/color-picker.name` ? t(`tools./tools/color-picker.name`) : "Color Picker"}</h1>
+      <p style={s.sub}>{t(`tools./tools/color-picker.desc`) !== `tools./tools/color-picker.desc` ? t(`tools./tools/color-picker.desc`) : "Pick a color and get it in every format. Generate shades and tints."}</p>
 
       <div style={{ ...s.preview, background: color }} />
 
@@ -80,7 +84,7 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Pick any color and instantly get its HEX, RGB, HSL, CSS variable, and Tailwind values. Click any format to copy. Explore shades and tints of your chosen color. Perfect for designers, developers, and anyone working with color.</p>
       </div>
     </div>

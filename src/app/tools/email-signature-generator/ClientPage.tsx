@@ -1,8 +1,12 @@
 "use client";
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
@@ -40,8 +44,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Email Signature Generator" description="Create a professional email signature for free. Copy and paste into Gmail, Outlook, or any email client." slug="email-signature-generator" category="UtilitiesApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Business Tools", url: "https://toolcraftkit.com/#business-tools" }, { name: "Email Signature Generator", url: "https://toolcraftkit.com/tools/email-signature-generator" }]} />
-      <h1 style={s.h1}>Email Signature Generator</h1>
-      <p style={s.sub}>Create a professional email signature. Copy and paste into Gmail, Outlook, or any email client.</p>
+      <h1 style={s.h1}>{t(`tools./tools/email-signature-generator.name`) !== `tools./tools/email-signature-generator.name` ? t(`tools./tools/email-signature-generator.name`) : "Email Signature Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/email-signature-generator.desc`) !== `tools./tools/email-signature-generator.desc` ? t(`tools./tools/email-signature-generator.desc`) : "Create a professional email signature. Copy and paste into Gmail, Outlook, or any email client."}</p>
 
       <div style={s.card}>
         <label style={s.label}>Full Name *</label>
@@ -71,7 +75,7 @@ export default function ClientPage() {
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Create a clean, professional email signature in seconds. Works with Gmail, Outlook, Apple Mail, Yahoo, and any HTML-compatible email client. Just fill in your details, choose a color, and copy-paste into your email settings.</p>
       </div>
     </div>

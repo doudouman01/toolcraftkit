@@ -2,8 +2,12 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [input, setInput] = useState("");
   const [caseSensitive, setCaseSensitive] = useState(true);
   const [trimWhitespace, setTrimWhitespace] = useState(true);
@@ -77,8 +81,8 @@ export default function ClientPage() {
           { name: "Remove Duplicate Lines", url: "https://toolcraftkit.com/tools/remove-duplicates" },
         ]}
       />
-      <h1 style={s.h1}>Remove Duplicate Lines</h1>
-      <p style={s.sub}>Remove duplicate lines from text. Keep only unique entries.</p>
+      <h1 style={s.h1}>{t(`tools./tools/remove-duplicates.name`) !== `tools./tools/remove-duplicates.name` ? t(`tools./tools/remove-duplicates.name`) : "Remove Duplicate Lines"}</h1>
+      <p style={s.sub}>{t(`tools./tools/remove-duplicates.desc`) !== `tools./tools/remove-duplicates.desc` ? t(`tools./tools/remove-duplicates.desc`) : "Remove duplicate lines from text. Keep only unique entries."}</p>
 
       <div style={s.card}>
         <div style={{ ...s.row, marginBottom: 16 }}>
@@ -118,18 +122,18 @@ export default function ClientPage() {
         <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
           <button onClick={copy} style={s.btn}>{copied ? "Copied!" : "Copy Output"}</button>
           <button onClick={download} style={s.btnSm}>Download .txt</button>
-          <button onClick={() => setInput("")} style={s.btnSm}>Clear</button>
+          <button onClick={() => setInput("")} style={s.btnSm}>{toolUI.clear}</button>
         </div>
       </div>
 
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>Paste a list of lines and instantly see only the unique entries. Perfect for cleaning up email lists, keyword lists, product SKUs, data exports, or any text that has repeated lines.</p>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7 }}>Options let you control whether matching is case-sensitive, whether whitespace is trimmed, and whether the output should be sorted alphabetically. Everything runs in your browser — nothing is uploaded.</p>
       </div>
 
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>{toolUI.faq}</h2>
         {[
           { q: "Does this tool change the order of my lines?", a: "By default, the original order is preserved (first occurrence kept). Enable the 'Sort A→Z' option if you want alphabetical output." },
           { q: "Is the matching case-sensitive?", a: "By default yes — 'Apple' and 'apple' are treated as different. Uncheck 'Case sensitive' to treat them as the same." },

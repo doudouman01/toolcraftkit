@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -123,6 +125,8 @@ function Badge({ pass, theme }: { pass: boolean; theme: typeof LIGHT }) {
 
 /* ─── MAIN COMPONENT ─── */
 export default function ContrastChecker() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [dark, setDark] = useState(false);
   const theme = dark ? DARK : LIGHT;
 
@@ -209,7 +213,7 @@ export default function ContrastChecker() {
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>Color Contrast Checker</h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em" }}>{t(`tools./tools/color-contrast-checker.name`) !== `tools./tools/color-contrast-checker.name` ? t(`tools./tools/color-contrast-checker.name`) : "Color Contrast Checker"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Test foreground and background color combinations against WCAG AA and AAA accessibility standards.
           </p>
@@ -340,7 +344,7 @@ export default function ContrastChecker() {
 
         {/* FAQ */}
         <div style={{ ...cardStyle, marginTop: 8 }}>
-          <h2 style={{ fontSize: 17, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 17, fontWeight: 700, margin: "0 0 12px", color: theme.text }}>{toolUI.faq}</h2>
           <FAQItem theme={theme}
             q="What is WCAG and why does contrast matter?"
             a="WCAG (Web Content Accessibility Guidelines) is an international standard for making web content accessible to people with disabilities. Sufficient color contrast ensures that text is readable by people with low vision or color deficiencies. Many countries require WCAG compliance by law."

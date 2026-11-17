@@ -1,5 +1,7 @@
 "use client";
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -455,6 +457,8 @@ function AdSlot({ position, theme }) {
    MAIN COMPONENT
    ═══════════════════════════════════════════════ */
 export default function WordCounterV2() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [text, setText] = useState("");
   const [dark, setDark] = useState(false);
   const [tab, setTab] = useState("counts");
@@ -531,7 +535,7 @@ return (
             <h1 style={{
               fontSize: 26, fontWeight: 800, margin: 0,
               letterSpacing: "-0.03em", lineHeight: 1.2,
-            }}>Word Counter</h1>
+            }}>{t(`tools./tools/word-counter.name`) !== `tools./tools/word-counter.name` ? t(`tools./tools/word-counter.name`) : "Word Counter"}</h1>
             {stats.language && (
               <span style={{
                 fontSize: 11, fontWeight: 600, padding: "3px 8px",
@@ -731,7 +735,7 @@ return (
         <section style={{ marginBottom: 20 }}>
           <h2 style={{
             fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: "-0.02em",
-          }}>Frequently Asked Questions</h2>
+          }}>{toolUI.faq}</h2>
           <FAQItem theme={theme}
             q="How many pages is 1,000 words?"
             a="About 2 pages single-spaced or 4 pages double-spaced, using a standard 12pt font like Times New Roman with 1-inch margins. The exact count varies with formatting, font choice, and paragraph spacing."

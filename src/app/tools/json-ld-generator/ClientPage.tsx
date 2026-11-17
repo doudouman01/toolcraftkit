@@ -2,6 +2,8 @@
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── SCHEMA TYPES ─── */
 const SCHEMA_TYPES = [
@@ -273,6 +275,8 @@ function cleanObj(obj: unknown): unknown {
 
 /* ─── MAIN COMPONENT ─── */
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const today = new Date().toISOString().split("T")[0];
   const [schemaType, setSchemaType] = useState<SchemaType>("Article");
   const [fields, setFields] = useState<Record<string, string>>({ datePublished: today, dateModified: today, currency: "USD", availability: "InStock", businessType: "LocalBusiness", offerCurrency: "USD" });
@@ -667,8 +671,8 @@ export default function ClientPage() {
         { name: "JSON-LD Schema Generator", url: "https://toolcraftkit.com/tools/json-ld-generator" },
       ]} />
 
-      <h1 style={s.h1}>JSON-LD Schema Generator</h1>
-      <p style={s.sub}>Generate structured data markup for Google rich results. 10 schema types supported. Free, no signup.</p>
+      <h1 style={s.h1}>{t(`tools./tools/json-ld-generator.name`) !== `tools./tools/json-ld-generator.name` ? t(`tools./tools/json-ld-generator.name`) : "JSON-LD Schema Generator"}</h1>
+      <p style={s.sub}>{t(`tools./tools/json-ld-generator.desc`) !== `tools./tools/json-ld-generator.desc` ? t(`tools./tools/json-ld-generator.desc`) : "Generate structured data markup for Google rich results. 10 schema types supported. Free, no signup."}</p>
 
       {/* ─── Schema Type Selector ─── */}
       <div style={s.card}>

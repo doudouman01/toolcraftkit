@@ -2,6 +2,8 @@
 import { useState, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── TYPES ─── */
 interface FormData {
@@ -386,6 +388,8 @@ function AdSlot({ position, theme }: { position: string; theme: typeof LIGHT }) 
    MAIN COMPONENT
    ═══════════════════════════════════════════════ */
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const today = new Date().toISOString().split("T")[0];
 
   const [form, setForm] = useState<FormData>({
@@ -499,9 +503,7 @@ export default function ClientPage() {
 
         {/* ─── TITLE ─── */}
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
-            Terms of Service Generator
-          </h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em", lineHeight: 1.2 }}>{t(`tools./tools/terms-of-service-generator.name`) !== `tools./tools/terms-of-service-generator.name` ? t(`tools./tools/terms-of-service-generator.name`) : "Terms of Service Generator"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Create comprehensive, jurisdiction-aware Terms of Service for your website or app. Free, no signup required.
           </p>
@@ -696,7 +698,7 @@ export default function ClientPage() {
                     transition: "all 0.2s ease",
                   }}
                 >
-                  {copied ? "Copied!" : "Copy to Clipboard"}
+                  {copied ? toolUI.copied : toolUI.copy}
                 </button>
                 <button
                   onClick={handleDownload}

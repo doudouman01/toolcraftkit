@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const MILESTONES = [
   { week: 6, label: "First Heartbeat", desc: "Baby's heart begins to beat" },
@@ -24,6 +26,8 @@ function formatDate(d: Date): string {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [lmp, setLmp] = useState("");
   const [result, setResult] = useState<{
     dueDate: Date;
@@ -69,7 +73,7 @@ export default function ClientPage() {
       <ToolSchema name="Pregnancy Calculator" description="Calculate due date, current week, trimester, and milestones from your last menstrual period." slug="pregnancy-calculator" category="HealthApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "Health & Fitness Tools", url: "/#health-&-fitness-tools" }, { name: "Pregnancy Calculator", url: "/tools/pregnancy-calculator" }]} />
       <div style={{ maxWidth: "760px", margin: "0 auto", padding: "32px 20px" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>Pregnancy Calculator</h1>
+        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1C1917", marginBottom: "6px" }}>{t(`tools./tools/pregnancy-calculator.name`) !== `tools./tools/pregnancy-calculator.name` ? t(`tools./tools/pregnancy-calculator.name`) : "Pregnancy Calculator"}</h1>
         <p style={{ color: "#78716C", fontSize: "15px", marginBottom: "28px" }}>Calculate your due date, current week, trimester, and key milestones.</p>
 
         <div style={cardStyle}>

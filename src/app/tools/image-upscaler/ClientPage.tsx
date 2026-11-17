@@ -3,6 +3,8 @@ import { useState, useRef, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import { useAuth } from "@/context/AuthContext";
 import UsageBanner from "@/components/UsageBanner";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 const TOOL_SLUG = "image-upscaler";
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -14,6 +16,8 @@ function formatFileSize(bytes: number): string {
 }
 
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const { user, isPro } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
@@ -107,8 +111,8 @@ export default function ClientPage() {
     <div style={s.page}>
       <ToolSchema name="Image Upscaler" description="Upscale images 2x or 4x with AI. Enhance resolution without losing quality." slug="image-upscaler" category="WebApplication" />
       <BreadcrumbSchema items={[{ name: "Home", url: "https://toolcraftkit.com" }, { name: "Image Tools", url: "https://toolcraftkit.com/#image-tools" }, { name: "Image Upscaler", url: "https://toolcraftkit.com/tools/image-upscaler" }]} />
-      <h1 style={s.h1}>Image Upscaler</h1>
-      <p style={s.sub}>Enhance image resolution 2x or 4x with AI. No quality loss.</p>
+      <h1 style={s.h1}>{t(`tools./tools/image-upscaler.name`) !== `tools./tools/image-upscaler.name` ? t(`tools./tools/image-upscaler.name`) : "Image Upscaler"}</h1>
+      <p style={s.sub}>{t(`tools./tools/image-upscaler.desc`) !== `tools./tools/image-upscaler.desc` ? t(`tools./tools/image-upscaler.desc`) : "Enhance image resolution 2x or 4x with AI. No quality loss."}</p>
       <UsageBanner toolSlug={TOOL_SLUG} usage={0} limit={3} period="month" />
       <div style={s.card}>
         {!result ? (
@@ -139,7 +143,7 @@ export default function ClientPage() {
             <p style={{ fontSize: 16, fontWeight: 600, color: "#0D9488", marginBottom: 16 }}>Image upscaled {scale}x!</p>
             <img src={result} alt="Upscaled" style={{ maxWidth: "100%", maxHeight: 500, borderRadius: 8 }} />
             <div style={{ marginTop: 20, display: "flex", gap: 12, justifyContent: "center" }}>
-              <button onClick={handleDownload} style={s.btn}>Download</button>
+              <button onClick={handleDownload} style={s.btn}>{toolUI.download}</button>
               <button onClick={() => { setResult(""); setFile(null); setPreview(""); }} style={s.btnOutline}>New Image</button>
             </div>
           </div>

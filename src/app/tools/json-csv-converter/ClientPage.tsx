@@ -2,6 +2,8 @@
 import { useState, useRef, useCallback } from "react";
 import { ToolSchema, BreadcrumbSchema } from "@/app/components/JsonLd";
 import SeoContent from "./SeoContent";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── HELPERS ─── */
 
@@ -202,6 +204,8 @@ function FAQItem({ q, a }: { q: string; a: string }) {
    MAIN COMPONENT
    ═══════════════════════════════════════════════ */
 export default function ClientPage() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [tab, setTab] = useState<"json-to-csv" | "csv-to-json">("json-to-csv");
 
   /* JSON -> CSV state */
@@ -363,8 +367,8 @@ export default function ClientPage() {
         ]}
       />
 
-      <h1 style={s.h1}>JSON to CSV Converter</h1>
-      <p style={s.sub}>Convert between JSON and CSV instantly. Handles nested objects, custom delimiters. Runs in your browser.</p>
+      <h1 style={s.h1}>{t(`tools./tools/json-csv-converter.name`) !== `tools./tools/json-csv-converter.name` ? t(`tools./tools/json-csv-converter.name`) : "JSON to CSV Converter"}</h1>
+      <p style={s.sub}>{t(`tools./tools/json-csv-converter.desc`) !== `tools./tools/json-csv-converter.desc` ? t(`tools./tools/json-csv-converter.desc`) : "Convert between JSON and CSV instantly. Handles nested objects, custom delimiters. Runs in your browser."}</p>
 
       {/* ─── TABS ─── */}
       <div style={s.tabs}>
@@ -406,7 +410,7 @@ export default function ClientPage() {
             {jsonError && <div style={s.error}>{jsonError}</div>}
             <div style={s.row}>
               <button onClick={convertJsonToCsv} style={s.btn}>Convert to CSV</button>
-              <button onClick={() => { setJsonInput(""); setCsvOutput(""); setCsvHeaders([]); setCsvRows([]); setJsonError(""); }} style={s.btnSm}>Clear</button>
+              <button onClick={() => { setJsonInput(""); setCsvOutput(""); setCsvHeaders([]); setCsvRows([]); setJsonError(""); }} style={s.btnSm}>{toolUI.clear}</button>
             </div>
           </div>
 
@@ -418,7 +422,7 @@ export default function ClientPage() {
                   <span style={s.badge}>{csvRows.length} rows x {csvHeaders.length} cols</span>
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
-                  <button onClick={copyCsvOutput} style={s.btnSm}>{jsonCopied ? "Copied!" : "Copy"}</button>
+                  <button onClick={copyCsvOutput} style={s.btnSm}>{jsonCopied ? toolUI.copied : toolUI.copy}</button>
                   <button onClick={downloadCsv} style={s.btnOutline}>Download .csv</button>
                 </div>
               </div>
@@ -514,7 +518,7 @@ export default function ClientPage() {
             {csvError && <div style={s.error}>{csvError}</div>}
             <div style={s.row}>
               <button onClick={convertCsvToJson} style={s.btn}>Convert to JSON</button>
-              <button onClick={() => { setCsvInput(""); setJsonOutput(""); setCsvError(""); }} style={s.btnSm}>Clear</button>
+              <button onClick={() => { setCsvInput(""); setJsonOutput(""); setCsvError(""); }} style={s.btnSm}>{toolUI.clear}</button>
             </div>
           </div>
 
@@ -526,7 +530,7 @@ export default function ClientPage() {
                   <span style={s.badge}>{JSON.parse(jsonOutput).length} objects</span>
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
-                  <button onClick={copyJsonOutput} style={s.btnSm}>{csvCopied ? "Copied!" : "Copy"}</button>
+                  <button onClick={copyJsonOutput} style={s.btnSm}>{csvCopied ? toolUI.copied : toolUI.copy}</button>
                   <button onClick={downloadJson} style={s.btnOutline}>Download .json</button>
                 </div>
               </div>
@@ -538,7 +542,7 @@ export default function ClientPage() {
 
       {/* ─── ABOUT ─── */}
       <div style={{ ...s.card, marginTop: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>About This Tool</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.aboutThisTool}</h2>
         <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.7, marginBottom: 12 }}>
           This converter handles both directions: JSON to CSV and CSV to JSON. When converting JSON to CSV, nested objects are flattened using dot notation.
           For example, <code style={{ background: "#F5F5F4", padding: "2px 6px", borderRadius: 4, fontSize: 13 }}>{`{"user": {"name": "Alice"}}`}</code> becomes
@@ -555,7 +559,7 @@ export default function ClientPage() {
 
       {/* ─── FAQ ─── */}
       <div style={{ ...s.card, marginTop: 16 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "#1C1917", marginBottom: 8 }}>{toolUI.faq}</h2>
         <FAQItem
           q="What JSON format does this tool accept?"
           a='The tool accepts a JSON array of objects, for example: [{"name":"Alice","age":30},{"name":"Bob","age":25}]. A single object (not wrapped in an array) is also accepted and treated as a one-row dataset.'

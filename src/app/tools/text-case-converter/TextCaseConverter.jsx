@@ -1,5 +1,7 @@
 "use client";
 import { useState, useCallback } from "react";
+import { useToolUI } from "@/app/components/ToolUIProvider";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 /* ─── BRAND TOKENS ─── */
 const LIGHT = {
@@ -184,6 +186,8 @@ function ConversionCard({ conversion, text, theme }) {
    MAIN COMPONENT
    ═══════════════════════════════════════════ */
 export default function TextCaseConverter() {
+  const toolUI = useToolUI();
+  const { t } = useTranslation();
   const [text, setText] = useState("");
   const [dark, setDark] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -211,9 +215,7 @@ return (
 
         {/* Title */}
         <div style={{ marginBottom: 20 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
-            Text Case Converter
-          </h1>
+          <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.03em", lineHeight: 1.2 }}>{t(`tools./tools/text-case-converter.name`) !== `tools./tools/text-case-converter.name` ? t(`tools./tools/text-case-converter.name`) : "Text Case Converter"}</h1>
           <p style={{ fontSize: 14, color: theme.textMuted, margin: "8px 0 0", lineHeight: 1.5 }}>
             Convert text between uppercase, lowercase, title case, camelCase, snake_case, and 11 more formats. One click to copy any result.
           </p>
@@ -254,7 +256,7 @@ return (
               <button onClick={() => setText("")} style={{
                 background: "none", border: "none", color: theme.danger,
                 fontSize: 12, cursor: "pointer", padding: "3px 8px", borderRadius: 5, fontWeight: 500,
-              }}>Clear</button>
+              }}>{toolUI.clear}</button>
             )}
           </div>
         </div>
