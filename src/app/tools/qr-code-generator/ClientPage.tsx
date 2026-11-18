@@ -170,7 +170,7 @@ export default function ClientPage() {
               <input type="text" value={wifiName} onChange={(e) => setWifiName(e.target.value)} placeholder="MyWiFiNetwork" style={s.input} />
             </div>
             <div style={{ marginBottom: 10 }}>
-              <label style={s.label}>Password</label>
+              <label style={s.label}>{toolUI.password}</label>
               <input type="text" value={wifiPass} onChange={(e) => setWifiPass(e.target.value)} placeholder="password123" style={s.input} />
             </div>
             <div style={s.row}>
@@ -217,7 +217,7 @@ export default function ClientPage() {
           <img src={qrDataUrl} alt="QR Code" style={{ maxWidth: 280, width: "100%", borderRadius: 8, border: "1px solid #E7E5E4", marginBottom: 16 }} />
           <canvas ref={canvasRef} style={{ display: "none" }} />
           <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
-            <button onClick={() => download("png")} style={s.btn} disabled={!canUse}>Download PNG</button>
+            <button onClick={() => download("png")} style={s.btn} disabled={!canUse}>{toolUI.downloadPNG}</button>
             <button onClick={copyImage} style={s.btnSm} disabled={!canUse}>{copied ? toolUI.copied : toolUI.copy}</button>
           </div>
         </div>

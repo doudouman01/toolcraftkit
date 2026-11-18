@@ -200,11 +200,11 @@ export default function ClientPage() {
           <div>
             <div style={cardStyle}>
               <div style={sectionTitle}>Personal Information</div>
-              <label style={labelStyle}>Full Name</label>
+              <label style={labelStyle}>{toolUI.fullName}</label>
               <input value={name} onChange={(e) => setName(e.target.value)} placeholder="John Doe" style={inputStyle} />
-              <label style={labelStyle}>Email</label>
+              <label style={labelStyle}>{toolUI.email}</label>
               <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="john@example.com" style={inputStyle} />
-              <label style={labelStyle}>Phone</label>
+              <label style={labelStyle}>{toolUI.phone}</label>
               <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+1 555-0100" style={inputStyle} />
               <label style={labelStyle}>Professional Summary</label>
               <textarea value={summary} onChange={(e) => setSummary(e.target.value)} rows={3} placeholder="Brief overview of your experience and goals..." style={{ ...inputStyle, resize: "vertical" }} />
@@ -218,27 +218,27 @@ export default function ClientPage() {
                   <input value={w.company} onChange={(e) => updateWork(i, "company", e.target.value)} placeholder="Company Name" style={inputStyle} />
                   <input value={w.dates} onChange={(e) => updateWork(i, "dates", e.target.value)} placeholder="Jan 2020 - Present" style={inputStyle} />
                   <textarea value={w.description} onChange={(e) => updateWork(i, "description", e.target.value)} rows={2} placeholder="Describe your responsibilities and achievements..." style={{ ...inputStyle, resize: "vertical" }} />
-                  {work.length > 1 && <button onClick={() => setWork(work.filter((_, j) => j !== i))} style={{ fontSize: "12px", color: "#EF4444", background: "none", border: "none", cursor: "pointer" }}>Remove</button>}
+                  {work.length > 1 && <button onClick={() => setWork(work.filter((_, j) => j !== i))} style={{ fontSize: "12px", color: "#EF4444", background: "none", border: "none", cursor: "pointer" }}>{toolUI.remove}</button>}
                 </div>
               ))}
               <button onClick={() => setWork([...work, { title: "", company: "", dates: "", description: "" }])} style={{ fontSize: "13px", color: "#0D9488", background: "none", border: "none", cursor: "pointer", fontWeight: 600 }}>+ Add Experience</button>
             </div>
 
             <div style={cardStyle}>
-              <div style={sectionTitle}>Education</div>
+              <div style={sectionTitle}>{toolUI.education}</div>
               {education.map((e, i) => (
                 <div key={i} style={{ marginBottom: "12px", paddingBottom: "12px", borderBottom: i < education.length - 1 ? "1px solid #E7E5E4" : "none" }}>
                   <input value={e.degree} onChange={(ev) => updateEdu(i, "degree", ev.target.value)} placeholder="Degree (e.g., B.S. Computer Science)" style={inputStyle} />
                   <input value={e.school} onChange={(ev) => updateEdu(i, "school", ev.target.value)} placeholder="University Name" style={inputStyle} />
                   <input value={e.dates} onChange={(ev) => updateEdu(i, "dates", ev.target.value)} placeholder="2016 - 2020" style={inputStyle} />
-                  {education.length > 1 && <button onClick={() => setEducation(education.filter((_, j) => j !== i))} style={{ fontSize: "12px", color: "#EF4444", background: "none", border: "none", cursor: "pointer" }}>Remove</button>}
+                  {education.length > 1 && <button onClick={() => setEducation(education.filter((_, j) => j !== i))} style={{ fontSize: "12px", color: "#EF4444", background: "none", border: "none", cursor: "pointer" }}>{toolUI.remove}</button>}
                 </div>
               ))}
               <button onClick={() => setEducation([...education, { degree: "", school: "", dates: "" }])} style={{ fontSize: "13px", color: "#0D9488", background: "none", border: "none", cursor: "pointer", fontWeight: 600 }}>+ Add Education</button>
             </div>
 
             <div style={cardStyle}>
-              <div style={sectionTitle}>Skills</div>
+              <div style={sectionTitle}>{toolUI.skills}</div>
               <textarea value={skills} onChange={(e) => setSkills(e.target.value)} rows={2} placeholder="JavaScript, React, Project Management, Data Analysis..." style={{ ...inputStyle, resize: "vertical" }} />
             </div>
 
@@ -260,7 +260,7 @@ export default function ClientPage() {
               )}
               {work.some(w => w.title || w.company) && (
                 <>
-                  <div style={{ borderTop: "1px solid #0D9488", marginBottom: "8px", paddingTop: "8px", fontWeight: 700, color: "#0D9488", fontSize: "10px", textTransform: "uppercase", letterSpacing: "1px" }}>Experience</div>
+                  <div style={{ borderTop: "1px solid #0D9488", marginBottom: "8px", paddingTop: "8px", fontWeight: 700, color: "#0D9488", fontSize: "10px", textTransform: "uppercase", letterSpacing: "1px" }}>{toolUI.experience}</div>
                   {work.filter(w => w.title || w.company).map((w, i) => (
                     <div key={i} style={{ marginBottom: "8px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -275,7 +275,7 @@ export default function ClientPage() {
               )}
               {education.some(e => e.degree || e.school) && (
                 <>
-                  <div style={{ borderTop: "1px solid #0D9488", marginBottom: "8px", paddingTop: "8px", fontWeight: 700, color: "#0D9488", fontSize: "10px", textTransform: "uppercase", letterSpacing: "1px" }}>Education</div>
+                  <div style={{ borderTop: "1px solid #0D9488", marginBottom: "8px", paddingTop: "8px", fontWeight: 700, color: "#0D9488", fontSize: "10px", textTransform: "uppercase", letterSpacing: "1px" }}>{toolUI.education}</div>
                   {education.filter(e => e.degree || e.school).map((e, i) => (
                     <div key={i} style={{ marginBottom: "6px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -289,7 +289,7 @@ export default function ClientPage() {
               )}
               {skills && (
                 <>
-                  <div style={{ borderTop: "1px solid #0D9488", marginBottom: "8px", paddingTop: "8px", fontWeight: 700, color: "#0D9488", fontSize: "10px", textTransform: "uppercase", letterSpacing: "1px" }}>Skills</div>
+                  <div style={{ borderTop: "1px solid #0D9488", marginBottom: "8px", paddingTop: "8px", fontWeight: 700, color: "#0D9488", fontSize: "10px", textTransform: "uppercase", letterSpacing: "1px" }}>{toolUI.skills}</div>
                   <div style={{ fontSize: "10px", color: "#555" }}>{skills}</div>
                 </>
               )}

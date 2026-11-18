@@ -88,9 +88,9 @@ export default function ClientPage() {
       <div style={s.card}>
         <div style={s.cats}>{Object.keys(CATEGORIES).map(c => <button key={c} style={s.catBtn(category === c)} onClick={() => changeCat(c)}>{c}</button>)}</div>
         <div style={s.grid}>
-          <div><label style={s.label}>From</label><select style={s.select} value={fromUnit} onChange={e => setFromUnit(e.target.value)}>{cat.units.map(u => <option key={u} value={u}>{u}</option>)}</select></div>
+          <div><label style={s.label}>{toolUI.from}</label><select style={s.select} value={fromUnit} onChange={e => setFromUnit(e.target.value)}>{cat.units.map(u => <option key={u} value={u}>{u}</option>)}</select></div>
           <button style={s.swapBtn} onClick={swap} title="Swap">&#8644;</button>
-          <div><label style={s.label}>To</label><select style={s.select} value={toUnit} onChange={e => setToUnit(e.target.value)}>{cat.units.map(u => <option key={u} value={u}>{u}</option>)}</select></div>
+          <div><label style={s.label}>{toolUI.to}</label><select style={s.select} value={toUnit} onChange={e => setToUnit(e.target.value)}>{cat.units.map(u => <option key={u} value={u}>{u}</option>)}</select></div>
         </div>
         <div style={{ marginBottom: 16 }}><label style={s.label}>Value</label><input type="number" style={s.input} value={fromValue} onChange={e => setFromValue(e.target.value)} /></div>
         <div style={{ background: "#FAFAF9", borderRadius: 8, padding: 16, marginBottom: 12 }}>

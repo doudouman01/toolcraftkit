@@ -144,7 +144,7 @@ export default function ClientPage() {
             <img src={result} alt="Upscaled" style={{ maxWidth: "100%", maxHeight: 500, borderRadius: 8 }} />
             <div style={{ marginTop: 20, display: "flex", gap: 12, justifyContent: "center" }}>
               <button onClick={handleDownload} style={s.btn}>{toolUI.download}</button>
-              <button onClick={() => { setResult(""); setFile(null); setPreview(""); }} style={s.btnOutline}>New Image</button>
+              <button onClick={() => { setResult(""); setFile(null); setPreview(""); }} style={s.btnOutline}>{toolUI.newImage}</button>
             </div>
           </div>
         )}

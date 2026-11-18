@@ -70,7 +70,7 @@ export default function ClientPage() {
       {dataUrl && (
         <div style={{ ...s.card, textAlign: "center" }}>
           <div ref={svgRef} style={{ marginBottom: 16, overflow: "auto" }} />
-          <button onClick={download} style={s.btn}>Download PNG</button>
+          <button onClick={download} style={s.btn}>{toolUI.downloadPNG}</button>
         </div>
       )}
       {!dataUrl && input && (

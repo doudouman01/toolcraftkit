@@ -99,7 +99,7 @@ export default function ClientPage() {
             {/* Summary Cards */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "12px", marginBottom: "20px" }}>
               <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: "12px", padding: "16px", textAlign: "center" }}>
-                <div style={{ fontSize: "13px", color: "#78716C", marginBottom: "4px" }}>Due Date</div>
+                <div style={{ fontSize: "13px", color: "#78716C", marginBottom: "4px" }}>{toolUI.dueDate}</div>
                 <div style={{ fontSize: "16px", fontWeight: 700, color: "#0D9488" }}>{formatDate(result.dueDate)}</div>
               </div>
               <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: "12px", padding: "16px", textAlign: "center" }}>

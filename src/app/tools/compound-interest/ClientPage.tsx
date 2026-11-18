@@ -172,10 +172,10 @@ export default function ClientPage() {
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
                   <thead>
                     <tr style={{ background: "#F5F5F4", position: "sticky" as const, top: 0 }}>
-                      <th style={{ padding: "8px 6px", textAlign: "left" }}>Year</th>
-                      <th style={{ padding: "8px 6px", textAlign: "right" }}>Balance</th>
+                      <th style={{ padding: "8px 6px", textAlign: "left" }}>{toolUI.year}</th>
+                      <th style={{ padding: "8px 6px", textAlign: "right" }}>{toolUI.balance}</th>
                       <th style={{ padding: "8px 6px", textAlign: "right" }}>Contributions</th>
-                      <th style={{ padding: "8px 6px", textAlign: "right" }}>Total Interest</th>
+                      <th style={{ padding: "8px 6px", textAlign: "right" }}>{toolUI.totalInterest}</th>
                     </tr>
                   </thead>
                   <tbody>

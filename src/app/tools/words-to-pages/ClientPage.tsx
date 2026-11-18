@@ -137,10 +137,10 @@ export default function ClientPage() {
               <div style={{ fontSize: 12, color: "#78716C", marginTop: 4 }}>at {fontSize}pt, {spacing} spacing (~{wpp} words/page)</div>
             </div>
             <div style={{ display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
-              <div style={s.stat}><div style={s.statVal}>{readingTime} min</div><div style={s.statLabel}>Reading Time</div></div>
-              <div style={s.stat}><div style={s.statVal}>{speakingTime} min</div><div style={s.statLabel}>Speaking Time</div></div>
-              <div style={s.stat}><div style={s.statVal}>~{paragraphs}</div><div style={s.statLabel}>Paragraphs</div></div>
-              <div style={s.stat}><div style={s.statVal}>~{sentences}</div><div style={s.statLabel}>Sentences</div></div>
+              <div style={s.stat}><div style={s.statVal}>{readingTime} min</div><div style={s.statLabel}>{toolUI.readingTime}</div></div>
+              <div style={s.stat}><div style={s.statVal}>{speakingTime} min</div><div style={s.statLabel}>{toolUI.speakingTime}</div></div>
+              <div style={s.stat}><div style={s.statVal}>~{paragraphs}</div><div style={s.statLabel}>{toolUI.paragraphs}</div></div>
+              <div style={s.stat}><div style={s.statVal}>~{sentences}</div><div style={s.statLabel}>{toolUI.sentences}</div></div>
             </div>
           </div>
         )}

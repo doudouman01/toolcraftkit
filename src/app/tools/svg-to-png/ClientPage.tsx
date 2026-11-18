@@ -180,14 +180,14 @@ export default function ClientPage() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 10, alignItems: "end", marginTop: 14, marginBottom: 14 }}>
           <div>
-            <label style={s.label}>Width (px)</label>
+            <label style={s.label}>{toolUI.widthPx}</label>
             <input type="number" value={svgWidth} onChange={e => handleWidthChange(Number(e.target.value))} min={1} max={4096} style={s.input} />
           </div>
           <label style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 12, color: "#78716C", cursor: "pointer", paddingBottom: 10 }}>
             <input type="checkbox" checked={lockAspect} onChange={e => setLockAspect(e.target.checked)} /> Lock
           </label>
           <div>
-            <label style={s.label}>Height (px)</label>
+            <label style={s.label}>{toolUI.heightPx}</label>
             <input type="number" value={svgHeight} onChange={e => handleHeightChange(Number(e.target.value))} min={1} max={4096} style={s.input} />
           </div>
         </div>

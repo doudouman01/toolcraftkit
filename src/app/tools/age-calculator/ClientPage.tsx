@@ -113,8 +113,8 @@ export default function ClientPage() {
         {result && mode === "age" && (
           <div style={s.resultCard}>
             <div style={{ textAlign: "center", marginBottom: 20 }}>
-              <div style={{ fontSize: 13, color: "#57534E", marginBottom: 4 }}>Your Age</div>
-              <div style={s.big}>{result.years} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>years</span> {result.months} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>months</span> {result.days} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>days</span></div>
+              <div style={{ fontSize: 13, color: "#57534E", marginBottom: 4 }}>{toolUI.yourAge}</div>
+              <div style={s.big}>{result.years} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>{toolUI.years}</span> {result.months} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>{toolUI.months}</span> {result.days} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>{toolUI.days}</span></div>
             </div>
 
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", marginBottom: 16 }}>
@@ -139,7 +139,7 @@ export default function ClientPage() {
               </div>
               <div style={{ textAlign: "center" }}>
                 <div style={{ fontSize: 14, fontWeight: 600, color: "#1C1917" }}>{result.dayOfWeek}</div>
-                <div style={{ fontSize: 12, color: "#57534E" }}>Born on</div>
+                <div style={{ fontSize: 12, color: "#57534E" }}>{toolUI.bornOn}</div>
               </div>
               <div style={{ textAlign: "center" }}>
                 <div style={{ fontSize: 14, fontWeight: 600, color: "#0D9488" }}>{result.daysUntilBirthday} days</div>
@@ -153,7 +153,7 @@ export default function ClientPage() {
           <div style={s.resultCard}>
             <div style={{ textAlign: "center", marginBottom: 12 }}>
               <div style={{ fontSize: 13, color: "#57534E", marginBottom: 4 }}>Age Difference</div>
-              <div style={s.big}>{diffResult.years} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>years</span> {diffResult.months} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>months</span> {diffResult.days} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>days</span></div>
+              <div style={s.big}>{diffResult.years} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>{toolUI.years}</span> {diffResult.months} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>{toolUI.months}</span> {diffResult.days} <span style={{ fontSize: 16, color: "#78716C", fontWeight: 400 }}>{toolUI.days}</span></div>
               <div style={{ fontSize: 13, color: "#78716C", marginTop: 8 }}>{diffResult.totalDays.toLocaleString()} days apart</div>
             </div>
           </div>

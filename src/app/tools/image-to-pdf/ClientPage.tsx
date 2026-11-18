@@ -203,8 +203,8 @@ export default function ClientPage() {
               <div style={{ fontSize: "36px", marginBottom: "12px" }}>✅</div>
               <div style={{ fontSize: "18px", fontWeight: 600, color: "#111827", marginBottom: "16px" }}>PDF created!</div>
               <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-                <button style={s.btn} onClick={download} disabled={!canUse}>Download PDF</button>
-                <button style={s.btnOut} onClick={() => { setImages([]); setResult(""); }}>Start Over</button>
+                <button style={s.btn} onClick={download} disabled={!canUse}>{toolUI.downloadPDF}</button>
+                <button style={s.btnOut} onClick={() => { setImages([]); setResult(""); }}>{toolUI.startOver}</button>
               </div>
             </div>
           )}

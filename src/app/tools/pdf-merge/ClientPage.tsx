@@ -390,7 +390,7 @@ export default function ClientPage() {
           </div>
           <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
             <button style={s.btn} onClick={download} disabled={!canUse}>Download Merged PDF</button>
-            <button style={s.btnOut} onClick={() => { setFiles([]); setResult(""); }}>Start Over</button>
+            <button style={s.btnOut} onClick={() => { setFiles([]); setResult(""); }}>{toolUI.startOver}</button>
           </div>
         </div>
       )}

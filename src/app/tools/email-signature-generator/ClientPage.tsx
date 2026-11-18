@@ -54,9 +54,9 @@ export default function ClientPage() {
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Marketing Manager" style={s.input} />
         <label style={s.label}>Company</label>
         <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Acme Inc." style={s.input} />
-        <label style={s.label}>Phone</label>
+        <label style={s.label}>{toolUI.phone}</label>
         <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+1 234 567 8900" style={s.input} />
-        <label style={s.label}>Email</label>
+        <label style={s.label}>{toolUI.email}</label>
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="john@acme.com" style={s.input} />
         <label style={s.label}>Website</label>
         <input type="text" value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="www.acme.com" style={s.input} />

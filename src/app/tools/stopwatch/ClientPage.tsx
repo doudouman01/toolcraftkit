@@ -77,11 +77,11 @@ export default function ClientPage() {
           </div>
           <div>
             {!running ? (
-              <button onClick={start} style={btnStyle("#0D9488")}>Start</button>
+              <button onClick={start} style={btnStyle("#0D9488")}>{toolUI.start}</button>
             ) : (
-              <button onClick={stop} style={btnStyle("#EF4444")}>Stop</button>
+              <button onClick={stop} style={btnStyle("#EF4444")}>{toolUI.stop}</button>
             )}
-            {running && <button onClick={lap} style={btnStyle("#3B82F6")}>Lap</button>}
+            {running && <button onClick={lap} style={btnStyle("#3B82F6")}>{toolUI.lap}</button>}
             <button onClick={reset} style={btnStyle("#78716C")}>{toolUI.reset}</button>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function ClientPage() {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
               <thead>
                 <tr style={{ background: "#F5F5F4" }}>
-                  <th style={{ padding: "10px 16px", textAlign: "left", fontWeight: 600, color: "#1C1917" }}>Lap</th>
+                  <th style={{ padding: "10px 16px", textAlign: "left", fontWeight: 600, color: "#1C1917" }}>{toolUI.lap}</th>
                   <th style={{ padding: "10px 16px", textAlign: "right", fontWeight: 600, color: "#1C1917" }}>Split Time</th>
                   <th style={{ padding: "10px 16px", textAlign: "right", fontWeight: 600, color: "#1C1917" }}>Total Time</th>
                 </tr>

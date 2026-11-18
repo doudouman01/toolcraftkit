@@ -159,12 +159,12 @@ export default function ClientPage() {
             <label style={s.label}>New Dimensions</label>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px", flexWrap: "wrap" }}>
               <div>
-                <div style={{ fontSize: "12px", color: "#6b7280", marginBottom: "4px" }}>Width (px)</div>
+                <div style={{ fontSize: "12px", color: "#6b7280", marginBottom: "4px" }}>{toolUI.widthPx}</div>
                 <input type="number" value={newW} onChange={(e) => updateW(Number(e.target.value))} style={s.input} />
               </div>
               <button onClick={() => setLock(!lock)} style={{ background: "none", border: "none", fontSize: "20px", cursor: "pointer", marginTop: "16px" }}>{lock ? "🔗" : "🔓"}</button>
               <div>
-                <div style={{ fontSize: "12px", color: "#6b7280", marginBottom: "4px" }}>Height (px)</div>
+                <div style={{ fontSize: "12px", color: "#6b7280", marginBottom: "4px" }}>{toolUI.heightPx}</div>
                 <input type="number" value={newH} onChange={(e) => updateH(Number(e.target.value))} style={s.input} />
               </div>
             </div>
@@ -181,7 +181,7 @@ export default function ClientPage() {
 
           <div style={{ display: "flex", gap: "12px", marginBottom: "20px" }}>
             <button style={s.btn} onClick={resize} disabled={!canUse}>Resize Image</button>
-            <button style={s.btnOut} onClick={() => { setFile(null); setPreview(""); setResult(""); }}>New Image</button>
+            <button style={s.btnOut} onClick={() => { setFile(null); setPreview(""); setResult(""); }}>{toolUI.newImage}</button>
           </div>
 
           {result && (

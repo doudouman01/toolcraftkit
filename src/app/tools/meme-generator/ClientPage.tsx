@@ -225,7 +225,7 @@ export default function ClientPage() {
           </div>
           <div style={{ display: "flex", gap: "12px", marginBottom: "20px" }}>
             <button style={s.btn} onClick={download}>Download Meme (PNG)</button>
-            <button style={s.btnSm} onClick={() => { setImage(null); setTopText(""); setBottomText(""); }}>Start Over</button>
+            <button style={s.btnSm} onClick={() => { setImage(null); setTopText(""); setBottomText(""); }}>{toolUI.startOver}</button>
           </div>
         </>
       )}

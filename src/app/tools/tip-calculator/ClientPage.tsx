@@ -100,7 +100,7 @@ export default function ClientPage() {
 
             <div style={s.resultRow}><span style={{ fontSize: 14, color: "#57534E" }}>Bill</span><span style={{ fontSize: 14, fontWeight: 600 }}>{fmt(billAmt)}</span></div>
             <div style={s.resultRow}><span style={{ fontSize: 14, color: "#57534E" }}>Tip ({pct}%)</span><span style={{ fontSize: 14, fontWeight: 600, color: "#0D9488" }}>+{fmt(tipAmt)}</span></div>
-            <div style={{ ...s.resultRow, fontWeight: 700, borderBottom: "none" }}><span style={{ fontSize: 14 }}>Total</span><span style={{ fontSize: 14 }}>{fmt(total)}</span></div>
+            <div style={{ ...s.resultRow, fontWeight: 700, borderBottom: "none" }}><span style={{ fontSize: 14 }}>{toolUI.total}</span><span style={{ fontSize: 14 }}>{fmt(total)}</span></div>
             {split > 1 && (
               <div style={{ fontSize: 12, color: "#78716C", textAlign: "center", marginTop: 8 }}>Split {split} ways: {fmt(perPerson)} each</div>
             )}

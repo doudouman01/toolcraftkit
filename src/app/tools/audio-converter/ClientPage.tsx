@@ -159,7 +159,7 @@ export default function ClientPage() {
 
         {file && (
           <div style={{ marginTop: 16 }}>
-            <label style={s.label}>Output Format</label>
+            <label style={s.label}>{toolUI.outputFormat}</label>
             <select value={outputFormat} onChange={e => setOutputFormat(e.target.value)} style={{ ...s.select, maxWidth: 200 }}>
               <option value="wav">WAV (uncompressed)</option>
               <option value="webm">WEBM (compressed)</option>

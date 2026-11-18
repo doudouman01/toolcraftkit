@@ -120,7 +120,7 @@ export default function ClientPage() {
 
       {/* Password */}
       <div style={{ marginBottom: 20 }}>
-        <label style={{ fontSize: 13, fontWeight: 600, color: "#57534E", marginBottom: 4, display: "block" }}>Password</label>
+        <label style={{ fontSize: 13, fontWeight: 600, color: "#57534E", marginBottom: 4, display: "block" }}>{toolUI.password}</label>
         <input
           type="password"
           value={password}

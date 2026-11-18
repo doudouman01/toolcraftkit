@@ -105,8 +105,8 @@ export default function ClientPage() {
             <p style={{ fontSize: 16, fontWeight: 600, color: "#0D9488", marginBottom: 16 }}>Background removed!</p>
             <div style={{ background: "repeating-conic-gradient(#e5e5e5 0% 25%, white 0% 50%) 50% / 20px 20px", borderRadius: 8, padding: 16, display: "inline-block" }}><img src={result} alt="Result" style={{ maxWidth: "100%", maxHeight: 400 }} /></div>
             <div style={{ marginTop: 20, display: "flex", gap: 12, justifyContent: "center" }}>
-              <button onClick={handleDownload} style={s.btn}>Download PNG</button>
-              <button onClick={() => { setResult(""); setFile(null); setPreview(""); }} style={s.btnOutline}>New Image</button>
+              <button onClick={handleDownload} style={s.btn}>{toolUI.downloadPNG}</button>
+              <button onClick={() => { setResult(""); setFile(null); setPreview(""); }} style={s.btnOutline}>{toolUI.newImage}</button>
             </div>
           </div>
         )}

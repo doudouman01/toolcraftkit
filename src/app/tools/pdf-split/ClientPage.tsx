@@ -253,8 +253,8 @@ export default function ClientPage() {
             Extracted {selectedPages.size} page{selectedPages.size > 1 ? "s" : ""} successfully!
           </div>
           <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-            <button style={s.btn} onClick={download}>Download PDF</button>
-            <button style={s.btnOut} onClick={reset}>Start Over</button>
+            <button style={s.btn} onClick={download}>{toolUI.downloadPDF}</button>
+            <button style={s.btnOut} onClick={reset}>{toolUI.startOver}</button>
           </div>
         </div>
       )}

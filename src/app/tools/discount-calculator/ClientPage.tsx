@@ -133,7 +133,7 @@ export default function ClientPage() {
               <span style={{ fontSize: 14, fontWeight: 600, color: "#1C1917" }}>{fmt(o)}</span>
             </div>
             <div style={s.resultRow}>
-              <span style={{ fontSize: 13, color: "#57534E" }}>Discount</span>
+              <span style={{ fontSize: 13, color: "#57534E" }}>{toolUI.discount}</span>
               <span style={{ fontSize: 14, fontWeight: 600, color: "#EF4444" }}>−{fmt(result.discountAmt)} ({result.discountPct.toFixed(1)}%)</span>
             </div>
             <div style={{ ...s.resultRow, borderBottom: "none" }}>

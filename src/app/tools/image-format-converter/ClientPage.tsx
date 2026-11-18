@@ -436,7 +436,7 @@ export default function ClientPage() {
           <div style={s.card}>
             <h3 style={{ fontSize: 15, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Output Settings</h3>
 
-            <label style={s.label}>Output Format</label>
+            <label style={s.label}>{toolUI.outputFormat}</label>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: showQualitySlider ? 16 : 0 }}>
               {(Object.keys(FORMAT_LABELS) as OutputFormat[]).map((fmt) => (
                 <button
@@ -550,11 +550,11 @@ export default function ClientPage() {
                     marginBottom: 8,
                   }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                      <span style={{ fontSize: 13, color: "#78716C" }}>Original</span>
+                      <span style={{ fontSize: 13, color: "#78716C" }}>{toolUI.original}</span>
                       <span style={{ fontSize: 13, fontWeight: 600, color: "#1C1917" }}>{formatBytes(imageInfo.size)}</span>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                      <span style={{ fontSize: 13, color: "#78716C" }}>Converted</span>
+                      <span style={{ fontSize: 13, color: "#78716C" }}>{toolUI.converted}</span>
                       <span style={{ fontSize: 13, fontWeight: 600, color: "#1C1917" }}>{formatBytes(result.size)}</span>
                     </div>
                     <div style={{
@@ -563,7 +563,7 @@ export default function ClientPage() {
                       borderTop: "1px solid #E7E5E4",
                       paddingTop: 6,
                     }}>
-                      <span style={{ fontSize: 13, color: "#78716C" }}>Difference</span>
+                      <span style={{ fontSize: 13, color: "#78716C" }}>{toolUI.difference}</span>
                       <span style={{
                         fontSize: 13,
                         fontWeight: 700,

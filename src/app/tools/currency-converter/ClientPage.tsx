@@ -84,20 +84,20 @@ export default function ClientPage() {
 
       <div style={s.card}>
         <div style={{ marginBottom: 14 }}>
-          <label style={s.label}>Amount</label>
+          <label style={s.label}>{toolUI.amount}</label>
           <input type="number" value={amount} onChange={e => setAmount(e.target.value)} min="0" step="any" style={s.input} />
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 12, alignItems: "end", marginBottom: 14 }}>
           <div>
-            <label style={s.label}>From</label>
+            <label style={s.label}>{toolUI.from}</label>
             <select value={from} onChange={e => setFrom(e.target.value)} style={s.select}>
               {codes.map(c => <option key={c} value={c}>{c} — {RATES[c].name}</option>)}
             </select>
           </div>
           <button onClick={() => { setFrom(to); setTo(from); }} style={s.swapBtn} title="Swap currencies">&#8644;</button>
           <div>
-            <label style={s.label}>To</label>
+            <label style={s.label}>{toolUI.to}</label>
             <select value={to} onChange={e => setTo(e.target.value)} style={s.select}>
               {codes.map(c => <option key={c} value={c}>{c} — {RATES[c].name}</option>)}
             </select>

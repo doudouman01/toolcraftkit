@@ -80,7 +80,7 @@ export default function ClientPage() {
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
           <thead>
             <tr style={{ background: "#F5F5F4" }}>
-              <th style={{ padding: "8px 12px", textAlign: "left", borderBottom: "1px solid #E7E5E4" }}>Description</th>
+              <th style={{ padding: "8px 12px", textAlign: "left", borderBottom: "1px solid #E7E5E4" }}>{toolUI.description}</th>
               <th style={{ padding: "8px 12px", textAlign: "right", borderBottom: "1px solid #E7E5E4" }}>&deg;C</th>
               <th style={{ padding: "8px 12px", textAlign: "right", borderBottom: "1px solid #E7E5E4" }}>&deg;F</th>
               <th style={{ padding: "8px 12px", textAlign: "right", borderBottom: "1px solid #E7E5E4" }}>K</th>

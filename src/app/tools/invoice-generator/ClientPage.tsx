@@ -91,23 +91,23 @@ export default function ClientPage() {
     </style></head><body>
       <div class="header">
         <div><h1 style="font-size:28px;margin:0 0 16px;color:#0D9488">INVOICE</h1>
-          <div class="label">From</div><div class="val">${from.name}</div><div style="font-size:13px;color:#57534E;white-space:pre-line">${from.address}</div>${from.email ? `<div style="font-size:13px">${from.email}</div>` : ""}
+          <div class="label">{toolUI.from}</div><div class="val">${from.name}</div><div style="font-size:13px;color:#57534E;white-space:pre-line">${from.address}</div>${from.email ? `<div style="font-size:13px">${from.email}</div>` : ""}
         </div>
         <div style="text-align:right">
           <div class="label">Invoice #</div><div class="val">${invoiceNo}</div>
-          <div class="label" style="margin-top:8px">Date</div><div class="val">${invoiceDate}</div>
+          <div class="label" style="margin-top:8px">{toolUI.date}</div><div class="val">${invoiceDate}</div>
           ${dueDate ? `<div class="label" style="margin-top:8px">Due</div><div class="val">${dueDate}</div>` : ""}
         </div>
       </div>
       <div style="margin-bottom:24px"><div class="label">Bill To</div><div class="val">${to.name}</div><div style="font-size:13px;color:#57534E;white-space:pre-line">${to.address}</div>${to.email ? `<div style="font-size:13px">${to.email}</div>` : ""}</div>
-      <table><thead><tr><th>Description</th><th class="right">Qty</th><th class="right">Price</th><th class="right">Amount</th></tr></thead><tbody>
+      <table><thead><tr><th>{toolUI.description}</th><th class="right">Qty</th><th class="right">Price</th><th class="right">{toolUI.amount}</th></tr></thead><tbody>
         ${items.map((item) => `<tr><td>${item.desc}</td><td class="right">${item.qty}</td><td class="right">${fmt(item.price)}</td><td class="right">${fmt(item.qty * item.price)}</td></tr>`).join("")}
       </tbody></table>
       <div style="display:flex;justify-content:flex-end">
         <div style="min-width:200px">
-          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px"><span>{toolUI.subtotal}</span><span>${fmt(subtotal)}</span></div>
           ${taxRate > 0 ? `<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px"><span>Tax (${taxRate}%)</span><span>${fmt(tax)}</span></div>` : ""}
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-top:2px solid #1C1917" class="total-row"><span>Total</span><span>${fmt(total)}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-top:2px solid #1C1917" class="total-row"><span>{toolUI.total}</span><span>${fmt(total)}</span></div>
         </div>
       </div>
       ${notes ? `<div class="notes"><strong>Notes:</strong><br>${notes}</div>` : ""}
@@ -152,38 +152,38 @@ export default function ClientPage() {
         <div style={{ ...s.card, flex: 1, minWidth: 280 }}>
           <h3 style={{ fontSize: 15, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>From (Your Details)</h3>
           <div style={{ marginBottom: 10 }}><label style={s.label}>Name / Business</label><input type="text" value={from.name} onChange={(e) => setFrom({ ...from, name: e.target.value })} style={s.input} placeholder="Your Business Name" /></div>
-          <div style={{ marginBottom: 10 }}><label style={s.label}>Email</label><input type="email" value={from.email} onChange={(e) => setFrom({ ...from, email: e.target.value })} style={s.input} placeholder="you@email.com" /></div>
-          <div><label style={s.label}>Address</label><textarea value={from.address} onChange={(e) => setFrom({ ...from, address: e.target.value })} style={{ ...s.input, minHeight: 60, resize: "vertical" as const }} placeholder="Street, City, Country" /></div>
+          <div style={{ marginBottom: 10 }}><label style={s.label}>{toolUI.email}</label><input type="email" value={from.email} onChange={(e) => setFrom({ ...from, email: e.target.value })} style={s.input} placeholder="you@email.com" /></div>
+          <div><label style={s.label}>{toolUI.address}</label><textarea value={from.address} onChange={(e) => setFrom({ ...from, address: e.target.value })} style={{ ...s.input, minHeight: 60, resize: "vertical" as const }} placeholder="Street, City, Country" /></div>
         </div>
         <div style={{ ...s.card, flex: 1, minWidth: 280 }}>
           <h3 style={{ fontSize: 15, fontWeight: 600, color: "#1C1917", marginBottom: 12 }}>Bill To (Client)</h3>
           <div style={{ marginBottom: 10 }}><label style={s.label}>Name / Business</label><input type="text" value={to.name} onChange={(e) => setTo({ ...to, name: e.target.value })} style={s.input} placeholder="Client Name" /></div>
-          <div style={{ marginBottom: 10 }}><label style={s.label}>Email</label><input type="email" value={to.email} onChange={(e) => setTo({ ...to, email: e.target.value })} style={s.input} placeholder="client@email.com" /></div>
-          <div><label style={s.label}>Address</label><textarea value={to.address} onChange={(e) => setTo({ ...to, address: e.target.value })} style={{ ...s.input, minHeight: 60, resize: "vertical" as const }} placeholder="Street, City, Country" /></div>
+          <div style={{ marginBottom: 10 }}><label style={s.label}>{toolUI.email}</label><input type="email" value={to.email} onChange={(e) => setTo({ ...to, email: e.target.value })} style={s.input} placeholder="client@email.com" /></div>
+          <div><label style={s.label}>{toolUI.address}</label><textarea value={to.address} onChange={(e) => setTo({ ...to, address: e.target.value })} style={{ ...s.input, minHeight: 60, resize: "vertical" as const }} placeholder="Street, City, Country" /></div>
         </div>
       </div>
 
       <div style={s.card}>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 16 }}>
           <div style={{ flex: 1, minWidth: 120 }}><label style={s.label}>Invoice #</label><input type="text" value={invoiceNo} onChange={(e) => setInvoiceNo(e.target.value)} style={s.input} /></div>
-          <div style={{ flex: 1, minWidth: 120 }}><label style={s.label}>Date</label><input type="date" value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} style={s.input} /></div>
-          <div style={{ flex: 1, minWidth: 120 }}><label style={s.label}>Due Date</label><input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} style={s.input} /></div>
-          <div style={{ minWidth: 80 }}><label style={s.label}>Currency</label>
+          <div style={{ flex: 1, minWidth: 120 }}><label style={s.label}>{toolUI.date}</label><input type="date" value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} style={s.input} /></div>
+          <div style={{ flex: 1, minWidth: 120 }}><label style={s.label}>{toolUI.dueDate}</label><input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} style={s.input} /></div>
+          <div style={{ minWidth: 80 }}><label style={s.label}>{toolUI.currency}</label>
             <select value={currency} onChange={(e) => setCurrency(e.target.value)} style={{ ...s.input, cursor: "pointer" }}>
               {["$", "€", "£", "CA$", "A$", "R$", "¥"].map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
         </div>
 
-        <label style={s.label}>Items</label>
+        <label style={s.label}>{toolUI.items}</label>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ borderBottom: "2px solid #E7E5E4" }}>
-                <th style={{ textAlign: "left", padding: "8px 6px", fontSize: 12, color: "#78716C" }}>Description</th>
+                <th style={{ textAlign: "left", padding: "8px 6px", fontSize: 12, color: "#78716C" }}>{toolUI.description}</th>
                 <th style={{ textAlign: "right", padding: "8px 6px", fontSize: 12, color: "#78716C", width: 70 }}>Qty</th>
                 <th style={{ textAlign: "right", padding: "8px 6px", fontSize: 12, color: "#78716C", width: 100 }}>Price</th>
-                <th style={{ textAlign: "right", padding: "8px 6px", fontSize: 12, color: "#78716C", width: 100 }}>Amount</th>
+                <th style={{ textAlign: "right", padding: "8px 6px", fontSize: 12, color: "#78716C", width: 100 }}>{toolUI.amount}</th>
                 <th style={{ width: 36 }}></th>
               </tr>
             </thead>
@@ -204,16 +204,16 @@ export default function ClientPage() {
 
         <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
           <div style={{ minWidth: 220 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", fontSize: 14 }}><span>Subtotal</span><span>{fmt(subtotal)}</span></div>
+            <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", fontSize: 14 }}><span>{toolUI.subtotal}</span><span>{fmt(subtotal)}</span></div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 0", fontSize: 14, gap: 8 }}>
-              <span>Tax</span>
+              <span>{toolUI.tax}</span>
               <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                 <input type="number" value={taxRate || ""} onChange={(e) => setTaxRate(+e.target.value || 0)} style={{ ...s.inputSm, width: 60, textAlign: "right" }} />
                 <span>%</span>
               </div>
               <span>{fmt(tax)}</span>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", padding: "10px 0", borderTop: "2px solid #1C1917", fontSize: 18, fontWeight: 700, color: "#0D9488" }}><span>Total</span><span>{fmt(total)}</span></div>
+            <div style={{ display: "flex", justifyContent: "space-between", padding: "10px 0", borderTop: "2px solid #1C1917", fontSize: 18, fontWeight: 700, color: "#0D9488" }}><span>{toolUI.total}</span><span>{fmt(total)}</span></div>
           </div>
         </div>
 

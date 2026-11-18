@@ -356,7 +356,7 @@ export default function ClientPage() {
 
       {/* ─── Live Preview ─── */}
       <div style={s.card}>
-        <h2 style={s.cardTitle}>Live Preview</h2>
+        <h2 style={s.cardTitle}>{toolUI.livePreview}</h2>
         <div style={{ background: "#f0f0f0", borderRadius: 10, padding: 20, position: "relative", minHeight: 80 }}>
           <div style={previewStyle}>
             {btns.showClose && (

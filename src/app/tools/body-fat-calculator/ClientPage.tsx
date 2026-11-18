@@ -121,7 +121,7 @@ export default function ClientPage() {
         {bf !== null && (
           <div style={s.resultCard}>
             <div style={{ textAlign: "center", marginBottom: 20 }}>
-              <div style={{ fontSize: 13, color: "#57534E" }}>Body Fat Percentage</div>
+              <div style={{ fontSize: 13, color: "#57534E" }}>{toolUI.bodyFatPercentage}</div>
               <div style={{ fontSize: 42, fontWeight: 700, color: category?.color || "#0D9488" }}>{bf.toFixed(1)}%</div>
               <div style={{ fontSize: 14, fontWeight: 600, color: category?.color }}>{category?.label}</div>
             </div>
@@ -156,11 +156,11 @@ export default function ClientPage() {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 <div style={{ textAlign: "center", padding: 12, background: "#fff", borderRadius: 8, border: "1px solid #E7E5E4" }}>
                   <div style={{ fontSize: 22, fontWeight: 700, color: "#EF4444" }}>{fatMass.toFixed(1)} {weightLabel}</div>
-                  <div style={{ fontSize: 12, color: "#78716C" }}>Fat Mass</div>
+                  <div style={{ fontSize: 12, color: "#78716C" }}>{toolUI.fatMass}</div>
                 </div>
                 <div style={{ textAlign: "center", padding: 12, background: "#fff", borderRadius: 8, border: "1px solid #E7E5E4" }}>
                   <div style={{ fontSize: 22, fontWeight: 700, color: "#0D9488" }}>{leanMass.toFixed(1)} {weightLabel}</div>
-                  <div style={{ fontSize: 12, color: "#78716C" }}>Lean Mass</div>
+                  <div style={{ fontSize: 12, color: "#78716C" }}>{toolUI.leanMass}</div>
                 </div>
               </div>
             )}

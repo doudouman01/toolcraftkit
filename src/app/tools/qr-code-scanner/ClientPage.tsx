@@ -132,7 +132,7 @@ export default function ClientPage() {
       </div>
 
       {scanning && (
-        <div style={{ textAlign: "center", padding: "20px 0", color: "#78716C" }}>Scanning...</div>
+        <div style={{ textAlign: "center", padding: "20px 0", color: "#78716C" }}>{toolUI.scanning}</div>
       )}
 
       {/* Hidden canvas for image processing */}
@@ -153,7 +153,7 @@ export default function ClientPage() {
 
       {result && (
         <div style={{ marginTop: 20, padding: "16px", background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8 }}>
-          <div style={{ fontSize: 12, fontWeight: 600, color: "#0D9488", marginBottom: 6 }}>Decoded Result</div>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "#0D9488", marginBottom: 6 }}>{toolUI.decodedResult}</div>
           <div style={{ fontSize: 15, color: "#1C1917", wordBreak: "break-all", marginBottom: 12 }}>
             {isUrl ? (
               <a href={result} target="_blank" rel="noopener noreferrer" style={{ color: "#0D9488" }}>{result}</a>

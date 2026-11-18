@@ -111,7 +111,7 @@ export default function ClientPage() {
         <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 16 }}>
           <input type="color" value={baseColor} onChange={(e) => setBaseColor(e.target.value)} style={{ width: 48, height: 48, border: "none", borderRadius: 8, cursor: "pointer", padding: 0 }} />
           <div style={{ flex: 1 }}>
-            <label style={s.label}>Base Color</label>
+            <label style={s.label}>{toolUI.baseColor}</label>
             <input type="text" value={baseColor} onChange={(e) => { if (/^#[0-9a-fA-F]{6}$/.test(e.target.value)) setBaseColor(e.target.value); }} style={{ width: "100%", border: "1px solid #E7E5E4", borderRadius: 8, padding: "8px 12px", fontSize: 14, fontFamily: "'Courier New', monospace", outline: "none" }} />
           </div>
           <button onClick={randomize} style={{ ...s.btnSm, fontSize: 18, padding: "8px 14px" }} title="Random color">🎲</button>

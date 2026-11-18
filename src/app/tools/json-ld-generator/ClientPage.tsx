@@ -429,7 +429,7 @@ export default function ClientPage() {
             <div style={s.grid2}>
               {F("Price", "price", "29.99")}
               <div>
-                <label style={s.label}>Currency</label>
+                <label style={s.label}>{toolUI.currency}</label>
                 <select value={fields.currency || "USD"} onChange={(e) => upd("currency", e.target.value)} style={s.select}>
                   <option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="CAD">CAD</option><option value="BRL">BRL</option>
                 </select>
@@ -456,7 +456,7 @@ export default function ClientPage() {
               <div key={i} style={{ marginBottom: 16, padding: 12, background: "#FAFAF9", borderRadius: 8, border: "1px solid #E7E5E4" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontSize: 13, fontWeight: 600, color: "#78716C" }}>Question {i + 1}</span>
-                  {faqPairs.length > 1 && <button onClick={() => rmFaq(i)} style={s.btnDanger}>Remove</button>}
+                  {faqPairs.length > 1 && <button onClick={() => rmFaq(i)} style={s.btnDanger}>{toolUI.remove}</button>}
                 </div>
                 <input value={pair.q} onChange={(e) => updFaq(i, "q", e.target.value)} placeholder="What is your return policy?" style={s.input} />
                 <label style={{ ...s.label, marginTop: 4 }}>Answer</label>
@@ -481,7 +481,7 @@ export default function ClientPage() {
               {F("Phone", "phone", "+1-555-123-4567")}
               {F("Email", "email", "info@acme.com")}
             </div>
-            <h3 style={{ ...s.cardTitle, fontSize: 14, marginTop: 8 }}>Address</h3>
+            <h3 style={{ ...s.cardTitle, fontSize: 14, marginTop: 8 }}>{toolUI.address}</h3>
             {F("Street", "street", "123 Main St")}
             <div style={s.grid2}>
               {F("City", "city", "New York")}
@@ -495,7 +495,7 @@ export default function ClientPage() {
             {socials.map((url, i) => (
               <div key={i} style={{ display: "flex", gap: 8, marginBottom: 8 }}>
                 <input value={url} onChange={(e) => updSocial(i, e.target.value)} placeholder="https://twitter.com/acme" style={{ ...s.input, marginBottom: 0, flex: 1 }} />
-                {socials.length > 1 && <button onClick={() => rmSocial(i)} style={s.btnDanger}>Remove</button>}
+                {socials.length > 1 && <button onClick={() => rmSocial(i)} style={s.btnDanger}>{toolUI.remove}</button>}
               </div>
             ))}
             <button onClick={addSocial} style={s.btnSmall}>+ Add Profile</button>
@@ -526,7 +526,7 @@ export default function ClientPage() {
               {F("Price Range", "priceRange", "$$")}
             </div>
             {F("Opening Hours", "openingHours", "Mo-Fr 09:00-17:00")}
-            <h3 style={{ ...s.cardTitle, fontSize: 14, marginTop: 8 }}>Address</h3>
+            <h3 style={{ ...s.cardTitle, fontSize: 14, marginTop: 8 }}>{toolUI.address}</h3>
             {F("Street", "street", "456 Oak Ave")}
             <div style={s.grid2}>
               {F("City", "city", "San Francisco")}
@@ -568,12 +568,12 @@ export default function ClientPage() {
               {F("Total Time (ISO 8601)", "totalTime", "PT30M")}
               {F("Estimated Cost (USD)", "estimatedCost", "15")}
             </div>
-            <h3 style={{ ...s.cardTitle, fontSize: 14, marginTop: 8 }}>Steps</h3>
+            <h3 style={{ ...s.cardTitle, fontSize: 14, marginTop: 8 }}>{toolUI.steps}</h3>
             {howtoSteps.map((step, i) => (
               <div key={i} style={{ display: "flex", gap: 8, marginBottom: 8, alignItems: "center" }}>
                 <span style={{ fontSize: 13, color: "#78716C", minWidth: 20 }}>{i + 1}.</span>
                 <input value={step} onChange={(e) => updStep(i, e.target.value)} placeholder={`Step ${i + 1}`} style={{ ...s.input, marginBottom: 0, flex: 1 }} />
-                {howtoSteps.length > 1 && <button onClick={() => rmStep(i)} style={s.btnDanger}>Remove</button>}
+                {howtoSteps.length > 1 && <button onClick={() => rmStep(i)} style={s.btnDanger}>{toolUI.remove}</button>}
               </div>
             ))}
             <button onClick={addStep} style={s.btnSmall}>+ Add Step</button>
@@ -597,7 +597,7 @@ export default function ClientPage() {
             <div style={s.grid2}>
               {F("Price", "offerPrice", "99")}
               <div>
-                <label style={s.label}>Currency</label>
+                <label style={s.label}>{toolUI.currency}</label>
                 <select value={fields.offerCurrency || "USD"} onChange={(e) => upd("offerCurrency", e.target.value)} style={s.select}>
                   <option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option>
                 </select>
@@ -623,16 +623,16 @@ export default function ClientPage() {
             {ingredients.map((ing, i) => (
               <div key={i} style={{ display: "flex", gap: 8, marginBottom: 8 }}>
                 <input value={ing} onChange={(e) => updIngredient(i, e.target.value)} placeholder={`Ingredient ${i + 1}`} style={{ ...s.input, marginBottom: 0, flex: 1 }} />
-                {ingredients.length > 1 && <button onClick={() => rmIngredient(i)} style={s.btnDanger}>Remove</button>}
+                {ingredients.length > 1 && <button onClick={() => rmIngredient(i)} style={s.btnDanger}>{toolUI.remove}</button>}
               </div>
             ))}
             <button onClick={addIngredient} style={s.btnSmall}>+ Add Ingredient</button>
-            <h3 style={{ ...s.cardTitle, fontSize: 14, marginTop: 16 }}>Steps</h3>
+            <h3 style={{ ...s.cardTitle, fontSize: 14, marginTop: 16 }}>{toolUI.steps}</h3>
             {recipeSteps.map((step, i) => (
               <div key={i} style={{ display: "flex", gap: 8, marginBottom: 8, alignItems: "center" }}>
                 <span style={{ fontSize: 13, color: "#78716C", minWidth: 20 }}>{i + 1}.</span>
                 <input value={step} onChange={(e) => updRecipeStep(i, e.target.value)} placeholder={`Step ${i + 1}`} style={{ ...s.input, marginBottom: 0, flex: 1 }} />
-                {recipeSteps.length > 1 && <button onClick={() => rmRecipeStep(i)} style={s.btnDanger}>Remove</button>}
+                {recipeSteps.length > 1 && <button onClick={() => rmRecipeStep(i)} style={s.btnDanger}>{toolUI.remove}</button>}
               </div>
             ))}
             <button onClick={addRecipeStep} style={s.btnSmall}>+ Add Step</button>
@@ -648,7 +648,7 @@ export default function ClientPage() {
                 <span style={{ fontSize: 13, color: "#78716C", minWidth: 20 }}>{i + 1}.</span>
                 <input value={item.name} onChange={(e) => updBreadcrumb(i, "name", e.target.value)} placeholder="Page Name" style={{ ...s.input, marginBottom: 0, flex: 1 }} />
                 <input value={item.url} onChange={(e) => updBreadcrumb(i, "url", e.target.value)} placeholder="https://example.com/page" style={{ ...s.input, marginBottom: 0, flex: 1 }} />
-                {breadcrumbItems.length > 1 && <button onClick={() => rmBreadcrumb(i)} style={s.btnDanger}>Remove</button>}
+                {breadcrumbItems.length > 1 && <button onClick={() => rmBreadcrumb(i)} style={s.btnDanger}>{toolUI.remove}</button>}
               </div>
             ))}
             <button onClick={addBreadcrumb} style={s.btnSmall}>+ Add Item</button>

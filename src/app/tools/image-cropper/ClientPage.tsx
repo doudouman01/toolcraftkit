@@ -499,7 +499,7 @@ export default function ClientPage() {
         <>
           {/* Aspect ratio buttons */}
           <div style={s.card}>
-            <label style={s.label}>Aspect Ratio</label>
+            <label style={s.label}>{toolUI.aspectRatio}</label>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
               {ASPECT_RATIOS.map((ar) => (
                 <button
@@ -585,7 +585,7 @@ export default function ClientPage() {
 
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               <button onClick={doCrop} style={s.btn}>Crop Image</button>
-              <button onClick={resetTool} style={s.btnSm}>Upload New Image</button>
+              <button onClick={resetTool} style={s.btnSm}>{toolUI.uploadNew}</button>
             </div>
           </div>
         </>
@@ -612,7 +612,7 @@ export default function ClientPage() {
             >
               Adjust Crop
             </button>
-            <button onClick={resetTool} style={s.btnSm}>Upload New Image</button>
+            <button onClick={resetTool} style={s.btnSm}>{toolUI.uploadNew}</button>
           </div>
         </div>
       )}

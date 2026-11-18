@@ -179,7 +179,7 @@ export default function ClientPage() {
             <span style={{ fontSize: 15, fontWeight: 600, color: "#1C1917" }}>{frames.length} Frames Extracted</span>
             <div style={{ display: "flex", gap: 8 }}>
               <button onClick={toggleAnimation} style={s.btn()}>{animating ? "Stop" : "Play Preview"}</button>
-              <button onClick={downloadAllFrames} style={s.btn(true)}>Download All</button>
+              <button onClick={downloadAllFrames} style={s.btn(true)}>{toolUI.downloadAll}</button>
             </div>
           </div>
 

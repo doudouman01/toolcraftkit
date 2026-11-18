@@ -287,7 +287,7 @@ export default function ClientPage() {
 
           {/* ─── Live Previews ─── */}
           <div style={s.card}>
-            <h2 style={s.cardTitle}>Live Preview</h2>
+            <h2 style={s.cardTitle}>{toolUI.livePreview}</h2>
             <FacebookPreview og={og} />
             <TwitterPreview og={og} />
             <LinkedInPreview og={og} />

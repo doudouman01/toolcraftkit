@@ -418,13 +418,13 @@ export default function ClientPage() {
                 <label style={s.label}>Quality: {quality}%</label>
                 <input type="range" min="5" max="100" value={quality} style={s.slider} onChange={(e) => setQuality(Number(e.target.value))} />
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", color: "#A8A29E" }}>
-                  <span>Smallest file</span>
+                  <span>{toolUI.smallestFile}</span>
                   {estimatedSize && <span style={{ color: "#0D9488", fontWeight: 600 }}>Est. total: ~{estimatedSize}</span>}
-                  <span>Best quality</span>
+                  <span>{toolUI.bestQuality}</span>
                 </div>
               </div>
               <div style={{ flex: "0 0 auto" }}>
-                <label style={s.label}>Output Format</label>
+                <label style={s.label}>{toolUI.outputFormat}</label>
                 <div style={{ display: "flex", gap: "6px" }}>
                   {([
                     { value: "original", label: "Original" },
@@ -498,7 +498,7 @@ export default function ClientPage() {
             </div>
             <div style={s.stat}>
               <div style={{ ...s.statVal, ...s.green }}>{allDone ? totalSavings + "%" : "..."}</div>
-              <div style={s.statLabel}>Total Saved</div>
+              <div style={s.statLabel}>{toolUI.totalSaved}</div>
             </div>
           </div>
 
@@ -602,8 +602,8 @@ export default function ClientPage() {
                   {"↔"}
                 </div>
                 {/* Labels */}
-                <div style={{ position: "absolute", top: "10px", left: "10px", background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: 600, pointerEvents: "none" }}>Original</div>
-                <div style={{ position: "absolute", top: "10px", right: "10px", background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: 600, pointerEvents: "none" }}>Compressed</div>
+                <div style={{ position: "absolute", top: "10px", left: "10px", background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: 600, pointerEvents: "none" }}>{toolUI.original}</div>
+                <div style={{ position: "absolute", top: "10px", right: "10px", background: "rgba(0,0,0,0.6)", color: "#fff", padding: "3px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: 600, pointerEvents: "none" }}>{toolUI.compressed}</div>
               </div>
             </div>
           )}
@@ -618,8 +618,8 @@ export default function ClientPage() {
                 {downloading ? "Preparing ZIP..." : `Download All (${images.length} images)`}
               </button>
             )}
-            <button style={s.btnOut} onClick={() => inputRef.current?.click()}>Add More Images</button>
-            <button style={{ ...s.btnOut, color: "#dc2626", borderColor: "#dc2626" }} onClick={() => { setImages([]); setComparisonIdx(null); }}>Clear All</button>
+            <button style={s.btnOut} onClick={() => inputRef.current?.click()}>{toolUI.addMore}</button>
+            <button style={{ ...s.btnOut, color: "#dc2626", borderColor: "#dc2626" }} onClick={() => { setImages([]); setComparisonIdx(null); }}>{toolUI.clear}</button>
           </div>
         </>
       )}

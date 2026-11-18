@@ -129,7 +129,7 @@ export default function ClientPage() {
                 <span style={{ fontSize: "14px", color: "#78716C" }}>{paused ? "Paused" : "Recording..."}</span>
               </div>
               <button onClick={togglePause} style={btnStyle("#F59E0B")}>{paused ? "Resume" : "Pause"}</button>
-              <button onClick={stopRecording} style={btnStyle("#EF4444")}>Stop</button>
+              <button onClick={stopRecording} style={btnStyle("#EF4444")}>{toolUI.stop}</button>
               <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}`}</style>
             </>
           )}

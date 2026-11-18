@@ -174,7 +174,7 @@ export default function ClientPage() {
                     <div style={{ fontSize: "14px", fontWeight: 500, color: "#111827" }}>{f.name}</div>
                     <div style={{ fontSize: "12px", color: "#6b7280" }}>{formatSize(f.size)}</div>
                   </div>
-                  <button style={s.btnSm} onClick={() => setFiles((prev) => prev.filter((_, j) => j !== i))}>Remove</button>
+                  <button style={s.btnSm} onClick={() => setFiles((prev) => prev.filter((_, j) => j !== i))}>{toolUI.remove}</button>
                 </div>
               ))}
 
@@ -207,8 +207,8 @@ export default function ClientPage() {
             </div>
           ))}
           <div style={{ display: "flex", gap: "12px", marginTop: "16px" }}>
-            {converted.length > 1 && <button style={s.btn} onClick={downloadAll}>Download All</button>}
-            <button style={s.btnOut} onClick={reset}>Start Over</button>
+            {converted.length > 1 && <button style={s.btn} onClick={downloadAll}>{toolUI.downloadAll}</button>}
+            <button style={s.btnOut} onClick={reset}>{toolUI.startOver}</button>
           </div>
         </div>
       )}

@@ -131,7 +131,7 @@ export default function ClientPage() {
           </div>
         ) : (
           <div>
-            <label style={s.label}>Date</label>
+            <label style={s.label}>{toolUI.date}</label>
             <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)} style={s.input} />
             <label style={{ ...s.label, marginTop: 10 }}>Time (optional)</label>
             <input type="time" step="1" value={timeInput} onChange={(e) => setTimeInput(e.target.value)} style={s.input} />

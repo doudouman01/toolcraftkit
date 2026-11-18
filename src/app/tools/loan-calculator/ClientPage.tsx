@@ -103,7 +103,7 @@ export default function ClientPage() {
         {result && (
           <div style={s.resultCard}>
             <div style={{ textAlign: "center", marginBottom: 20 }}>
-              <div style={{ fontSize: 13, color: "#57534E", marginBottom: 4 }}>Monthly Payment</div>
+              <div style={{ fontSize: 13, color: "#57534E", marginBottom: 4 }}>{toolUI.monthlyPayment}</div>
               <div style={s.big}>{fmt(result.monthly)}</div>
             </div>
 
@@ -141,10 +141,10 @@ export default function ClientPage() {
                   <thead>
                     <tr style={{ background: "#F5F5F4", position: "sticky" as const, top: 0 }}>
                       <th style={{ padding: "8px 6px", textAlign: "left" }}>#</th>
-                      <th style={{ padding: "8px 6px", textAlign: "right" }}>Payment</th>
-                      <th style={{ padding: "8px 6px", textAlign: "right" }}>Principal</th>
-                      <th style={{ padding: "8px 6px", textAlign: "right" }}>Interest</th>
-                      <th style={{ padding: "8px 6px", textAlign: "right" }}>Balance</th>
+                      <th style={{ padding: "8px 6px", textAlign: "right" }}>{toolUI.payment}</th>
+                      <th style={{ padding: "8px 6px", textAlign: "right" }}>{toolUI.principal}</th>
+                      <th style={{ padding: "8px 6px", textAlign: "right" }}>{toolUI.interest}</th>
+                      <th style={{ padding: "8px 6px", textAlign: "right" }}>{toolUI.balance}</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -188,8 +188,8 @@ export default function ClientPage() {
               <button onClick={undo} style={s.btn()}>Undo</button>
               <button onClick={clear} style={s.btn()}>{toolUI.clear}</button>
               <div style={{ flex: 1 }} />
-              <button onClick={() => download("png")} style={s.btn(true)}>Download PNG</button>
-              <button onClick={() => download("jpg")} style={s.btn()}>Download JPG</button>
+              <button onClick={() => download("png")} style={s.btn(true)}>{toolUI.downloadPNG}</button>
+              <button onClick={() => download("jpg")} style={s.btn()}>{toolUI.downloadJPG}</button>
             </div>
           </>
         ) : (
@@ -228,8 +228,8 @@ export default function ClientPage() {
             )}
 
             <div style={s.row}>
-              <button onClick={() => downloadTyped("png")} style={s.btn(true)} disabled={!typeName.trim()}>Download PNG</button>
-              <button onClick={() => downloadTyped("jpg")} style={s.btn()} disabled={!typeName.trim()}>Download JPG</button>
+              <button onClick={() => downloadTyped("png")} style={s.btn(true)} disabled={!typeName.trim()}>{toolUI.downloadPNG}</button>
+              <button onClick={() => downloadTyped("jpg")} style={s.btn()} disabled={!typeName.trim()}>{toolUI.downloadJPG}</button>
             </div>
           </>
         )}

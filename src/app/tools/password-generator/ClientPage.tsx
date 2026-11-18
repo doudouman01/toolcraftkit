@@ -110,7 +110,7 @@ export default function ClientPage() {
             </label>
           ))}
         </div>
-        <button onClick={regenerate} style={s.btn}>Generate Passwords</button>
+        <button onClick={regenerate} style={s.btn}>{toolUI.generatePasswords}</button>
       </div>
       <div style={s.card}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>

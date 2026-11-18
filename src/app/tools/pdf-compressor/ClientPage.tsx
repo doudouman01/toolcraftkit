@@ -85,8 +85,8 @@ export default function ClientPage() {
       ) : (
         <>
           <div style={s.stats}>
-            <div style={s.stat}><div style={s.statVal}>{fmt(origSize)}</div><div style={s.statLabel}>Original</div></div>
-            <div style={s.stat}><div style={s.statVal}>{fmt(compSize)}</div><div style={s.statLabel}>Compressed</div></div>
+            <div style={s.stat}><div style={s.statVal}>{fmt(origSize)}</div><div style={s.statLabel}>{toolUI.original}</div></div>
+            <div style={s.stat}><div style={s.statVal}>{fmt(compSize)}</div><div style={s.statLabel}>{toolUI.compressed}</div></div>
             <div style={s.stat}><div style={{ ...s.statVal, ...s.green }}>{savings > 0 ? savings + "%" : "—"}</div><div style={s.statLabel}>Saved</div></div>
           </div>
           <div style={s.success}>

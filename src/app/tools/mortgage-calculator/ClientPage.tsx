@@ -132,7 +132,7 @@ export default function ClientPage() {
         {price > 0 && (
           <div style={s.resultCard}>
             <div style={{ textAlign: "center", marginBottom: 20 }}>
-              <div style={{ fontSize: 13, color: "#57534E", marginBottom: 4 }}>Monthly Payment</div>
+              <div style={{ fontSize: 13, color: "#57534E", marginBottom: 4 }}>{toolUI.monthlyPayment}</div>
               <div style={s.big}>{fmt(totalMonthly)}</div>
             </div>
 
@@ -151,7 +151,7 @@ export default function ClientPage() {
             </div>
 
             <div style={s.resultRow}><span style={{ fontSize: 14, color: "#57534E" }}>Loan Amount</span><span style={{ fontSize: 14, fontWeight: 600 }}>{fmt(loan)}</span></div>
-            <div style={s.resultRow}><span style={{ fontSize: 14, color: "#57534E" }}>Total Interest</span><span style={{ fontSize: 14, fontWeight: 600, color: "#EF4444" }}>{fmt(totalInterest)}</span></div>
+            <div style={s.resultRow}><span style={{ fontSize: 14, color: "#57534E" }}>{toolUI.totalInterest}</span><span style={{ fontSize: 14, fontWeight: 600, color: "#EF4444" }}>{fmt(totalInterest)}</span></div>
             <div style={s.resultRow}><span style={{ fontSize: 14, color: "#57534E" }}>Total Paid (P&I only)</span><span style={{ fontSize: 14, fontWeight: 700 }}>{fmt(totalPaid)}</span></div>
             <div style={{ ...s.resultRow, borderBottom: "none" }}><span style={{ fontSize: 14, color: "#57534E" }}>Interest-to-Loan Ratio</span><span style={{ fontSize: 14, fontWeight: 600 }}>{(totalInterest / loan * 100).toFixed(0)}%</span></div>
 
@@ -162,7 +162,7 @@ export default function ClientPage() {
               <div style={{ marginTop: 16, maxHeight: 350, overflowY: "auto", border: "1px solid #E7E5E4", borderRadius: 8 }}>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
                   <thead><tr style={{ background: "#F5F5F4", position: "sticky" as const, top: 0 }}>
-                    <th style={{ padding: "8px 6px", textAlign: "left" }}>Year</th><th style={{ padding: "8px 6px", textAlign: "right" }}>Principal</th><th style={{ padding: "8px 6px", textAlign: "right" }}>Interest</th><th style={{ padding: "8px 6px", textAlign: "right" }}>Balance</th>
+                    <th style={{ padding: "8px 6px", textAlign: "left" }}>{toolUI.year}</th><th style={{ padding: "8px 6px", textAlign: "right" }}>{toolUI.principal}</th><th style={{ padding: "8px 6px", textAlign: "right" }}>{toolUI.interest}</th><th style={{ padding: "8px 6px", textAlign: "right" }}>{toolUI.balance}</th>
                   </tr></thead>
                   <tbody>{schedule.map((row) => (
                     <tr key={row.year} style={{ borderBottom: "1px solid #F5F5F4" }}>
