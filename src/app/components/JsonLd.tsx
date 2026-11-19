@@ -143,12 +143,19 @@ export function BreadcrumbSchema({
   const schema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((item, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: item.name,
-      item: item.url,
-    })),
+    itemListElement: items.map((item, i) => {
+      // Normalize URL: make absolute + strip fragment (#) for valid structured data
+      let url = item.url;
+      if (url.startsWith("/")) url = `${BASE}${url}`;
+      url = url.split("#")[0]; // Remove fragment identifiers
+      if (url.endsWith("/") && url !== `${BASE}/`) url = url.slice(0, -1);
+      return {
+        "@type": "ListItem",
+        position: i + 1,
+        name: item.name,
+        item: url,
+      };
+    }),
   };
 
   return (
