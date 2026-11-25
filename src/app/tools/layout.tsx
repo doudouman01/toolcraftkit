@@ -154,6 +154,33 @@ const TOOL_MAP: Record<string, { category: string; anchor: string; displayName: 
   "color-picker-advanced": { category: "Image", anchor: "image-tools", displayName: "Color Picker Advanced" },
   "text-encryption": { category: "Text", anchor: "text-tools", displayName: "Text Encryption" },
   "json-to-yaml": { category: "Converter", anchor: "converter-tools", displayName: "JSON to YAML" },
+
+  // Nov 25 2026 — New tools batch (19 outils)
+  // Writing / AI
+  "ai-prompt-generator": { category: "Writing", anchor: "writing-tools", displayName: "AI Prompt Generator" },
+  "ai-content-rewriter": { category: "Writing", anchor: "writing-tools", displayName: "AI Content Rewriter" },
+  // Dev
+  "code-formatter": { category: "Dev", anchor: "dev-tools", displayName: "Code Formatter" },
+  "jwt-decoder": { category: "Dev", anchor: "dev-tools", displayName: "JWT Decoder" },
+  "cron-expression-generator": { category: "Dev", anchor: "dev-tools", displayName: "Cron Expression Generator" },
+  "git-commit-generator": { category: "Dev", anchor: "dev-tools", displayName: "Git Commit Generator" },
+  "robots-txt-generator": { category: "Dev", anchor: "dev-tools", displayName: "Robots.txt Generator" },
+  "sitemap-generator": { category: "Dev", anchor: "dev-tools", displayName: "Sitemap Generator" },
+  // Legal
+  "ai-disclosure-generator": { category: "Legal", anchor: "legal-tools", displayName: "AI Disclosure Generator" },
+  "nda-generator": { category: "Legal", anchor: "legal-tools", displayName: "NDA Generator" },
+  "contract-template-generator": { category: "Legal", anchor: "legal-tools", displayName: "Contract Template Generator" },
+  "gdpr-request-generator": { category: "Legal", anchor: "legal-tools", displayName: "GDPR Request Generator" },
+  "legal-disclaimer-generator": { category: "Legal", anchor: "legal-tools", displayName: "Legal Disclaimer Generator" },
+  // Education
+  "flashcard-creator": { category: "Education", anchor: "education-tools", displayName: "Flashcard Creator" },
+  "citation-generator": { category: "Education", anchor: "education-tools", displayName: "Citation Generator" },
+  "quiz-generator": { category: "Education", anchor: "education-tools", displayName: "Quiz Generator" },
+  // Health
+  "medication-reminder": { category: "Health", anchor: "health-tools", displayName: "Medication Reminder" },
+  "blood-pressure-tracker": { category: "Health", anchor: "health-tools", displayName: "Blood Pressure Tracker" },
+  // Image
+  "bulk-image-processor": { category: "Image", anchor: "image-tools", displayName: "Bulk Image Processor" },
 };
 
 function slugToName(slug: string): string {

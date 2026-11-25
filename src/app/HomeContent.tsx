@@ -29,6 +29,8 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Readability Score Checker", desc: "Check Flesch, Gunning Fog, and Coleman-Liau scores. Write for your audience.", href: "/tools/readability-score", hot: true },
       { name: "AI Content Detector", desc: "Analyze text for AI-generated patterns. Sentence-level highlighting.", href: "/tools/ai-content-detector", premium: true },
       { name: "Paraphrasing Tool", desc: "Rephrase text in 4 modes: standard, formal, simple, creative.", href: "/tools/paraphrasing-tool", premium: true },
+      { name: "AI Prompt Generator", desc: "Generate structured AI prompts for writing, coding, marketing, research.", href: "/tools/ai-prompt-generator", hot: true },
+      { name: "AI Content Rewriter", desc: "Rewrite text in 5 modes: simplify, formal, casual, shorten, expand.", href: "/tools/ai-content-rewriter", premium: true },
     ],
   },
   {
@@ -89,6 +91,7 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Image Format Converter", desc: "Convert images between PNG, JPEG, WebP, BMP, GIF formats instantly.", href: "/tools/image-format-converter", hot: true },
       { name: "Background Remover", desc: "Remove image backgrounds instantly. AI-powered, transparent PNG output.", href: "/tools/background-remover", hot: true },
       { name: "Image Upscaler", desc: "Upscale images 2x or 4x with AI. Enhance resolution without losing quality.", href: "/tools/image-upscaler", hot: true },
+      { name: "Bulk Image Processor", desc: "Resize, compress, convert multiple images at once.", href: "/tools/bulk-image-processor", premium: true },
       { name: "Meme Generator", desc: "Create memes with custom text on any image. Download as PNG.", href: "/tools/meme-generator", hot: true },
       { name: "Video to GIF", desc: "Extract frames from video. Set frame rate, preview animation, download PNGs.", href: "/tools/video-to-gif", hot: true },
       { name: "SVG to PNG", desc: "Convert SVG to high-quality PNG. Custom size, 1x-4x scale, transparent bg.", href: "/tools/svg-to-png", hot: true },
@@ -124,6 +127,12 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Color Contrast Checker", desc: "Check WCAG AA/AAA contrast ratios. Ensure accessible text and backgrounds.", href: "/tools/color-contrast-checker" },
       { name: "JSON-LD Generator", desc: "Generate structured data markup for SEO. Schema.org ready.", href: "/tools/json-ld-generator" },
       { name: "Image to Base64", desc: "Convert images to Base64 strings. Data URI, copy, size comparison.", href: "/tools/image-to-base64", hot: true },
+      { name: "Code Formatter", desc: "Beautify JS, TS, JSON, HTML, CSS, Python, SQL. Customizable indent.", href: "/tools/code-formatter", hot: true },
+      { name: "JWT Decoder", desc: "Decode JWT tokens. View header, payload, expiration, claims.", href: "/tools/jwt-decoder", hot: true },
+      { name: "Cron Expression Generator", desc: "Build cron expressions visually. Presets and next run times.", href: "/tools/cron-expression-generator", hot: true },
+      { name: "Git Commit Generator", desc: "Generate conventional commit messages. Type, scope, description.", href: "/tools/git-commit-generator" },
+      { name: "Robots.txt Generator", desc: "Create robots.txt files. Crawl rules, user agents, sitemap.", href: "/tools/robots-txt-generator", hot: true },
+      { name: "Sitemap Generator", desc: "Generate XML sitemaps with priority, changefreq, lastmod.", href: "/tools/sitemap-generator", hot: true },
     ],
   },
   {
@@ -133,6 +142,11 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Privacy Policy Generator", desc: "Generate a privacy policy for your website. GDPR & CCPA compliant.", href: "/tools/privacy-policy-generator", hot: true },
       { name: "Terms of Service Generator", desc: "Generate terms of service for your website or app. Customizable.", href: "/tools/terms-of-service-generator", hot: true },
       { name: "Cookie Consent Generator", desc: "Generate cookie consent banner code for your website.", href: "/tools/cookie-consent-generator" },
+      { name: "AI Disclosure Generator", desc: "Generate AI disclosure statements for court filings, papers, reports.", href: "/tools/ai-disclosure-generator", hot: true },
+      { name: "NDA Generator", desc: "Create professional NDAs. Mutual or one-way, customizable terms.", href: "/tools/nda-generator", hot: true },
+      { name: "Contract Template Generator", desc: "Generate freelance, consulting, and service contracts.", href: "/tools/contract-template-generator", hot: true },
+      { name: "GDPR Request Generator", desc: "Create GDPR/CCPA data access, deletion, and portability letters.", href: "/tools/gdpr-request-generator" },
+      { name: "Legal Disclaimer Generator", desc: "Generate disclaimers: general, medical, financial, affiliate, legal.", href: "/tools/legal-disclaimer-generator" },
     ],
   },
   {
@@ -165,6 +179,8 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "Calorie Calculator", desc: "Calculate daily calorie needs (TDEE). Weight loss, gain, or maintenance goals.", href: "/tools/calorie-calculator", hot: true },
       { name: "Body Fat Calculator", desc: "US Navy method. Visual gauge, lean mass breakdown. Metric & imperial.", href: "/tools/body-fat-calculator", hot: true },
       { name: "Pregnancy Calculator", desc: "Calculate due date, current week, trimester, and key milestones from your LMP.", href: "/tools/pregnancy-calculator", hot: true },
+      { name: "Medication Reminder", desc: "Plan medication schedules. Weekly calendar, print, save locally.", href: "/tools/medication-reminder" },
+      { name: "Blood Pressure Tracker", desc: "Track BP readings. AHA categories, trends, averages, CSV export.", href: "/tools/blood-pressure-tracker" },
     ],
   },
   {
@@ -174,6 +190,9 @@ const tools: { category: string; color: string; items: { name: string; desc: str
       { name: "GPA Calculator", desc: "Calculate semester GPA on a 4.0 scale. Enter courses, grades, credits.", href: "/tools/gpa-calculator", hot: true },
       { name: "Typing Speed Test", desc: "Test your WPM with real passages. Track accuracy and improvement.", href: "/tools/typing-speed-test", hot: true },
       { name: "Fraction Calculator", desc: "Add, subtract, multiply, divide fractions. Step-by-step solutions.", href: "/tools/fraction-calculator", hot: true },
+      { name: "Flashcard Creator", desc: "Create and study flashcards. Flip, shuffle, import and export.", href: "/tools/flashcard-creator", hot: true },
+      { name: "Citation Generator", desc: "Generate citations in APA, MLA, Chicago, Harvard formats.", href: "/tools/citation-generator", hot: true },
+      { name: "Quiz Generator", desc: "Create interactive quizzes. Multiple choice, scoring, review.", href: "/tools/quiz-generator", hot: true },
     ],
   },
   {
@@ -448,7 +467,7 @@ export default function HomeContent() {
           gap: 24, textAlign: "center",
         }}>
           {[
-            { value: "106+", label: t("stats.tools") },
+            { value: "125+", label: t("stats.tools") },
             { value: "197+", label: t("stats.articles") },
             { value: "100%", label: t("stats.free") },
             { value: "0", label: t("stats.noSignup") },
