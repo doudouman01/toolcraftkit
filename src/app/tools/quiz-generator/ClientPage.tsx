@@ -858,10 +858,9 @@ export default function ClientPage() {
               <div>
                 <label style={{ display: "block", fontWeight: 600, marginBottom: "6px", fontSize: "14px" }}>Topic</label>
                 <select value={topic} onChange={e => setTopic(e.target.value)} style={inp}>
-                  <option value="science">Science</option>
-                  <option value="history">History</option>
-                  <option value="technology">Technology</option>
-                  <option value="geography">Geography</option>
+                  {TOPICS.map(t => (
+                    <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>
+                  ))}
                 </select>
               </div>
               <div>
