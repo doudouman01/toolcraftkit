@@ -322,9 +322,9 @@ export default function FuelCalculatorPage() {
               <em>Drive Smarter, Spend Less</em> — the complete fuel saving guide with 21 chapters of proven techniques, a 30-Day Challenge, and real case studies of drivers saving $500-$1,400 per year.
             </p>
             <a
-              href="https://www.amazon.com/dp/B0HJ86J1YN"
+              href="https://www.amazon.com/dp/B0HJ86J1YN?tag=mypagematch20-20"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener sponsored"
               style={{
                 display: "inline-block",
                 background: "#1a1a2e",
@@ -390,7 +390,7 @@ export default function FuelCalculatorPage() {
           Pro Tip
         </h3>
         <p>
-          The five fastest ways to improve your fuel economy are: check and correct your tire pressure (saves 1-3%), practice smooth acceleration (saves 10-15% in city driving), use cruise control on the highway (saves 7-14%), remove unnecessary weight from your vehicle (saves 1-2% per 100 lbs), and use a gas price app like GasBuddy to find cheaper fuel on your existing routes (saves $100-$200/year). Learn all 25 proven techniques in <a href="https://www.amazon.com/dp/B0HJ86J1YN" target="_blank" rel="noopener noreferrer" style={{ color: "#C4A265" }}><em>Drive Smarter, Spend Less</em></a>.
+          The five fastest ways to improve your fuel economy are: check and correct your tire pressure (saves 1-3%), practice smooth acceleration (saves 10-15% in city driving), use cruise control on the highway (saves 7-14%), remove unnecessary weight from your vehicle (saves 1-2% per 100 lbs), and use a gas price app like GasBuddy to find cheaper fuel on your existing routes (saves $100-$200/year). Learn all 25 proven techniques in <a href="https://www.amazon.com/dp/B0HJ86J1YN?tag=mypagematch20-20" target="_blank" rel="noopener sponsored" style={{ color: "#C4A265" }}><em>Drive Smarter, Spend Less</em></a>.
         </p>
 
         {/* Internal linking */}

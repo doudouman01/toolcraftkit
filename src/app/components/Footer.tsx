@@ -93,6 +93,11 @@ export default function Footer() {
           Built with &hearts; for creators
         </span>
       </div>
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 20px 24px", textAlign: "center" }}>
+        <span style={{ fontSize: 10, color: "#C4B5A4" }}>
+          As an Amazon Associate, we earn from qualifying purchases.
+        </span>
+      </div>
     </footer>
   );
 }

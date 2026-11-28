@@ -56,7 +56,7 @@ export default function ClientPage() {
   const fmtDec = (n: number) => "$" + n.toFixed(2);
   const fmtNum = (n: number, d = 1) => n.toFixed(d);
 
-  const AMAZON_URL = "https://www.amazon.com/dp/B0HJ86J1YN";
+  const AMAZON_URL = "https://www.amazon.com/dp/B0HJ86J1YN?tag=mypagematch20-20";
 
   return (
     <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem", fontFamily: "'Inter', -apple-system, sans-serif" }}>
