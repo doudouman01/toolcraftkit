@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     "profit margin calculator", "hex to rgb", "json formatter",
   ],
   metadataBase: new URL("https://toolcraftkit.com"),
+  alternates: {
+    canonical: "https://toolcraftkit.com",
+  },
   openGraph: {
     title: "ToolCraftKit — Free Online Tools for Creators & Entrepreneurs",
     description: "Free online tools. No signup required. Just tools that work.",
